@@ -1,0 +1,6 @@
+# Pinned so the synthetic data, the legacy workbook and every quoted number reproduce exactly.
+numpy==2.4.6
+pandas==2.2.2
+pyarrow==24.0.0
+openpyxl==3.1.5
+pycel==1.0b30

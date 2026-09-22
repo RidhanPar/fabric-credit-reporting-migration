@@ -1,0 +1,42 @@
+{
+  "seed": 42,
+  "reporting_window": [
+    "2024-09-30",
+    "2026-08-31"
+  ],
+  "truth_rows": {
+    "products": 5,
+    "fx_rates": 126,
+    "customers": 30545,
+    "applications": 34714,
+    "accounts": 16569,
+    "balances": 225357,
+    "repayments": 194017
+  },
+  "landing": {
+    "files": 195,
+    "rows": {
+      "products": 5,
+      "fx_rates": 126,
+      "customers": 30545,
+      "accounts": 16569,
+      "balances": 228235,
+      "repayments": 194393,
+      "application_lines": 35720
+    },
+    "defects": {
+      "padded_lowercase_product_code": 1009,
+      "blank_account_id": 9,
+      "duplicate_repayment_rows": 376,
+      "resent_balance_file_rows": 2869,
+      "pending_event_before_final": 969,
+      "truncated_json_line": 37
+    }
+  },
+  "legacy_published_kpi_cells": 672,
+  "timings": {
+    "simulate_s": 10.4,
+    "write_landing_s": 6.9,
+    "workbook_and_recalc_s": 6.1
+  }
+}
