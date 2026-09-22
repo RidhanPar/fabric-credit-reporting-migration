@@ -1,6 +1,7 @@
 """Command line entry point.
 
     python -m portfolio_migration generate [--out data] [--seed 42]
+    python -m portfolio_migration lakehouse [--landing data/landing] [--lake build/lake]   (needs Spark)
 """
 from __future__ import annotations
 
@@ -63,9 +64,22 @@ def main() -> None:
     g = sub.add_parser("generate", help="simulate the lender, write landed files and the legacy workbook")
     g.add_argument("--out", type=Path, default=Path("data"))
     g.add_argument("--seed", type=int, default=cfg.SEED)
+    lh = sub.add_parser("lakehouse", help="run bronze, silver and gold on local Spark with Delta")
+    lh.add_argument("--landing", type=Path, default=Path("data/landing"))
+    lh.add_argument("--lake", type=Path, default=Path("build/lake"))
+    lh.add_argument("--summary", type=Path, help="also write the run summary JSON here")
     args = parser.parse_args()
     if args.cmd == "generate":
         print(json.dumps(generate(args.out, args.seed), indent=2))
+    elif args.cmd == "lakehouse":
+        from portfolio_migration.lakehouse.io import LocalLake, local_spark
+        from portfolio_migration.lakehouse.runner import run_all
+
+        lake = LocalLake(local_spark(), args.lake, args.landing)
+        summary = json.dumps(run_all(lake), indent=2)
+        if args.summary:
+            args.summary.write_text(summary + "\n", encoding="utf-8")
+        print(summary)
 
 
 if __name__ == "__main__":

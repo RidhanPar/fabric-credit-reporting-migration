@@ -1,0 +1,151 @@
+{
+  "batch_id": "local-a48e9e70-2e13-48a0-a7ff-f2f3a1528797",
+  "layers": {
+    "bronze": {
+      "seconds": 33.9,
+      "results": [
+        {
+          "table": "bronze_products",
+          "new_files": 1,
+          "new_rows": 5
+        },
+        {
+          "table": "bronze_fx_rates",
+          "new_files": 1,
+          "new_rows": 126
+        },
+        {
+          "table": "bronze_customers",
+          "new_files": 3,
+          "new_rows": 30545
+        },
+        {
+          "table": "bronze_accounts",
+          "new_files": 3,
+          "new_rows": 16569
+        },
+        {
+          "table": "bronze_balances",
+          "new_files": 73,
+          "new_rows": 228308
+        },
+        {
+          "table": "bronze_repayments",
+          "new_files": 72,
+          "new_rows": 194393
+        },
+        {
+          "table": "bronze_applications",
+          "new_files": 42,
+          "new_rows": 35720
+        }
+      ]
+    },
+    "silver": {
+      "seconds": 52.4,
+      "results": [
+        {
+          "entity": "products",
+          "bronze_rows": 5,
+          "control_rows": 0,
+          "quarantined_rows": 0,
+          "duplicate_rows": 0,
+          "silver_rows": 5
+        },
+        {
+          "entity": "fx_rates",
+          "bronze_rows": 126,
+          "control_rows": 0,
+          "quarantined_rows": 0,
+          "duplicate_rows": 0,
+          "silver_rows": 126
+        },
+        {
+          "entity": "customers",
+          "bronze_rows": 30545,
+          "control_rows": 0,
+          "quarantined_rows": 0,
+          "duplicate_rows": 0,
+          "silver_rows": 30545
+        },
+        {
+          "entity": "accounts",
+          "bronze_rows": 16569,
+          "control_rows": 0,
+          "quarantined_rows": 0,
+          "duplicate_rows": 0,
+          "silver_rows": 16569
+        },
+        {
+          "entity": "balances",
+          "bronze_rows": 228308,
+          "control_rows": 73,
+          "quarantined_rows": 9,
+          "duplicate_rows": 2869,
+          "silver_rows": 225357
+        },
+        {
+          "entity": "repayments",
+          "bronze_rows": 194393,
+          "control_rows": 0,
+          "quarantined_rows": 0,
+          "duplicate_rows": 376,
+          "silver_rows": 194017
+        },
+        {
+          "entity": "application_events",
+          "bronze_rows": 35720,
+          "control_rows": 0,
+          "quarantined_rows": 37,
+          "duplicate_rows": 0,
+          "silver_rows": 35683
+        }
+      ]
+    },
+    "gold": {
+      "seconds": 26.5,
+      "results": [
+        {
+          "table": "dim_date",
+          "rows": 1280
+        },
+        {
+          "table": "dim_country",
+          "rows": 3
+        },
+        {
+          "table": "dim_product",
+          "rows": 5
+        },
+        {
+          "table": "dim_customer",
+          "rows": 30545
+        },
+        {
+          "table": "dim_account",
+          "rows": 16569
+        },
+        {
+          "table": "fx_rate_monthly",
+          "rows": 126
+        },
+        {
+          "table": "fact_balance_snapshot",
+          "rows": 225357
+        },
+        {
+          "table": "fact_origination",
+          "rows": 16569
+        },
+        {
+          "table": "fact_application",
+          "rows": 34714
+        },
+        {
+          "table": "fact_repayment",
+          "rows": 194017
+        }
+      ]
+    }
+  }
+}
