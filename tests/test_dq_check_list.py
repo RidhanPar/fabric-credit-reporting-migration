@@ -18,12 +18,12 @@ def test_check_names_are_unique():
 def test_every_check_is_well_formed():
     for c in dq_checks.ALL_CHECKS:
         assert c.severity in (quality.ERROR, quality.WARN), c.name
-        assert c.layer in ("silver", "gold"), c.name
+        assert c.layer in ("silver", "gold", "kpi"), c.name
         assert c.description and c.kind, c.name
 
 
 def test_checks_only_reference_tables_we_build():
-    known = SILVER_TABLES | set(gold.GOLD_TABLES) | {"bronze_balances"}
+    known = SILVER_TABLES | set(gold.GOLD_TABLES) | {"bronze_balances", "gold_kpi_monthly"}
     for c in dq_checks.ALL_CHECKS:
         assert c.table in known, (c.name, c.table)
 

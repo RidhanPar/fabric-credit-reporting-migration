@@ -59,7 +59,7 @@ print(f"{len(checks)} silver checks, "
 """
 
 GOLD = """
-from portfolio_migration.lakehouse import gold
+from portfolio_migration.lakehouse import dq_checks, gold, kpis, quality
 
 LAYER = "gold"
 # Writes the star schema to stg_* tables, runs the gold checks against those, and
@@ -69,6 +69,43 @@ output = [asdict(r) for r in result.tables]
 display(spark.createDataFrame(output))
 display(spark.createDataFrame([asdict(c) for c in result.checks]))
 print(f"{len(result.checks)} gold checks passed before publishing")
+
+# The monthly KPI table the reconciliation and the semantic model read.
+rows = kpis.run(lake, batch_id).rows
+kpi_checks = quality.run(lake, dq_checks.KPI_CHECKS, batch_id, gate=True)
+print(f"{kpis.KPI_TABLE}: {rows} rows, {len(kpi_checks)} checks passed")
+"""
+
+RECONCILIATION = """
+from pathlib import Path
+
+import notebookutils
+from portfolio_migration.lakehouse import kpis
+from portfolio_migration.reconcile import bridge as br
+from portfolio_migration.reconcile import report
+
+LAYER = "reconciliation"
+# pycel reads a local file, so copy the legacy pack out of OneLake first.
+notebookutils.fs.cp("Files/legacy/Monthly_Portfolio_Pack.xlsx",
+                    "file:///tmp/Monthly_Portfolio_Pack.xlsx")
+
+stages = br.evaluate_legacy_stages(Path("/tmp/Monthly_Portfolio_Pack.xlsx"), Path("/tmp/recon"))
+gold = br.restrict_to_window(lake.read(kpis.KPI_TABLE).toPandas())
+bridge = br.build_bridge(stages, gold)
+attributions = br.attribution(bridge)
+summary = br.findings_summary(bridge, attributions)
+numbers = report.summary_numbers(bridge, attributions)
+
+for name, frame in (("recon_bridge", bridge), ("recon_attribution", attributions),
+                    ("recon_findings_summary", summary)):
+    lake.write(spark.createDataFrame(frame), name)
+
+output = numbers
+display(spark.createDataFrame([numbers]))
+assert numbers["unexplained_cells"] == 0, "the reconciliation does not close"
+print(f"{numbers['legacy_faults_found']} legacy faults, "
+      f"{numbers['cells_affected_by_a_legacy_error']} published figures affected, "
+      f"{numbers['unexplained_cells']} unexplained")
 """
 
 LAYERS = {
@@ -82,6 +119,11 @@ LAYERS = {
     "nb_03_gold": ("Gold: star schema, published only if the checks pass", GOLD,
                    "Builds the dimensions and facts into `stg_*` tables, audits them, and publishes the "
                    "gold tables the Direct Lake model reads only when every ERROR check passes."),
+    "nb_04_reconciliation": ("Reconciliation: legacy pack against gold", RECONCILIATION,
+                             "Recalculates the legacy workbook as found and after each fix, compares every "
+                             "published figure against gold, and writes the bridge and the attribution of "
+                             "every difference to `recon_*` tables. Needs `pycel` in the Environment and "
+                             "`Files/legacy/Monthly_Portfolio_Pack.xlsx` uploaded."),
 }
 
 

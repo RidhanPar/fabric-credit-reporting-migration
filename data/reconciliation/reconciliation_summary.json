@@ -1,0 +1,13 @@
+{
+  "cells_compared": 672,
+  "cells_that_differed": 498,
+  "cells_affected_by_a_legacy_error": 336,
+  "legacy_faults_found": 3,
+  "definition_changes": 5,
+  "new_model_errors": 0,
+  "unexplained_cells": 0,
+  "largest_residual_amount_eur": 3.725290298461914e-09,
+  "largest_residual_rate": 1.0408340855860843e-16,
+  "largest_overstatement_eur": -3950221.0970147476,
+  "seconds": 50.4
+}

@@ -9,7 +9,7 @@ import time
 import uuid
 from dataclasses import asdict
 
-from portfolio_migration.lakehouse import bronze, dq_checks, gold, quality, silver
+from portfolio_migration.lakehouse import bronze, dq_checks, gold, kpis, quality, silver
 from portfolio_migration.lakehouse.io import Lake
 
 
@@ -44,4 +44,8 @@ def run_all(lake: Lake, batch_id: str | None = None) -> dict:
         return payload
 
     step("gold", run_gold)
+    # The monthly KPI table is what the reconciliation and the semantic model read.
+    step("kpis", lambda: {"rows": kpis.run(lake, batch_id).rows})
+    step("kpi_quality", lambda: _quality_summary(
+        quality.run(lake, dq_checks.KPI_CHECKS, batch_id, gate=True)))
     return out
