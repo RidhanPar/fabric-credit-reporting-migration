@@ -169,3 +169,21 @@ Only issues that actually happened are recorded here.
   mine. Spark caps the scale when you divide two decimals, so all my rates were
   truncated at six decimal places. The tolerance caught it, I fixed the type, and
   I added a check that fails if rates ever look truncated again."
+
+### 11. The reconciliation quietly needed Spark
+
+* **Seen:** CI green locally, red on the Linux job:
+  `ModuleNotFoundError: No module named 'pyspark'` while importing
+  `tests/test_reconciliation.py`.
+* **Diagnosis:** the reconciliation is meant to be plain pandas, so the fast CI
+  job does not install pyspark. `reconcile/bridge.py` imported the KPI variant
+  chains from `lakehouse/kpis.py`, which imports pyspark. The import was for
+  metadata only, two dictionaries.
+* **Fix:** moved the KPI names, variant chains and step descriptions into
+  `kpi_definitions.py`, plain Python, read by both the Spark builder and the
+  pandas reconciliation.
+* **Guard:** a test walks the AST of every module in `reconcile/` and fails if
+  any of them imports pyspark or anything from `lakehouse/`.
+* **Say:** "The cheap CI job is the one that catches layering mistakes. It does
+  not install Spark, so an accidental dependency on it fails immediately. I moved
+  the shared metadata into a module that neither layer owns."

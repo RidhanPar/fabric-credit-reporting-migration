@@ -2,7 +2,7 @@
 import pandas as pd
 
 from portfolio_migration import config as cfg
-from portfolio_migration.lakehouse.kpis import KPI_TABLE, VARIANT_CHAINS
+from portfolio_migration.kpi_definitions import KPI_TABLE, VARIANT_CHAINS
 
 
 def _kpis(lake) -> pd.DataFrame:

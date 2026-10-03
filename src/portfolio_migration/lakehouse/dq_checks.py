@@ -9,7 +9,8 @@ from __future__ import annotations
 from pyspark.sql import functions as F
 
 from portfolio_migration import config as cfg
-from portfolio_migration.lakehouse import kpis, silver
+from portfolio_migration import kpi_definitions as kpidef
+from portfolio_migration.lakehouse import silver
 from portfolio_migration.lakehouse.quality import (
     ERROR,
     WARN,
@@ -246,40 +247,40 @@ def rates_are_not_truncated(severity: str = ERROR) -> Check:
     lands exactly on 6 decimals, so if most of them do, precision has been lost.
     """
     def metric(resolve: Resolver) -> tuple[float, str]:
-        rates = resolve(kpis.KPI_TABLE).filter(F.col("kpi").endswith("_rate")).filter("value <> 0")
+        rates = resolve(kpidef.KPI_TABLE).filter(F.col("kpi").endswith("_rate")).filter("value <> 0")
         total = rates.count()
         if not total:
             return 0.0, "no rate values"
         exact = rates.filter(F.abs(F.col("value") - F.round("value", 6)) == 0).count()
         share = exact / total
         return share, f"{exact} of {total} rate values sit exactly on 6 decimals ({share:.1%})"
-    return metric_at_most("kpi", kpis.KPI_TABLE, "rates_not_truncated", metric, 0.5, severity,
+    return metric_at_most("kpi", kpidef.KPI_TABLE, "rates_not_truncated", metric, 0.5, severity,
                           "rates have not been truncated to 6 decimal places")
 
 
 def group_scope_equals_the_sum_of_countries(kpi: str, severity: str = ERROR) -> Check:
     """The group figure must be the three countries added up, as the legacy pack rolls up."""
     def metric(resolve: Resolver) -> tuple[float, str]:
-        table = resolve(kpis.KPI_TABLE).filter((F.col("kpi") == kpi) & (F.col("variant") == "legacy_def"))
+        table = resolve(kpidef.KPI_TABLE).filter((F.col("kpi") == kpi) & (F.col("variant") == "legacy_def"))
         countries = (table.filter(F.col("scope").isin(COUNTRY_CODES))
                      .groupBy("month_end").agg(F.sum("value").alias("summed")))
-        group = table.filter(F.col("scope") == kpis.GROUP_SCOPE).select("month_end", F.col("value").alias("group"))
+        group = table.filter(F.col("scope") == kpidef.GROUP_SCOPE).select("month_end", F.col("value").alias("group"))
         joined = group.join(countries, "month_end", "inner")
         worst = joined.select(F.max(F.abs(F.col("group") - F.col("summed"))).alias("gap")).collect()[0]["gap"]
         return float(worst or 0.0), f"{kpi}: largest gap between group and the sum of countries is {worst}"
-    return metric_at_most("kpi", kpis.KPI_TABLE, f"group_equals_sum_{kpi}", metric, 0.05, severity,
+    return metric_at_most("kpi", kpidef.KPI_TABLE, f"group_equals_sum_{kpi}", metric, 0.05, severity,
                           f"{kpi} at group level equals the sum of the three countries")
 
 
 KPI_CHECKS: list[Check] = [
-    unique("kpi", kpis.KPI_TABLE, ["month_end", "scope", "kpi", "variant"]),
-    not_null("kpi", kpis.KPI_TABLE, ["month_end", "scope", "kpi", "variant", "value"]),
-    accepted_values("kpi", kpis.KPI_TABLE, "kpi", list(kpis.VARIANT_CHAINS)),
-    accepted_values("kpi", kpis.KPI_TABLE, "scope", [*COUNTRY_CODES, kpis.GROUP_SCOPE]),
-    expression("kpi", kpis.KPI_TABLE, "rates_between_zero_and_one",
+    unique("kpi", kpidef.KPI_TABLE, ["month_end", "scope", "kpi", "variant"]),
+    not_null("kpi", kpidef.KPI_TABLE, ["month_end", "scope", "kpi", "variant", "value"]),
+    accepted_values("kpi", kpidef.KPI_TABLE, "kpi", list(kpidef.VARIANT_CHAINS)),
+    accepted_values("kpi", kpidef.KPI_TABLE, "scope", [*COUNTRY_CODES, kpidef.GROUP_SCOPE]),
+    expression("kpi", kpidef.KPI_TABLE, "rates_between_zero_and_one",
                "NOT kpi LIKE '%_rate' OR (value >= 0 AND value <= 1)",
                "every rate is between 0 and 1", sample_columns=["month_end", "scope", "kpi", "value"]),
-    expression("kpi", kpis.KPI_TABLE, "amounts_not_negative",
+    expression("kpi", kpidef.KPI_TABLE, "amounts_not_negative",
                "kpi LIKE '%_rate' OR value >= 0", "no negative amounts or counts",
                sample_columns=["month_end", "scope", "kpi", "value"]),
     rates_are_not_truncated(),

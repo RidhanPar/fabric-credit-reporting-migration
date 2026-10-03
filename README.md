@@ -177,6 +177,15 @@ Every one of the 498 differing figures is attributed to a named cause:
   0.000000004 EUR on any amount and 1e-16 on any rate, against tolerances of
   0.10 EUR and 1e-07.
 
+### Measured locally
+
+The full pipeline, including the KPI table and its checks, takes 282.2 seconds in
+the container (bronze 54.2, silver 73.2, silver checks 36.4, gold with its checks
+86.7, KPI table 27.4, KPI checks 4.3), from
+[docs/results/phase4_local_run.json](docs/results/phase4_local_run.json). The
+reconciliation on top takes 50 seconds, most of it recalculating the legacy
+workbook four times: as found, and after each of the three fixes.
+
 `tests/test_reconciliation.py` asserts the bridge closes for all 672 figures,
 that nothing is unexplained, that each fix still changes exactly the cells it
 claims, and that the findings document matches the run.
@@ -214,6 +223,7 @@ src/portfolio_migration/
   lakehouse/gold.py       star schema, written to staging then published if the audit passes
   lakehouse/quality.py    check engine, results table, publish gate
   lakehouse/dq_checks.py  the check list: what is guaranteed, and at what severity
+  kpi_definitions.py      KPI names and variant chains, shared and Spark free
   lakehouse/kpis.py       the 7 board KPIs from gold, in old and new definitions
   reconcile/legacy_fixes.py  the faults found in the workbook, as formula patches
   reconcile/bridge.py     the walk from each legacy figure to its gold counterpart
@@ -253,6 +263,7 @@ docs/ISSUES_AND_FIXES.md  real problems hit during the build
 * [03 Medallion design](docs/concepts/03-medallion-design.md)
 * [04 Data quality gates](docs/concepts/04-data-quality-gates.md)
 * [05 Reconciliation](docs/concepts/05-reconciliation.md)
+* [06 The semantic model](docs/concepts/06-semantic-model.md)
 * [Reconciliation findings](docs/RECONCILIATION_FINDINGS.md)
 * [Phase 1 portal steps](docs/fabric-steps/phase-1.md)
 * [Phase 2 portal steps](docs/fabric-steps/phase-2.md)

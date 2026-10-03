@@ -21,7 +21,7 @@ from pathlib import Path
 import pandas as pd
 
 from portfolio_migration import config as cfg
-from portfolio_migration.lakehouse.kpis import VARIANT_CHAINS, VARIANT_STEPS
+from portfolio_migration.kpi_definitions import VARIANT_CHAINS, VARIANT_STEPS
 from portfolio_migration.legacy.evaluate import published_kpis
 from portfolio_migration.reconcile.legacy_fixes import FIXES, LegacyFix, apply_fixes_cumulatively
 

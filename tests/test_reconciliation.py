@@ -128,3 +128,21 @@ def test_the_findings_document_is_up_to_date(reconciliation, tmp_path):
     regenerated = report.write_findings(tmp_path / "findings.md", bridge, attributions, summary, numbers)
     assert regenerated.read_text(encoding="utf-8") == FINDINGS.read_text(encoding="utf-8"), (
         "docs/RECONCILIATION_FINDINGS.md is stale. Rerun: py -3.11 -m portfolio_migration reconcile")
+
+
+def test_the_reconciliation_does_not_depend_on_spark():
+    """CI runs these tests without pyspark installed, so an accidental import breaks the build."""
+    import ast
+
+    for path in sorted((ROOT / "src" / "portfolio_migration" / "reconcile").glob("*.py")):
+        tree = ast.parse(path.read_text(encoding="utf-8"))
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Import):
+                names = [a.name for a in node.names]
+            elif isinstance(node, ast.ImportFrom):
+                names = [node.module or ""]
+            else:
+                continue
+            for name in names:
+                assert not name.startswith("pyspark"), (path.name, name)
+                assert not name.startswith("portfolio_migration.lakehouse"), (path.name, name)
