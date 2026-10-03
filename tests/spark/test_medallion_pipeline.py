@@ -93,7 +93,7 @@ def test_rerunning_is_idempotent(lake_run):
     assert all(r.new_rows == 0 for r in bronze.run(lake, "test-batch-2"))
     silver.run(lake, "test-batch-2")
     gold.run(lake, "test-batch-2")
-    first = {r["table"]: r["rows"] for r in summary["layers"]["gold"]["results"]}
+    first = {r["table"]: r["rows"] for r in summary["steps"]["gold"]["tables"]}
     assert {t: lake.read(t).count() for t in gold.GOLD_TABLES} == first
     runs = pd.DataFrame([r.asDict() for r in lake.read(silver.AUDIT).collect()])
     by_batch = runs.pivot_table(index="entity", columns="batch_id", values="silver_rows")

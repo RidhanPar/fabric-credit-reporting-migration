@@ -85,5 +85,6 @@ def local_spark(app: str = "portfolio-migration") -> SparkSession:
                .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog")
                .config("spark.sql.shuffle.partitions", "4")
                .config("spark.sql.session.timeZone", "UTC")
-               .config("spark.ui.enabled", "false"))
+               .config("spark.ui.enabled", "false")
+               .config("spark.ui.showConsoleProgress", "false"))
     return configure_spark_with_delta_pip(builder).getOrCreate()

@@ -13,6 +13,7 @@ Only issues that actually happened are recorded here.
 | 3 | Interest rates silently rounded to 2 decimals in the landed files | 1 |
 | 4 | Spark columns built at import time crash before a session exists | 2 |
 | 5 | Python `hash()` would have made the JSON timestamps change on every run | 1 |
+| 6 | A bad parse gives null, not a wrong number, which changes which check catches it | 3 |
 
 ## Phase 1
 
@@ -106,3 +107,33 @@ Only issues that actually happened are recorded here.
   prefix, so the raw record reads exactly like the source file.
 * **Say:** "I keep the raw value next to the parsed one until validation is
   done, under a different name, so a quarantined row shows exactly what arrived."
+
+## Phase 3
+
+### 8. One dictionary key, two meanings
+
+* **Seen:** `test_rerunning_is_idempotent` failed with `KeyError: 'table'` after
+  the gold step started reporting its quality checks.
+* **Diagnosis:** the runner built the gold step payload as
+  `{"results": [tables]}` and then merged the quality summary into it, which also
+  had a `results` key. The table list was silently replaced by the check list.
+* **Fix:** name each thing: `tables`, `entities`, `check_results`.
+* **Evidence:** 20 Spark tests pass, and `docs/results/phase3_local_run.json`
+  now shows both lists under the gold step.
+* **Say:** "A dict merge overwrote one list with another. The test caught it in a
+  second, which is the argument for having the run summary under test at all."
+
+### 9. A bad parse gives null, not a wrong number
+
+* **Seen:** I wrote a test asserting that parsing the Czech `100,50` with the
+  wrong locale would produce 10050. It produced `None`.
+* **Diagnosis:** Spark's cast to decimal returns null for `100,50`, it does not
+  strip the comma. So that class of bug surfaces as nulls, and the not null
+  check catches it.
+* **Why it matters:** the control total check earns its place for the other
+  case: a parse that stays numeric but is wrong, such as a comma read as a
+  thousands separator. The test now simulates that, and the check catches it
+  because the row count still matches the trailer and the money does not.
+* **Say:** "I had the failure mode backwards. A failed cast is null and easy to
+  catch. The dangerous bug is the one that is still a number, which is why I
+  reconcile amounts against the file's own control total, not just row counts."
