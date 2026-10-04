@@ -22,15 +22,18 @@ keys buy nothing and natural keys keep lineage readable; SCD2 history would chan
 """
 from __future__ import annotations
 
+import uuid
 from dataclasses import dataclass
 
 from pyspark.sql import Column, DataFrame
 from pyspark.sql import functions as F
 
 from portfolio_migration import config as cfg
+from portfolio_migration.lakehouse import dq_checks, quality
 from portfolio_migration.lakehouse.io import Lake
 from portfolio_migration.lakehouse.silver import MONEY
 
+STAGING_PREFIX = "stg_"
 GOLD_TABLES = ("dim_date", "dim_country", "dim_product", "dim_customer", "dim_account", "fx_rate_monthly",
                "fact_balance_snapshot", "fact_origination", "fact_application", "fact_repayment")
 
@@ -39,6 +42,13 @@ GOLD_TABLES = ("dim_date", "dim_country", "dim_product", "dim_customer", "dim_ac
 class GoldResult:
     table: str
     rows: int
+
+
+@dataclass
+class GoldRun:
+    """What gold published, and the audit that allowed it to publish."""
+    tables: list[GoldResult]
+    checks: list[quality.CheckResult]
 
 
 def date_key(c: Column) -> Column:
@@ -193,9 +203,26 @@ def build(lake: Lake) -> dict[str, DataFrame]:
     }
 
 
-def run(lake: Lake, batch_id: str | None = None) -> list[GoldResult]:
-    results = []
-    for name, df in build(lake).items():
-        lake.write(df, name)
-        results.append(GoldResult(name, lake.read(name).count()))
-    return results
+def run(lake: Lake, batch_id: str | None = None, gate: bool = True) -> GoldRun:
+    """Write, audit, publish.
+
+    The star schema is written to ``stg_*`` tables, the gold checks run against
+    those, and only if no ERROR check fails are the published tables replaced.
+    A failure leaves the previous gold data in place for the report to keep using,
+    and raises so the pipeline goes red.
+    """
+    batch_id = batch_id or f"local-{uuid.uuid4()}"
+    frames = build(lake)
+    for name, df in frames.items():
+        lake.write(df, STAGING_PREFIX + name)
+
+    def resolve(table: str):
+        return lake.read(STAGING_PREFIX + table if table in GOLD_TABLES else table)
+
+    checks = quality.run(lake, dq_checks.GOLD_CHECKS, batch_id, resolve=resolve, gate=gate)
+
+    published = []
+    for name in frames:
+        lake.write(lake.read(STAGING_PREFIX + name), name)
+        published.append(GoldResult(name, lake.read(name).count()))
+    return GoldRun(published, checks)

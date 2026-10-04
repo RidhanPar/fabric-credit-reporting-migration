@@ -2,6 +2,7 @@
 
     python -m portfolio_migration generate [--out data] [--seed 42]
     python -m portfolio_migration lakehouse [--landing data/landing] [--lake build/lake]   (needs Spark)
+    python -m portfolio_migration reconcile [--gold-kpis docs/results/gold_kpi_monthly.csv]
 """
 from __future__ import annotations
 
@@ -58,6 +59,28 @@ def generate(out: Path, seed: int) -> dict:
     return summary
 
 
+def reconcile(workbook: Path, gold_kpis: Path, out_dir: Path, findings: Path) -> dict:
+    """Walk every legacy figure to its gold counterpart and explain every difference."""
+    import pandas as pd
+
+    from portfolio_migration.reconcile import bridge as br
+    from portfolio_migration.reconcile import report
+
+    t0 = time.perf_counter()
+    stages = br.evaluate_legacy_stages(workbook, out_dir / "_workbooks")
+    gold = br.restrict_to_window(pd.read_csv(gold_kpis, parse_dates=["month_end"]))
+    bridge = br.build_bridge(stages, gold)
+    attributions = br.attribution(bridge)
+    summary = br.findings_summary(bridge, attributions)
+    numbers = report.summary_numbers(bridge, attributions)
+    numbers["seconds"] = round(time.perf_counter() - t0, 1)
+    report.write_outputs(out_dir, bridge, attributions, summary, numbers)
+    report.write_findings(findings, bridge, attributions, summary, numbers)
+    closing = br.check_bridge_closes(bridge)
+    numbers["bridge_rows_that_do_not_close"] = int(len(closing))
+    return numbers
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(prog="portfolio_migration")
     sub = parser.add_subparsers(dest="cmd", required=True)
@@ -68,6 +91,13 @@ def main() -> None:
     lh.add_argument("--landing", type=Path, default=Path("data/landing"))
     lh.add_argument("--lake", type=Path, default=Path("build/lake"))
     lh.add_argument("--summary", type=Path, help="also write the run summary JSON here")
+    lh.add_argument("--kpi-csv", type=Path, help="export the monthly KPI table to this CSV")
+
+    rc = sub.add_parser("reconcile", help="reconcile the legacy workbook against the gold KPIs")
+    rc.add_argument("--workbook", type=Path, default=Path("data/legacy/Monthly_Portfolio_Pack.xlsx"))
+    rc.add_argument("--gold-kpis", type=Path, default=Path("docs/results/gold_kpi_monthly.csv"))
+    rc.add_argument("--out", type=Path, default=Path("data/reconciliation"))
+    rc.add_argument("--findings", type=Path, default=Path("docs/RECONCILIATION_FINDINGS.md"))
     args = parser.parse_args()
     if args.cmd == "generate":
         print(json.dumps(generate(args.out, args.seed), indent=2))
@@ -76,10 +106,20 @@ def main() -> None:
         from portfolio_migration.lakehouse.runner import run_all
 
         lake = LocalLake(local_spark(), args.lake, args.landing)
-        summary = json.dumps(run_all(lake), indent=2)
+        result = run_all(lake)
+        if args.kpi_csv:
+            from portfolio_migration.lakehouse.kpis import KPI_TABLE
+
+            args.kpi_csv.parent.mkdir(parents=True, exist_ok=True)
+            (lake.read(KPI_TABLE).toPandas()
+             .sort_values(["month_end", "scope", "kpi", "variant"])
+             .to_csv(args.kpi_csv, index=False))
+        summary = json.dumps(result, indent=2)
         if args.summary:
             args.summary.write_text(summary + "\n", encoding="utf-8")
         print(summary)
+    elif args.cmd == "reconcile":
+        print(json.dumps(reconcile(args.workbook, args.gold_kpis, args.out, args.findings), indent=2))
 
 
 if __name__ == "__main__":
