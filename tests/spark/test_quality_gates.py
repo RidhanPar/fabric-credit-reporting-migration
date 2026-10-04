@@ -20,9 +20,11 @@ def test_every_check_passes_on_a_clean_run(lake_run):
     _, summary, _ = lake_run
     silver = summary["steps"]["silver_quality"]
     gold_step = summary["steps"]["gold"]
+    kpi_step = summary["steps"]["kpi_quality"]
     assert silver["checks"] == len(dq_checks.SILVER_CHECKS)
     assert gold_step["checks"] == len(dq_checks.GOLD_CHECKS)
-    for step in (silver, gold_step):
+    assert kpi_step["checks"] == len(dq_checks.KPI_CHECKS)
+    for step in (silver, gold_step, kpi_step):
         assert step["failed_error"] == 0
         assert step["failed_warn"] == 0
 
@@ -32,7 +34,8 @@ def test_results_are_recorded_for_reporting(lake_run):
     results = lake.read(quality.RESULTS_TABLE).filter("batch_id = 'test-batch-1'")
     assert results.count() == len(dq_checks.ALL_CHECKS)
     by_layer = {r["layer"]: r["count"] for r in results.groupBy("layer").count().collect()}
-    assert by_layer == {"silver": len(dq_checks.SILVER_CHECKS), "gold": len(dq_checks.GOLD_CHECKS)}
+    assert by_layer == {"silver": len(dq_checks.SILVER_CHECKS), "gold": len(dq_checks.GOLD_CHECKS),
+                        "kpi": len(dq_checks.KPI_CHECKS)}
     assert set(results.select("kind").distinct().toPandas()["kind"]) == {
         "not_null", "unique", "accepted_values", "range", "referential_integrity", "expression",
         "reconciliation", "control_total", "metric"}

@@ -9,7 +9,7 @@ ROOT = Path(__file__).parents[1] / "fabric"
 
 def test_notebooks_are_generated_parse_and_have_a_parameter_cell():
     names = sorted(p.stem for p in (ROOT / "notebooks").glob("*.ipynb"))
-    assert names == ["nb_01_bronze", "nb_02_silver", "nb_03_gold"]
+    assert names == ["nb_01_bronze", "nb_02_silver", "nb_03_gold", "nb_04_reconciliation"]
     for path in (ROOT / "notebooks").glob("*.ipynb"):
         nb = json.loads(path.read_text(encoding="utf-8"))
         code = [c for c in nb["cells"] if c["cell_type"] == "code"]

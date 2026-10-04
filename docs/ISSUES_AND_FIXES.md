@@ -8,12 +8,13 @@ Only issues that actually happened are recorded here.
 
 | # | Story | Phase |
 |---|---|---|
-| 1 | A null country code would have passed validation: unknown must mean invalid | 2 |
-| 2 | Spark would not start on Windows; ran it in a container matching Fabric Runtime 1.3 | 2 |
-| 3 | Interest rates silently rounded to 2 decimals in the landed files | 1 |
-| 4 | Spark columns built at import time crash before a session exists | 2 |
-| 5 | Python `hash()` would have made the JSON timestamps change on every run | 1 |
-| 6 | A bad parse gives null, not a wrong number, which changes which check catches it | 3 |
+| 1 | The reconciliation found a bug in my own model: Spark truncated every rate to 6 decimals | 4 |
+| 2 | A null country code would have passed validation: unknown must mean invalid | 2 |
+| 3 | Spark would not start on Windows; ran it in a container matching Fabric Runtime 1.3 | 2 |
+| 4 | Interest rates silently rounded to 2 decimals in the landed files | 1 |
+| 5 | Spark columns built at import time crash before a session exists | 2 |
+| 6 | Python `hash()` would have made the JSON timestamps change on every run | 1 |
+| 7 | A bad parse gives null, not a wrong number, which changes which check catches it | 3 |
 
 ## Phase 1
 
@@ -137,3 +138,52 @@ Only issues that actually happened are recorded here.
 * **Say:** "I had the failure mode backwards. A failed cast is null and easy to
   catch. The dangerous bug is the one that is still a number, which is why I
   reconcile amounts against the file's own control total, not just row counts."
+
+## Phase 4
+
+### 10. The reconciliation found a bug in my own model
+
+* **Seen:** the first full reconciliation closed on amounts, with a worst residual
+  of 0.000000004 EUR, and then failed on rates: 160 of the 672 published figures
+  had residuals up to 0.0000005, above the 0.0000001 rate tolerance. The bridge
+  itself added up, so nothing was missing; the gold rate simply did not equal the
+  corrected legacy rate.
+* **Diagnosis:** printed the worst cell. Gold's rate was `0.028232000000` and the
+  legacy corrected rate was `0.028232498934`. Exactly six decimals in gold is not
+  a coincidence. The KPI builder divided one decimal column by another: both
+  operands were `decimal(38,10)`, and Spark caps the scale of a decimal division
+  result, landing it at 6 decimal places. Every rate in the table had been
+  silently truncated.
+* **Root cause:** using decimal types for a ratio. Decimal is right for money,
+  and wrong for a quotient whose precision matters more than its exactness.
+* **Fix:** cast both sides to double before dividing (`kpis.py::_safe_divide`).
+* **Guard:** a new data quality check, `gold_kpi_monthly.rates_not_truncated`,
+  fails if most rate values sit exactly on 6 decimals. A genuine rate almost
+  never does, so that pattern means precision has been lost again.
+* **Classification:** this is the `NEW_MODEL_ERROR` class of the reconciliation,
+  found exactly the way that class is meant to be found: by elimination, once the
+  legacy faults and the agreed definition changes were removed and something was
+  still left over.
+* **Say:** "The reconciliation is not there to prove the old report wrong. It is
+  there to explain every difference, and the first thing it found was a bug in
+  mine. Spark caps the scale when you divide two decimals, so all my rates were
+  truncated at six decimal places. The tolerance caught it, I fixed the type, and
+  I added a check that fails if rates ever look truncated again."
+
+### 11. The reconciliation quietly needed Spark
+
+* **Seen:** CI green locally, red on the Linux job:
+  `ModuleNotFoundError: No module named 'pyspark'` while importing
+  `tests/test_reconciliation.py`.
+* **Diagnosis:** the reconciliation is meant to be plain pandas, so the fast CI
+  job does not install pyspark. `reconcile/bridge.py` imported the KPI variant
+  chains from `lakehouse/kpis.py`, which imports pyspark. The import was for
+  metadata only, two dictionaries.
+* **Fix:** moved the KPI names, variant chains and step descriptions into
+  `kpi_definitions.py`, plain Python, read by both the Spark builder and the
+  pandas reconciliation.
+* **Guard:** a test walks the AST of every module in `reconcile/` and fails if
+  any of them imports pyspark or anything from `lakehouse/`.
+* **Say:** "The cheap CI job is the one that catches layering mistakes. It does
+  not install Spark, so an accidental dependency on it fails immediately. I moved
+  the shared metadata into a module that neither layer owns."

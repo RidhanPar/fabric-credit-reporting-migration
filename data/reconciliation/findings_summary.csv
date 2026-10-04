@@ -1,0 +1,12 @@
+cause_id,cause,classification,kind,kpis,scopes,cells_affected,first_month,largest_single_difference,largest_relative_difference
+F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula,"avg_balance_per_customer_eur, dpd30_rate, dpd90_rate, portfolio_balance_eur","CZ, GROUP, PL, RO",179,2025-03-31,3336161.009909317,0.09978620556670723
+F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula,"avg_balance_per_customer_eur, dpd30_rate, dpd90_rate, new_originations_eur, portfolio_balance_eur","GROUP, RO",191,2024-09-30,614059.9430268332,0.07493538767395612
+F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula,dpd30_rate,"CZ, GROUP, PL, RO",96,2024-09-30,0.03529030623965805,0.3679392888175064
+D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding,portfolio_balance_eur,"CZ, GROUP, PL, RO",59,2024-09-30,0.7883715592324734,4.6587859557110415e-08
+D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition,new_originations_eur,"CZ, GROUP, PL, RO",96,2024-09-30,9887.990199999884,0.009338409283400519
+D3,"convert each account's amount to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding,new_originations_eur,"CZ, GROUP, PL",12,2025-06-30,0.3996000001206994,5.176497368168076e-07
+D4,"weight the group rate by per account EUR balances, instead of converted country totals",DEFINITION_CHANGE,rounding,,,0,,0.0,0.0
+D5,"weight the group rate by per account EUR balances, instead of converted country totals",DEFINITION_CHANGE,rounding,,,0,,0.0,0.0
+D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition,approval_rate,"CZ, GROUP, PL, RO",96,2024-09-30,0.07972747698775096,0.15873015873015872
+D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition,avg_balance_per_customer_eur,"CZ, GROUP, PL, RO",96,2024-09-30,164.23752195981797,0.05649202733485204
+D8,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding,,,0,,0.0,0.0

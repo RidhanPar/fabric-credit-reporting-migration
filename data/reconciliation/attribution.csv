@@ -1,0 +1,826 @@
+month_end,scope,kpi,amount,tolerance,cause_id,cause,classification,kind
+2024-09-30,CZ,approval_rate,0.06229471061275349,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2024-09-30,CZ,avg_balance_per_customer_eur,158.01717060002647,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2024-09-30,CZ,dpd30_rate,0.03529030623965805,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2024-09-30,CZ,new_originations_eur,961.8179999999702,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2024-09-30,GROUP,approval_rate,0.056328997984978924,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2024-09-30,GROUP,avg_balance_per_customer_eur,161.26793560578153,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2024-09-30,GROUP,avg_balance_per_customer_eur,-46.78091891572694,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2024-09-30,GROUP,dpd30_rate,0.030425054091168847,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2024-09-30,GROUP,dpd90_rate,7.041065060810203e-05,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2024-09-30,GROUP,new_originations_eur,6397.339400000172,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2024-09-30,GROUP,new_originations_eur,-32711.109500000253,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2024-09-30,GROUP,portfolio_balance_eur,0.18405317142605782,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2024-09-30,GROUP,portfolio_balance_eur,-282650.3120888211,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2024-09-30,PL,approval_rate,0.0549958055543292,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2024-09-30,PL,avg_balance_per_customer_eur,161.66700508661825,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2024-09-30,PL,dpd30_rate,0.02676534098091679,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2024-09-30,PL,new_originations_eur,4469.235400000005,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2024-09-30,RO,approval_rate,0.05212605223397371,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2024-09-30,RO,avg_balance_per_customer_eur,164.23752195981797,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2024-09-30,RO,avg_balance_per_customer_eur,-186.56786276489765,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2024-09-30,RO,dpd30_rate,0.03065178607267027,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2024-09-30,RO,new_originations_eur,966.2860000000801,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2024-09-30,RO,new_originations_eur,-32711.10950000002,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2024-09-30,RO,portfolio_balance_eur,-282650.31208882015,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2024-10-31,CZ,approval_rate,0.0747397260273972,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2024-10-31,CZ,avg_balance_per_customer_eur,150.33864991120936,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2024-10-31,CZ,dpd30_rate,0.0018069876683529454,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2024-10-31,CZ,new_originations_eur,-2229.8120000000345,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2024-10-31,CZ,portfolio_balance_eur,0.2556506395339966,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2024-10-31,GROUP,approval_rate,0.05752123776607776,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2024-10-31,GROUP,avg_balance_per_customer_eur,157.24246459861843,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2024-10-31,GROUP,avg_balance_per_customer_eur,-51.57977847584789,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2024-10-31,GROUP,dpd30_rate,-7.007527525818014e-07,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2024-10-31,GROUP,dpd30_rate,0.0009384950403264931,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2024-10-31,GROUP,dpd90_rate,0.00014790458966904355,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2024-10-31,GROUP,new_originations_eur,1700.1466000000946,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2024-10-31,GROUP,new_originations_eur,-36604.674000000115,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2024-10-31,GROUP,portfolio_balance_eur,0.19052214175462723,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2024-10-31,GROUP,portfolio_balance_eur,-328356.8697772473,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2024-10-31,PL,approval_rate,0.03430641380779886,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2024-10-31,PL,avg_balance_per_customer_eur,161.32457049414916,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2024-10-31,PL,dpd30_rate,0.0051956706255072704,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2024-10-31,PL,new_originations_eur,2525.3778000000166,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2024-10-31,RO,approval_rate,0.07972747698775096,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2024-10-31,RO,avg_balance_per_customer_eur,158.51926417721188,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2024-10-31,RO,avg_balance_per_customer_eur,-205.60855966014333,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2024-10-31,RO,dpd30_rate,-0.006905181611208951,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2024-10-31,RO,new_originations_eur,1404.580799999996,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2024-10-31,RO,new_originations_eur,-36604.674,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2024-10-31,RO,portfolio_balance_eur,-0.12356275040656328,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2024-10-31,RO,portfolio_balance_eur,-328356.8697772492,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2024-11-30,CZ,approval_rate,0.05647022104312738,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2024-11-30,CZ,avg_balance_per_customer_eur,150.25266506182697,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2024-11-30,CZ,dpd30_rate,-0.0007134858495422836,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2024-11-30,CZ,new_originations_eur,-997.9259999999776,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2024-11-30,CZ,portfolio_balance_eur,0.25989255029708147,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2024-11-30,GROUP,approval_rate,0.05774436244995429,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2024-11-30,GROUP,avg_balance_per_customer_eur,157.70238909864838,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2024-11-30,GROUP,avg_balance_per_customer_eur,-52.90278406175594,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2024-11-30,GROUP,dpd30_rate,0.00012614834944412595,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2024-11-30,GROUP,dpd30_rate,7.972390957528344e-05,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2024-11-30,GROUP,dpd90_rate,0.00012731655905437803,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2024-11-30,GROUP,new_originations_eur,-5888.393699999899,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2024-11-30,GROUP,new_originations_eur,-32351.028500000015,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2024-11-30,GROUP,portfolio_balance_eur,0.25422726944088936,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2024-11-30,GROUP,portfolio_balance_eur,-354395.75042970106,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2024-11-30,PL,approval_rate,0.0688381014691013,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2024-11-30,PL,avg_balance_per_customer_eur,160.48329755465465,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2024-11-30,PL,dpd30_rate,0.002517120724062547,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2024-11-30,PL,new_originations_eur,-5152.915200000047,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2024-11-30,RO,approval_rate,0.04106280193236711,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2024-11-30,RO,avg_balance_per_customer_eur,162.28070899254044,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2024-11-30,RO,avg_balance_per_customer_eur,-211.45331171223143,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2024-11-30,RO,dpd30_rate,-0.002951137627925548,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2024-11-30,RO,new_originations_eur,262.4475000000093,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2024-11-30,RO,new_originations_eur,-32351.028499999957,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2024-11-30,RO,portfolio_balance_eur,-354395.7504297001,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2024-12-31,CZ,approval_rate,0.05589113458888384,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2024-12-31,CZ,avg_balance_per_customer_eur,156.65305846864112,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2024-12-31,CZ,dpd30_rate,0.0016574222341244962,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2024-12-31,CZ,new_originations_eur,574.140000000014,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2024-12-31,CZ,portfolio_balance_eur,0.13584475964307785,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2024-12-31,GROUP,approval_rate,0.053635813055758375,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2024-12-31,GROUP,avg_balance_per_customer_eur,157.88839425730703,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2024-12-31,GROUP,avg_balance_per_customer_eur,-49.79593635315814,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2024-12-31,GROUP,dpd30_rate,0.00016166456109995356,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2024-12-31,GROUP,dpd30_rate,0.0007329679623568966,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2024-12-31,GROUP,dpd90_rate,-1.22530946293168e-05,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2024-12-31,GROUP,new_originations_eur,-1923.7434000000358,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2024-12-31,GROUP,new_originations_eur,-35861.16800000006,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2024-12-31,GROUP,portfolio_balance_eur,-352206.6578258872,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2024-12-31,PL,approval_rate,0.05589980224126567,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2024-12-31,PL,avg_balance_per_customer_eur,158.70433981629503,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2024-12-31,PL,dpd30_rate,-0.0026597930540384444,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2024-12-31,PL,new_originations_eur,-2865.6754000000656,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2024-12-31,RO,approval_rate,0.04704618689581097,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2024-12-31,RO,avg_balance_per_customer_eur,157.8272588027985,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2024-12-31,RO,avg_balance_per_customer_eur,-198.42628609909252,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2024-12-31,RO,dpd30_rate,0.005230398406496518,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2024-12-31,RO,new_originations_eur,367.79200000001583,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2024-12-31,RO,new_originations_eur,-35861.16799999995,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2024-12-31,RO,portfolio_balance_eur,-0.19637010991573334,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2024-12-31,RO,portfolio_balance_eur,-352206.65782588907,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-01-31,CZ,approval_rate,0.06735901730876603,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-01-31,CZ,avg_balance_per_customer_eur,159.75679826716396,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-01-31,CZ,dpd30_rate,0.005436923094203745,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-01-31,CZ,new_originations_eur,-2548.969999999972,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-01-31,CZ,portfolio_balance_eur,0.1393265500664711,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-01-31,GROUP,approval_rate,0.06234831645125938,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-01-31,GROUP,avg_balance_per_customer_eur,153.26338147795286,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-01-31,GROUP,avg_balance_per_customer_eur,-45.087530726425484,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-01-31,GROUP,dpd30_rate,8.035485595376049e-05,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-01-31,GROUP,dpd30_rate,0.0022120371342360945,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-01-31,GROUP,dpd90_rate,-1.1430882404668205e-05,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-01-31,GROUP,new_originations_eur,-1328.997399999993,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-01-31,GROUP,new_originations_eur,-25017.69060000009,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-01-31,GROUP,portfolio_balance_eur,0.49633459001779556,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-01-31,GROUP,portfolio_balance_eur,-329950.549855981,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-01-31,PL,approval_rate,0.06852425180598554,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-01-31,PL,avg_balance_per_customer_eur,147.58936176630823,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-01-31,PL,dpd30_rate,-0.0039038229576483646,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-01-31,PL,new_originations_eur,1473.8037999999942,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-01-31,PL,portfolio_balance_eur,0.2372240610420704,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-01-31,RO,approval_rate,0.044130879345603335,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-01-31,RO,avg_balance_per_customer_eur,154.6196688907212,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-01-31,RO,avg_balance_per_customer_eur,-180.20237567229924,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-01-31,RO,dpd30_rate,0.00836415645245812,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-01-31,RO,new_originations_eur,-253.8312000000151,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-01-31,RO,new_originations_eur,-25017.690599999973,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-01-31,RO,portfolio_balance_eur,0.11978397984057665,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-01-31,RO,portfolio_balance_eur,-329950.5498559801,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-02-28,CZ,approval_rate,0.03717693467056177,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-02-28,CZ,avg_balance_per_customer_eur,142.38545664898038,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-02-28,CZ,dpd30_rate,-0.006741605952430757,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-02-28,CZ,new_originations_eur,524.25,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-02-28,GROUP,approval_rate,0.046288480703149226,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-02-28,GROUP,avg_balance_per_customer_eur,144.48523991257753,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-02-28,GROUP,avg_balance_per_customer_eur,-41.904349706261655,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-02-28,GROUP,dpd30_rate,-1.596930113314035e-05,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-02-28,GROUP,dpd30_rate,-0.002176880637529157,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-02-28,GROUP,dpd90_rate,-9.161013579488814e-06,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-02-28,GROUP,new_originations_eur,-1890.3210999998264,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-02-28,GROUP,new_originations_eur,-21288.913500000024,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-02-28,GROUP,portfolio_balance_eur,-315497.84893844277,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-02-28,PL,approval_rate,0.04859572331437678,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-02-28,PL,avg_balance_per_customer_eur,142.75070114744858,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-02-28,PL,dpd30_rate,0.0024866305688919337,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-02-28,PL,new_originations_eur,-1788.139599999995,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-02-28,PL,portfolio_balance_eur,-0.10708864964544773,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-02-28,RO,approval_rate,0.05354286906334754,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-02-28,RO,avg_balance_per_customer_eur,150.13143325648343,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-02-28,RO,avg_balance_per_customer_eur,-167.55063671717517,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-02-28,RO,dpd30_rate,-0.004460376470822088,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-02-28,RO,new_originations_eur,-626.431500000006,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-02-28,RO,new_originations_eur,-21288.913500000024,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-02-28,RO,portfolio_balance_eur,0.15434643998742104,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-02-28,RO,portfolio_balance_eur,-315497.8489384409,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-03-31,CZ,approval_rate,0.055635951804196726,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-03-31,CZ,avg_balance_per_customer_eur,135.68469028129948,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-03-31,CZ,avg_balance_per_customer_eur,-21.76274938775532,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-03-31,CZ,dpd30_rate,-0.00213874445317596,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-03-31,CZ,new_originations_eur,-3403.295000000042,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-03-31,CZ,portfolio_balance_eur,-53318.7360000005,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-03-31,GROUP,approval_rate,0.061777116907125396,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-03-31,GROUP,avg_balance_per_customer_eur,142.68181181528553,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-03-31,GROUP,avg_balance_per_customer_eur,-25.832738714231255,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-03-31,GROUP,avg_balance_per_customer_eur,-40.08478462713492,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-03-31,GROUP,dpd30_rate,2.0955647042457393e-06,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-03-31,GROUP,dpd30_rate,1.7307365318176143e-05,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-03-31,GROUP,dpd30_rate,-0.0002935665033483893,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-03-31,GROUP,dpd90_rate,-1.1834915876474117e-07,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-03-31,GROUP,dpd90_rate,4.579814297801105e-05,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-03-31,GROUP,new_originations_eur,-193.08259999984875,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-03-31,GROUP,new_originations_eur,-31826.13950000005,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-03-31,GROUP,portfolio_balance_eur,-201314.5328000039,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-03-31,GROUP,portfolio_balance_eur,-312380.72659926116,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-03-31,PL,approval_rate,0.06330373957492597,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-03-31,PL,avg_balance_per_customer_eur,141.3674219300501,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-03-31,PL,avg_balance_per_customer_eur,-27.204386836644062,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-03-31,PL,dpd30_rate,0.003834006654909794,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-03-31,PL,new_originations_eur,4165.088400000008,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-03-31,PL,portfolio_balance_eur,0.24763255938887596,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-03-31,PL,portfolio_balance_eur,-91760.39680000022,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-03-31,RO,approval_rate,0.06721051990746385,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-03-31,RO,avg_balance_per_customer_eur,153.9460251531891,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-03-31,RO,avg_balance_per_customer_eur,-28.545888324872976,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-03-31,RO,avg_balance_per_customer_eur,-158.5688967508936,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-03-31,RO,dpd30_rate,-0.004863068821172267,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-03-31,RO,new_originations_eur,-954.8760000000475,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-03-31,RO,new_originations_eur,-31826.139499999932,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-03-31,RO,portfolio_balance_eur,-0.21748874057084322,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-03-31,RO,portfolio_balance_eur,-56235.40000000037,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-03-31,RO,portfolio_balance_eur,-312380.72659926023,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-04-30,CZ,approval_rate,0.0592321637708364,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-04-30,CZ,avg_balance_per_customer_eur,134.503588674635,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-04-30,CZ,avg_balance_per_customer_eur,-42.75144131515981,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-04-30,CZ,dpd30_rate,0.004379922839775195,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-04-30,CZ,new_originations_eur,1023.3390000000363,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-04-30,CZ,portfolio_balance_eur,0.3304202500730753,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-04-30,CZ,portfolio_balance_eur,-108374.90373393055,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-04-30,GROUP,approval_rate,0.05405070966304926,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-04-30,GROUP,avg_balance_per_customer_eur,140.86585918011087,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-04-30,GROUP,avg_balance_per_customer_eur,-59.97669828998778,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-04-30,GROUP,avg_balance_per_customer_eur,-45.115404476719505,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-04-30,GROUP,dpd30_rate,2.7337898964648055e-05,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-04-30,GROUP,dpd30_rate,9.26459398229891e-05,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-04-30,GROUP,dpd30_rate,0.0017098767987679987,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-04-30,GROUP,dpd90_rate,1.1156432138921882e-05,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-04-30,GROUP,dpd90_rate,3.27974882341521e-05,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-04-30,GROUP,new_originations_eur,2969.03059999994,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-04-30,GROUP,new_originations_eur,-36207.8648000001,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-04-30,GROUP,portfolio_balance_eur,-484071.9318984933,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-04-30,GROUP,portfolio_balance_eur,-364126.4295316003,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-04-30,PL,approval_rate,0.058664666166541646,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-04-30,PL,avg_balance_per_customer_eur,138.64161417590776,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-04-30,PL,avg_balance_per_customer_eur,-46.48271288636806,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-04-30,PL,dpd30_rate,-0.0017232743407125765,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-04-30,PL,new_originations_eur,-72.79999999993015,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-04-30,PL,portfolio_balance_eur,-0.14185520075261593,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-04-30,PL,portfolio_balance_eur,-161759.84084456041,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-04-30,RO,approval_rate,0.042309693081324706,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-04-30,RO,avg_balance_per_customer_eur,152.8345020528045,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-04-30,RO,avg_balance_per_customer_eur,-104.05505219844417,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-04-30,RO,avg_balance_per_customer_eur,-177.1042945192603,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-04-30,RO,dpd30_rate,0.004165503110859378,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-04-30,RO,new_originations_eur,2018.4915999999503,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-04-30,RO,new_originations_eur,-36207.86479999998,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-04-30,RO,portfolio_balance_eur,-0.1093083992600441,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-04-30,RO,portfolio_balance_eur,-213937.1873200005,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-04-30,RO,portfolio_balance_eur,-364126.4295315994,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-05-31,CZ,approval_rate,0.05627484540636041,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-05-31,CZ,avg_balance_per_customer_eur,133.0372123732932,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-05-31,CZ,avg_balance_per_customer_eur,-92.79159437130102,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-05-31,CZ,dpd30_rate,-0.002531397099849418,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-05-31,CZ,new_originations_eur,3225.417000000016,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-05-31,CZ,portfolio_balance_eur,0.3316032802686095,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-05-31,CZ,portfolio_balance_eur,-243206.7688471796,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-05-31,GROUP,approval_rate,0.053336877311892295,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-05-31,GROUP,avg_balance_per_customer_eur,138.98744006662628,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-05-31,GROUP,avg_balance_per_customer_eur,-91.05541664943757,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-05-31,GROUP,avg_balance_per_customer_eur,-49.70130625862066,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-05-31,GROUP,dpd30_rate,-1.8215010864248982e-06,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-05-31,GROUP,dpd30_rate,4.542463080287745e-05,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-05-31,GROUP,dpd30_rate,0.001706002095194864,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-05-31,GROUP,dpd90_rate,-4.552447030884213e-06,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-05-31,GROUP,dpd90_rate,5.61086865304497e-06,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-05-31,GROUP,new_originations_eur,7558.892400000012,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-05-31,GROUP,new_originations_eur,-28467.11999999988,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-05-31,GROUP,portfolio_balance_eur,0.22699084132909775,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-05-31,GROUP,portfolio_balance_eur,-760494.8398561031,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-05-31,GROUP,portfolio_balance_eur,-415105.3098719977,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-05-31,PL,approval_rate,0.050819766108690656,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-05-31,PL,avg_balance_per_customer_eur,139.78634619269496,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-05-31,PL,avg_balance_per_customer_eur,-79.78641021130397,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-05-31,PL,dpd30_rate,0.0030082377758298626,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-05-31,PL,new_originations_eur,2981.2872000000207,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-05-31,PL,portfolio_balance_eur,-288826.8049649205,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-05-31,RO,approval_rate,0.05358307706644305,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-05-31,RO,avg_balance_per_customer_eur,145.1242339547066,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-05-31,RO,avg_balance_per_customer_eur,-108.22419045191918,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-05-31,RO,avg_balance_per_customer_eur,-196.63918042254818,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-05-31,RO,dpd30_rate,0.004648761752999601,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-05-31,RO,new_originations_eur,1352.1882000000332,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-05-31,RO,new_originations_eur,-28467.119999999995,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-05-31,RO,portfolio_balance_eur,-228461.2660440011,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-05-31,RO,portfolio_balance_eur,-415105.30987199955,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-06-30,CZ,approval_rate,0.055130524683380644,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-06-30,CZ,avg_balance_per_customer_eur,128.59554557293768,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-06-30,CZ,avg_balance_per_customer_eur,-115.26737255776607,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-06-30,CZ,dpd30_rate,0.009200740554770916,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-06-30,CZ,new_originations_eur,4614.597999999998,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-06-30,CZ,new_originations_eur,0.11399999994318932,0.1,D3,"convert each account's amount to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-06-30,CZ,portfolio_balance_eur,-312605.11437666044,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-06-30,GROUP,approval_rate,0.057499085670513095,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-06-30,GROUP,avg_balance_per_customer_eur,134.44274818297617,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-06-30,GROUP,avg_balance_per_customer_eur,-118.24709970941876,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-06-30,GROUP,avg_balance_per_customer_eur,-52.7541026195895,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-06-30,GROUP,dpd30_rate,-3.2192522498100673e-07,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-06-30,GROUP,dpd30_rate,-4.250110444557059e-06,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-06-30,GROUP,dpd30_rate,0.005136779118023883,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-06-30,GROUP,dpd90_rate,3.05139459530826e-06,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-06-30,GROUP,dpd90_rate,4.0533563497396896e-05,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-06-30,GROUP,new_originations_eur,6980.322999999858,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-06-30,GROUP,new_originations_eur,-47377.836899999995,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-06-30,GROUP,portfolio_balance_eur,0.31268566846847534,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-06-30,GROUP,portfolio_balance_eur,-1021418.4472899623,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-06-30,GROUP,portfolio_balance_eur,-455689.9384280108,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-06-30,PL,approval_rate,0.06303418803418803,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-06-30,PL,avg_balance_per_customer_eur,136.37169627095227,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-06-30,PL,avg_balance_per_customer_eur,-108.32631451910493,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-06-30,PL,dpd30_rate,0.002515302728125387,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-06-30,PL,new_originations_eur,1348.8149999999441,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-06-30,PL,portfolio_balance_eur,-404273.8057853002,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-06-30,RO,approval_rate,0.05177967786836346,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-06-30,RO,avg_balance_per_customer_eur,138.44112004686758,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-06-30,RO,avg_balance_per_customer_eur,-138.80561856335453,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-06-30,RO,avg_balance_per_customer_eur,-207.69823993984028,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-06-30,RO,dpd30_rate,0.004580937294470858,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-06-30,RO,new_originations_eur,1016.9100000000326,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-06-30,RO,new_originations_eur,-47377.836899999995,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-06-30,RO,portfolio_balance_eur,0.2506720097735524,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-06-30,RO,portfolio_balance_eur,-304539.5271279998,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-06-30,RO,portfolio_balance_eur,-455689.93842800986,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-07-31,CZ,approval_rate,0.05068560992973664,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-07-31,CZ,avg_balance_per_customer_eur,122.02979579062048,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-07-31,CZ,avg_balance_per_customer_eur,-146.26007387230993,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-07-31,CZ,dpd30_rate,-0.0020469420609714253,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-07-31,CZ,new_originations_eur,-1459.4490000000224,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-07-31,CZ,portfolio_balance_eur,0.22849937062710524,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-07-31,CZ,portfolio_balance_eur,-406603.0053650206,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-07-31,GROUP,approval_rate,0.05104256540690688,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-07-31,GROUP,avg_balance_per_customer_eur,132.08733025789525,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-07-31,GROUP,avg_balance_per_customer_eur,-148.19206381037293,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-07-31,GROUP,avg_balance_per_customer_eur,-52.56732377641674,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-07-31,GROUP,dpd30_rate,-4.507357536313872e-06,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-07-31,GROUP,dpd30_rate,-3.6280043174477528e-06,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-07-31,GROUP,dpd30_rate,0.0008020552090057947,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-07-31,GROUP,dpd90_rate,8.052654604177867e-06,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-07-31,GROUP,dpd90_rate,5.759472253484901e-05,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-07-31,GROUP,new_originations_eur,-2256.1044999998994,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-07-31,GROUP,new_originations_eur,0.1436999998986721,0.1,D3,"convert each account's amount to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-07-31,GROUP,new_originations_eur,-35316.52199999988,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-07-31,GROUP,portfolio_balance_eur,-0.27471501007676125,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-07-31,GROUP,portfolio_balance_eur,-1315204.566317059,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-07-31,GROUP,portfolio_balance_eur,-466534.99851569906,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-07-31,PL,approval_rate,0.05601989970166443,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-07-31,PL,avg_balance_per_customer_eur,136.5905973842123,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-07-31,PL,avg_balance_per_customer_eur,-138.83304888346493,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-07-31,PL,dpd30_rate,6.113206408781338e-05,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-07-31,PL,new_originations_eur,-2158.8285000000615,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-07-31,PL,new_originations_eur,0.13470000005327165,0.1,D3,"convert each account's amount to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-07-31,PL,portfolio_balance_eur,-0.34706207923591137,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-07-31,PL,portfolio_balance_eur,-533674.2399080396,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-07-31,RO,approval_rate,0.04190476190476189,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-07-31,RO,avg_balance_per_customer_eur,136.9398082026346,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-07-31,RO,avg_balance_per_customer_eur,-166.5603380915154,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-07-31,RO,avg_balance_per_customer_eur,-207.2567741073749,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-07-31,RO,dpd30_rate,0.005621710175322973,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-07-31,RO,new_originations_eur,1362.1730000000098,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-07-31,RO,new_originations_eur,-35316.522,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-07-31,RO,portfolio_balance_eur,-0.15615230053663254,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-07-31,RO,portfolio_balance_eur,-374927.3210440008,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-07-31,RO,portfolio_balance_eur,-466534.9985157009,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-08-31,CZ,approval_rate,0.045543859649122886,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-08-31,CZ,avg_balance_per_customer_eur,118.67974475676556,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-08-31,CZ,avg_balance_per_customer_eur,-167.7249739541162,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-08-31,CZ,dpd30_rate,-0.003426964569186855,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-08-31,CZ,new_originations_eur,3656.679999999935,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-08-31,CZ,portfolio_balance_eur,0.24110522959381342,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-08-31,CZ,portfolio_balance_eur,-479190.2505869102,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-08-31,GROUP,approval_rate,0.05304220055930353,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-08-31,GROUP,avg_balance_per_customer_eur,128.81449610623622,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-08-31,GROUP,avg_balance_per_customer_eur,-163.85230576002095,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-08-31,GROUP,avg_balance_per_customer_eur,-55.824391371151705,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-08-31,GROUP,dpd30_rate,-5.335911564950668e-06,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-08-31,GROUP,dpd30_rate,-9.793772005502188e-05,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-08-31,GROUP,dpd30_rate,0.000585383490412289,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-08-31,GROUP,dpd90_rate,4.78971410801908e-06,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-08-31,GROUP,dpd90_rate,8.592219867572734e-05,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-08-31,GROUP,new_originations_eur,1197.3379999999888,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-08-31,GROUP,new_originations_eur,0.11759999999776483,0.1,D3,"convert each account's amount to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-08-31,GROUP,new_originations_eur,-41666.79719999991,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-08-31,GROUP,portfolio_balance_eur,0.373098261654377,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-08-31,GROUP,portfolio_balance_eur,-1493841.4716141112,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-08-31,GROUP,portfolio_balance_eur,-508950.976130791,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-08-31,PL,approval_rate,0.0498960498960499,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-08-31,PL,avg_balance_per_customer_eur,130.86325164617756,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-08-31,PL,avg_balance_per_customer_eur,-155.12138089533437,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-08-31,PL,dpd30_rate,0.0049601286623691225,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-08-31,PL,new_originations_eur,-2674.90280000004,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-08-31,PL,portfolio_balance_eur,0.11618624068796635,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-08-31,PL,portfolio_balance_eur,-611798.7262511998,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-08-31,RO,approval_rate,0.0685319767441861,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-08-31,RO,avg_balance_per_customer_eur,137.8570365056239,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-08-31,RO,avg_balance_per_customer_eur,-173.94321881519818,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-08-31,RO,avg_balance_per_customer_eur,-219.75430748306962,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-08-31,RO,dpd30_rate,-0.002035913361709954,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-08-31,RO,new_originations_eur,215.56080000003567,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-08-31,RO,new_originations_eur,-41666.79719999991,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-08-31,RO,portfolio_balance_eur,-402852.49477599934,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-08-31,RO,portfolio_balance_eur,-508950.97613078915,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-09-30,CZ,approval_rate,0.052876376988984064,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-09-30,CZ,avg_balance_per_customer_eur,115.31813089046636,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-09-30,CZ,avg_balance_per_customer_eur,-187.53288852618243,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-09-30,CZ,dpd30_rate,0.00105226520158435,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-09-30,CZ,new_originations_eur,2938.920000000042,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-09-30,CZ,new_originations_eur,0.31999999994877726,0.1,D3,"convert each account's amount to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-09-30,CZ,portfolio_balance_eur,0.19830644968897104,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-09-30,CZ,portfolio_balance_eur,-547220.9687194005,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-09-30,GROUP,approval_rate,0.06683511411748266,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-09-30,GROUP,avg_balance_per_customer_eur,125.27106686781235,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-09-30,GROUP,avg_balance_per_customer_eur,-183.24701869695173,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-09-30,GROUP,avg_balance_per_customer_eur,-53.65913136295194,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-09-30,GROUP,dpd30_rate,4.9463691108031504e-06,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-09-30,GROUP,dpd30_rate,-4.605430874801003e-05,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-09-30,GROUP,dpd30_rate,0.0008409464642667591,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-09-30,GROUP,dpd90_rate,6.493115140827205e-06,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-09-30,GROUP,dpd90_rate,-0.00011417882711426894,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-09-30,GROUP,new_originations_eur,8500.30830000015,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-09-30,GROUP,new_originations_eur,0.249099999666214,0.1,D3,"convert each account's amount to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-09-30,GROUP,new_originations_eur,-43286.61219999986,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-09-30,GROUP,portfolio_balance_eur,0.10436979308724403,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-09-30,GROUP,portfolio_balance_eur,-1717024.5651904382,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-09-30,GROUP,portfolio_balance_eur,-502786.0608708598,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-09-30,PL,approval_rate,0.07713055954088954,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-09-30,PL,avg_balance_per_customer_eur,129.98093953917487,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-09-30,PL,avg_balance_per_customer_eur,-181.83875030079707,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-09-30,PL,dpd30_rate,-3.410850867450327e-05,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-09-30,PL,new_originations_eur,6758.664899999974,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-09-30,PL,portfolio_balance_eur,-0.1756595205515623,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-09-30,PL,portfolio_balance_eur,-739356.3587230407,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-09-30,RO,approval_rate,0.06586969515839802,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-09-30,RO,avg_balance_per_customer_eur,129.55563946476832,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-09-30,RO,avg_balance_per_customer_eur,-180.4053804476107,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-09-30,RO,avg_balance_per_customer_eur,-210.7234119324644,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-09-30,RO,dpd30_rate,0.0021015596151767527,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-09-30,RO,new_originations_eur,-1197.2765999999829,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-09-30,RO,new_originations_eur,-43286.612199999974,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-09-30,RO,portfolio_balance_eur,-430447.23774799984,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-09-30,RO,portfolio_balance_eur,-502786.0608708598,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-10-31,CZ,approval_rate,0.04164287283110035,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-10-31,CZ,avg_balance_per_customer_eur,110.62396954673432,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-10-31,CZ,avg_balance_per_customer_eur,-208.75958503653465,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-10-31,CZ,dpd30_rate,0.002325419938616225,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-10-31,CZ,new_originations_eur,-1270.5209999999497,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-10-31,CZ,portfolio_balance_eur,0.23653654009103775,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-10-31,CZ,portfolio_balance_eur,-632541.5426607002,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-10-31,GROUP,approval_rate,0.05407282762015664,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-10-31,GROUP,avg_balance_per_customer_eur,120.90367415090213,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-10-31,GROUP,avg_balance_per_customer_eur,-203.03830233662893,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-10-31,GROUP,avg_balance_per_customer_eur,-49.17285090921496,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-10-31,GROUP,dpd30_rate,3.928019298798935e-06,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-10-31,GROUP,dpd30_rate,-5.8964085294814506e-05,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-10-31,GROUP,dpd30_rate,0.0037504423776448803,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-10-31,GROUP,dpd90_rate,-1.0809121894043983e-06,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-10-31,GROUP,dpd90_rate,-5.8294325064746355e-05,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-10-31,GROUP,new_originations_eur,2201.086099999957,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-10-31,GROUP,new_originations_eur,-43487.736599999946,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-10-31,GROUP,portfolio_balance_eur,-1963177.3452928625,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-10-31,GROUP,portfolio_balance_eur,-475452.2954411991,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-10-31,PL,approval_rate,0.055726256983240297,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-10-31,PL,avg_balance_per_customer_eur,127.06862625626673,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-10-31,PL,avg_balance_per_customer_eur,-194.46780387348053,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-10-31,PL,dpd30_rate,0.004651349540862472,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-10-31,PL,new_originations_eur,4643.598499999964,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-10-31,PL,portfolio_balance_eur,-0.18958172015845776,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-10-31,PL,portfolio_balance_eur,-811319.6777601615,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-10-31,RO,approval_rate,0.0674890638670167,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-10-31,RO,avg_balance_per_customer_eur,123.239800142263,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-10-31,RO,avg_balance_per_customer_eur,-210.50511749979614,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-10-31,RO,avg_balance_per_customer_eur,-192.7248866806649,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-10-31,RO,dpd30_rate,0.003966597251549575,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-10-31,RO,new_originations_eur,-1171.9913999999408,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-10-31,RO,new_originations_eur,-43487.73660000006,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-10-31,RO,portfolio_balance_eur,-519316.1248719981,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-10-31,RO,portfolio_balance_eur,-475452.2954412,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-11-30,CZ,approval_rate,0.056512271045143114,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-11-30,CZ,avg_balance_per_customer_eur,106.54642623429572,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-11-30,CZ,avg_balance_per_customer_eur,-217.00110766955595,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-11-30,CZ,dpd30_rate,-0.00288904719861071,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-11-30,CZ,new_originations_eur,-780.472000000067,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-11-30,CZ,portfolio_balance_eur,0.21421451959758997,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-11-30,CZ,portfolio_balance_eur,-674439.4426369797,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-11-30,GROUP,approval_rate,0.060763608414477144,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-11-30,GROUP,avg_balance_per_customer_eur,117.40340048865937,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-11-30,GROUP,avg_balance_per_customer_eur,-207.73942637635855,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-11-30,GROUP,avg_balance_per_customer_eur,-48.64093366503175,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-11-30,GROUP,dpd30_rate,9.509439767289851e-06,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-11-30,GROUP,dpd30_rate,-5.3663695247743726e-05,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-11-30,GROUP,dpd30_rate,0.005029090806028674,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-11-30,GROUP,dpd90_rate,1.2668385169223306e-05,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-11-30,GROUP,dpd90_rate,-8.749951571144013e-05,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-11-30,GROUP,new_originations_eur,1548.905700000003,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-11-30,GROUP,new_originations_eur,-42179.39999999991,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-11-30,GROUP,portfolio_balance_eur,0.26364384964108467,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2025-11-30,GROUP,portfolio_balance_eur,-2066799.5530183911,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-11-30,GROUP,portfolio_balance_eur,-483928.64903340116,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-11-30,PL,approval_rate,0.060153618110766804,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-11-30,PL,avg_balance_per_customer_eur,122.92951352646605,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-11-30,PL,avg_balance_per_customer_eur,-201.17456521905615,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-11-30,PL,dpd30_rate,0.007923885902362884,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-11-30,PL,new_originations_eur,2422.467699999921,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-11-30,PL,portfolio_balance_eur,-863642.4084854089,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-11-30,RO,approval_rate,0.06615051615051615,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-11-30,RO,avg_balance_per_customer_eur,121.47801143909919,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-11-30,RO,avg_balance_per_customer_eur,-207.50302272213548,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-11-30,RO,avg_balance_per_customer_eur,-189.92490150447384,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-11-30,RO,dpd30_rate,0.009721956707041922,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-11-30,RO,new_originations_eur,-93.0899999999674,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-11-30,RO,new_originations_eur,-42179.40000000002,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-11-30,RO,portfolio_balance_eur,-528717.7018960007,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-11-30,RO,portfolio_balance_eur,-483928.64903340023,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-12-31,CZ,approval_rate,0.05472425344908327,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-12-31,CZ,avg_balance_per_customer_eur,104.03616226395434,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-12-31,CZ,avg_balance_per_customer_eur,-231.93561965947538,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-12-31,CZ,dpd30_rate,-0.0037836386793189403,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-12-31,CZ,new_originations_eur,998.5680000000866,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-12-31,CZ,portfolio_balance_eur,-751471.4076966997,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-12-31,GROUP,approval_rate,0.05689015218280413,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-12-31,GROUP,avg_balance_per_customer_eur,113.74833235030383,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-12-31,GROUP,avg_balance_per_customer_eur,-229.5341882014436,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-12-31,GROUP,avg_balance_per_customer_eur,-48.93344980367556,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-12-31,GROUP,dpd30_rate,1.9599273223341873e-05,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-12-31,GROUP,dpd30_rate,-0.00014430790308739977,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-12-31,GROUP,dpd30_rate,-0.0016253253736307482,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-12-31,GROUP,dpd90_rate,5.268794517634956e-06,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-12-31,GROUP,dpd90_rate,-2.350873674280933e-05,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-12-31,GROUP,new_originations_eur,2621.1365000000224,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-12-31,GROUP,new_originations_eur,-51562.18420000002,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-12-31,GROUP,portfolio_balance_eur,-2365579.3436040804,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-12-31,GROUP,portfolio_balance_eur,-504308.13367667794,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-12-31,PL,approval_rate,0.05844585579335004,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-12-31,PL,avg_balance_per_customer_eur,118.468527144787,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-12-31,PL,avg_balance_per_customer_eur,-229.64532837646902,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-12-31,PL,dpd30_rate,0.003917272231809231,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-12-31,PL,new_originations_eur,1957.7882000000682,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-12-31,PL,portfolio_balance_eur,-1017099.1593793798,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-12-31,RO,approval_rate,0.05712029481442493,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2025-12-31,RO,avg_balance_per_customer_eur,117.94829342240837,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2025-12-31,RO,avg_balance_per_customer_eur,-226.39695734850193,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-12-31,RO,avg_balance_per_customer_eur,-191.2431299494424,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-12-31,RO,dpd30_rate,-0.008371211650269723,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2025-12-31,RO,new_originations_eur,-335.2196999998996,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2025-12-31,RO,new_originations_eur,-51562.1841999999,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2025-12-31,RO,portfolio_balance_eur,-597008.7765279999,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2025-12-31,RO,portfolio_balance_eur,-504308.1336766789,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-01-31,CZ,approval_rate,0.056092529494935484,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-01-31,CZ,avg_balance_per_customer_eur,106.06147021105971,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-01-31,CZ,avg_balance_per_customer_eur,-227.99751588233585,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-01-31,CZ,dpd30_rate,-0.0018168881525789486,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-01-31,CZ,new_originations_eur,300.25800000003073,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-01-31,CZ,portfolio_balance_eur,0.11082752980291843,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2026-01-31,CZ,portfolio_balance_eur,-753531.7899911199,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-01-31,GROUP,approval_rate,0.059932156798504055,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-01-31,GROUP,avg_balance_per_customer_eur,111.64561854671229,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-01-31,GROUP,avg_balance_per_customer_eur,-230.19272381997962,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-01-31,GROUP,avg_balance_per_customer_eur,-44.054030941580095,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-01-31,GROUP,dpd30_rate,-1.0939568754267381e-06,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-01-31,GROUP,dpd30_rate,-1.6169322700605726e-05,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-01-31,GROUP,dpd30_rate,-0.0010761143209398125,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-01-31,GROUP,dpd90_rate,7.654127120997056e-06,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-01-31,GROUP,dpd90_rate,-6.542919826416776e-05,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-01-31,GROUP,new_originations_eur,-7410.823399999877,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-01-31,GROUP,new_originations_eur,-39434.64080000017,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-01-31,GROUP,portfolio_balance_eur,0.11997140944004059,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2026-01-31,GROUP,portfolio_balance_eur,-2420936.8764147237,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-01-31,GROUP,portfolio_balance_eur,-463316.24341259897,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-01-31,PL,approval_rate,0.06887229070246992,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-01-31,PL,avg_balance_per_customer_eur,116.49713094287972,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-01-31,PL,avg_balance_per_customer_eur,-235.5785707733039,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-01-31,PL,dpd30_rate,-0.004252626451127714,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-01-31,PL,new_originations_eur,-6257.299800000037,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-01-31,PL,portfolio_balance_eur,-0.13982872106134892,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2026-01-31,PL,portfolio_balance_eur,-1062459.3541876003,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-01-31,RO,approval_rate,0.050086231675768866,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-01-31,RO,avg_balance_per_customer_eur,110.51497738490025,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-01-31,RO,avg_balance_per_customer_eur,-223.88813184159926,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-01-31,RO,avg_balance_per_customer_eur,-171.4715926767576,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-01-31,RO,dpd30_rate,0.005141357458254871,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-01-31,RO,new_originations_eur,-1453.7815999999875,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-01-31,RO,new_originations_eur,-39434.64080000005,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-01-31,RO,portfolio_balance_eur,0.1489725997671485,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2026-01-31,RO,portfolio_balance_eur,-604945.7322360007,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-01-31,RO,portfolio_balance_eur,-463316.2434125999,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-02-28,CZ,approval_rate,0.03986752595775156,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-02-28,CZ,avg_balance_per_customer_eur,102.82831599936026,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-02-28,CZ,avg_balance_per_customer_eur,-245.641493090498,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-02-28,CZ,dpd30_rate,0.0012970088812734107,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-02-28,CZ,new_originations_eur,2124.966000000015,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-02-28,CZ,portfolio_balance_eur,-828794.3976873402,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-02-28,GROUP,approval_rate,0.05085323958775434,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-02-28,GROUP,avg_balance_per_customer_eur,108.12389372258258,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-02-28,GROUP,avg_balance_per_customer_eur,-241.51194620331398,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-02-28,GROUP,avg_balance_per_customer_eur,-44.71149968910322,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-02-28,GROUP,dpd30_rate,3.0167334637759557e-05,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-02-28,GROUP,dpd30_rate,-0.00011660136342855898,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-02-28,GROUP,dpd30_rate,0.0006477645420745609,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-02-28,GROUP,dpd90_rate,1.1163007298260752e-05,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-02-28,GROUP,dpd90_rate,-2.323158457083127e-05,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-02-28,GROUP,new_originations_eur,1457.8246000001673,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-02-28,GROUP,new_originations_eur,0.18999999994412065,0.1,D3,"convert each account's amount to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2026-02-28,GROUP,new_originations_eur,-35593.824599999934,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-02-28,GROUP,portfolio_balance_eur,0.30346762016415596,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2026-02-28,GROUP,portfolio_balance_eur,-2593113.7663849816,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-02-28,GROUP,portfolio_balance_eur,-480067.37216189876,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-02-28,PL,approval_rate,0.051988636363636376,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-02-28,PL,avg_balance_per_customer_eur,114.60190328113504,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-02-28,PL,avg_balance_per_customer_eur,-237.74542740357583,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-02-28,PL,dpd30_rate,0.004018027606793248,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-02-28,PL,new_originations_eur,-2178.1190000000643,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-02-28,PL,new_originations_eur,0.12100000004284084,0.1,D3,"convert each account's amount to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2026-02-28,PL,portfolio_balance_eur,0.1401495598256588,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2026-02-28,PL,portfolio_balance_eur,-1093153.4752016403,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-02-28,RO,approval_rate,0.061352657004830835,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-02-28,RO,avg_balance_per_customer_eur,104.01087133194096,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-02-28,RO,avg_balance_per_customer_eur,-242.73630867848124,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-02-28,RO,avg_balance_per_customer_eur,-173.62291940755858,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-02-28,RO,dpd30_rate,-0.005778917069382494,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-02-28,RO,new_originations_eur,1510.9775999999838,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-02-28,RO,new_originations_eur,-35593.824599999934,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-02-28,RO,portfolio_balance_eur,-671165.8934960002,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-02-28,RO,portfolio_balance_eur,-480067.3721618997,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-03-31,CZ,approval_rate,0.04735407676584147,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-03-31,CZ,avg_balance_per_customer_eur,101.34653542003662,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-03-31,CZ,avg_balance_per_customer_eur,-245.00565346563008,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-03-31,CZ,dpd30_rate,0.006661003864993985,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-03-31,CZ,new_originations_eur,1380.957000000053,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-03-31,CZ,portfolio_balance_eur,-0.38211450912058353,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2026-03-31,CZ,portfolio_balance_eur,-845514.5101098903,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-03-31,GROUP,approval_rate,0.04948746082131583,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-03-31,GROUP,avg_balance_per_customer_eur,106.06278847381873,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-03-31,GROUP,avg_balance_per_customer_eur,-252.18860061013038,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-03-31,GROUP,avg_balance_per_customer_eur,-44.918228831506894,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-03-31,GROUP,dpd30_rate,-1.6568020536407435e-05,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-03-31,GROUP,dpd30_rate,0.0019057855779079716,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-03-31,GROUP,dpd90_rate,3.0685224682337753e-06,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-03-31,GROUP,dpd90_rate,-3.770469558738582e-05,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-03-31,GROUP,new_originations_eur,317.84099999978207,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-03-31,GROUP,new_originations_eur,-33570.74999999977,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-03-31,GROUP,portfolio_balance_eur,-2761465.17668093,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-03-31,GROUP,portfolio_balance_eur,-491854.60570500046,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-03-31,PL,approval_rate,0.056373316630128456,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-03-31,PL,avg_balance_per_customer_eur,113.15918287205659,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-03-31,PL,avg_balance_per_customer_eur,-258.7263363189445,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-03-31,PL,dpd30_rate,-0.0018903126486254918,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-03-31,PL,new_originations_eur,-1197.3989999999758,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-03-31,PL,portfolio_balance_eur,0.21177087910473347,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2026-03-31,PL,portfolio_balance_eur,-1216013.7806990407,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-03-31,RO,approval_rate,0.040439740685776826,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-03-31,RO,avg_balance_per_customer_eur,100.22922465336023,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-03-31,RO,avg_balance_per_customer_eur,-250.066768800285,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-03-31,RO,avg_balance_per_customer_eur,-175.72511815112512,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-03-31,RO,dpd30_rate,0.0027191053555003994,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-03-31,RO,new_originations_eur,134.2829999999958,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-03-31,RO,new_originations_eur,-33570.74999999994,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-03-31,RO,portfolio_balance_eur,0.1835209997370839,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2026-03-31,RO,portfolio_balance_eur,-699936.885871998,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-03-31,RO,portfolio_balance_eur,-491854.6057049995,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-04-30,CZ,approval_rate,0.05806700038505963,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-04-30,CZ,avg_balance_per_customer_eur,92.77848312070319,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-04-30,CZ,avg_balance_per_customer_eur,-241.79246671893497,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-04-30,CZ,dpd30_rate,-0.001812851874668453,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-04-30,CZ,new_originations_eur,2035.6920000000391,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-04-30,CZ,portfolio_balance_eur,-0.18014100939035416,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2026-04-30,CZ,portfolio_balance_eur,-853043.8225844018,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-04-30,GROUP,approval_rate,0.06161025414229837,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-04-30,GROUP,avg_balance_per_customer_eur,101.92141972212312,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-04-30,GROUP,avg_balance_per_customer_eur,-259.2659352733199,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-04-30,GROUP,avg_balance_per_customer_eur,-44.1372538017813,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-04-30,GROUP,dpd30_rate,-5.857311010049049e-06,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-04-30,GROUP,dpd30_rate,-2.8022537989620677e-05,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-04-30,GROUP,dpd30_rate,-0.0015589782829187881,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-04-30,GROUP,dpd90_rate,-4.829709360665291e-06,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-04-30,GROUP,dpd90_rate,-2.1771026022934098e-05,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-04-30,GROUP,new_originations_eur,8164.138900000136,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-04-30,GROUP,new_originations_eur,-39803.19750000024,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-04-30,GROUP,portfolio_balance_eur,-0.5682705268263817,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2026-04-30,GROUP,portfolio_balance_eur,-2902741.4113200866,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-04-30,GROUP,portfolio_balance_eur,-494160.6935647465,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-04-30,PL,approval_rate,0.07003782042302842,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-04-30,PL,avg_balance_per_customer_eur,111.84366277244862,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-04-30,PL,avg_balance_per_customer_eur,-265.95680154217234,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-04-30,PL,dpd30_rate,-0.0035124436695955705,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-04-30,PL,new_originations_eur,6014.042499999981,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-04-30,PL,portfolio_balance_eur,-0.3565862700343132,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2026-04-30,PL,portfolio_balance_eur,-1278188.3882116806,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-04-30,RO,approval_rate,0.0514778325123153,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-04-30,RO,avg_balance_per_customer_eur,97.10033244087936,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-04-30,RO,avg_balance_per_customer_eur,-269.56995126624724,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-04-30,RO,avg_balance_per_customer_eur,-172.66271613024128,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-04-30,RO,dpd30_rate,0.0020754331315823576,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-04-30,RO,new_originations_eur,114.40439999999944,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-04-30,RO,new_originations_eur,-39803.19750000001,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-04-30,RO,portfolio_balance_eur,-771509.2005240005,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-04-30,RO,portfolio_balance_eur,-494160.6935647493,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-05-31,CZ,approval_rate,0.0636236211834969,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-05-31,CZ,avg_balance_per_customer_eur,90.50185313909378,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-05-31,CZ,avg_balance_per_customer_eur,-259.89049486211525,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-05-31,CZ,dpd30_rate,0.0012727167964976527,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-05-31,CZ,new_originations_eur,-209.46000000007916,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-05-31,CZ,portfolio_balance_eur,0.3218973595649004,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2026-05-31,CZ,portfolio_balance_eur,-937425.0149676502,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-05-31,GROUP,approval_rate,0.06174237859983123,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-05-31,GROUP,avg_balance_per_customer_eur,102.05808957631962,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-05-31,GROUP,avg_balance_per_customer_eur,-265.88685838597894,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-05-31,GROUP,avg_balance_per_customer_eur,-46.765128847163396,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-05-31,GROUP,dpd30_rate,1.1947453289570809e-05,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-05-31,GROUP,dpd30_rate,-9.776276487517138e-05,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-05-31,GROUP,dpd30_rate,0.00021087181034742247,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-05-31,GROUP,dpd90_rate,7.662672407926507e-06,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-05-31,GROUP,dpd90_rate,-7.498032203891863e-05,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-05-31,GROUP,new_originations_eur,-8528.860199999996,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-05-31,GROUP,new_originations_eur,0.16449999995529652,0.1,D3,"convert each account's amount to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2026-05-31,GROUP,new_originations_eur,-35215.240500000305,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-05-31,GROUP,portfolio_balance_eur,0.5013060308992863,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2026-05-31,GROUP,portfolio_balance_eur,-3034300.8279007897,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-05-31,GROUP,portfolio_balance_eur,-533683.6504038274,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-05-31,PL,approval_rate,0.061688229645726955,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-05-31,PL,avg_balance_per_customer_eur,113.75588681470208,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-05-31,PL,avg_balance_per_customer_eur,-265.7757869501406,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-05-31,PL,dpd30_rate,-0.003902200937121278,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-05-31,PL,new_originations_eur,-8775.889200000092,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-05-31,PL,portfolio_balance_eur,0.3652568403631449,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2026-05-31,PL,portfolio_balance_eur,-1299909.3739731386,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-05-31,RO,approval_rate,0.05884985890824168,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-05-31,RO,avg_balance_per_customer_eur,97.66265396487142,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-05-31,RO,avg_balance_per_customer_eur,-273.49568941660937,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-05-31,RO,avg_balance_per_customer_eur,-183.1446981481913,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-05-31,RO,dpd30_rate,0.0061281144436508145,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-05-31,RO,new_originations_eur,456.4890000000014,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-05-31,RO,new_originations_eur,-35215.240499999956,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-05-31,RO,portfolio_balance_eur,-0.18584816996008158,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2026-05-31,RO,portfolio_balance_eur,-796966.4389599999,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-05-31,RO,portfolio_balance_eur,-533683.6504038302,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-06-30,CZ,approval_rate,0.051073630020998406,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-06-30,CZ,avg_balance_per_customer_eur,86.11520329522318,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-06-30,CZ,avg_balance_per_customer_eur,-273.7966570404956,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-06-30,CZ,dpd30_rate,-4.9732493315086945e-06,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-06-30,CZ,new_originations_eur,884.4079999999376,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-06-30,CZ,portfolio_balance_eur,0.17015880160033703,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2026-06-30,CZ,portfolio_balance_eur,-999631.5948548485,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-06-30,GROUP,approval_rate,0.05930657896123881,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-06-30,GROUP,avg_balance_per_customer_eur,98.35422906661688,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-06-30,GROUP,avg_balance_per_customer_eur,-277.9342102270307,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-06-30,GROUP,avg_balance_per_customer_eur,-48.507507168364555,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-06-30,GROUP,dpd30_rate,1.7960348661333336e-05,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-06-30,GROUP,dpd30_rate,-0.00020843963551295946,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-06-30,GROUP,dpd30_rate,0.0018739197566258817,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-06-30,GROUP,dpd90_rate,1.148895790774318e-05,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-06-30,GROUP,dpd90_rate,-6.035509491849125e-05,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-06-30,GROUP,new_originations_eur,5956.17799999984,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-06-30,GROUP,new_originations_eur,-42294.634399999864,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-06-30,GROUP,portfolio_balance_eur,0.16565745696425438,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2026-06-30,GROUP,portfolio_balance_eur,-3233486.6017812714,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-06-30,GROUP,portfolio_balance_eur,-564336.3383967578,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-06-30,PL,approval_rate,0.07116511934479569,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-06-30,PL,avg_balance_per_customer_eur,109.27908675853541,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-06-30,PL,avg_balance_per_customer_eur,-279.1871484748294,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-06-30,PL,dpd30_rate,0.002735328817152584,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-06-30,PL,new_originations_eur,4193.533999999985,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-06-30,PL,portfolio_balance_eur,-1398448.4267104194,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-06-30,RO,approval_rate,0.04879635653871173,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-06-30,RO,avg_balance_per_customer_eur,95.86438688946964,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-06-30,RO,avg_balance_per_customer_eur,-280.9033558224619,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-06-30,RO,avg_balance_per_customer_eur,-189.75667061088097,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-06-30,RO,dpd30_rate,0.0026071043871103775,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-06-30,RO,new_originations_eur,878.2360000000335,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-06-30,RO,new_originations_eur,-42294.63439999998,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-06-30,RO,portfolio_balance_eur,-835406.5802160017,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-06-30,RO,portfolio_balance_eur,-564336.3383967597,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-07-31,CZ,approval_rate,0.04731973434535103,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-07-31,CZ,avg_balance_per_customer_eur,85.43112351012678,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-07-31,CZ,avg_balance_per_customer_eur,-271.0655496282957,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-07-31,CZ,dpd30_rate,0.005998842430060346,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-07-31,CZ,new_originations_eur,2363.613000000012,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-07-31,CZ,portfolio_balance_eur,0.24829575046896935,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2026-07-31,CZ,portfolio_balance_eur,-1005382.1235713493,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-07-31,GROUP,approval_rate,0.05521104453799619,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-07-31,GROUP,avg_balance_per_customer_eur,96.89435787076809,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-07-31,GROUP,avg_balance_per_customer_eur,-276.2622068102505,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-07-31,GROUP,avg_balance_per_customer_eur,-49.90244775039764,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-07-31,GROUP,dpd30_rate,1.4368097008173042e-05,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-07-31,GROUP,dpd30_rate,-0.00022773403690742877,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-07-31,GROUP,dpd30_rate,-0.0006513896331972052,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-07-31,GROUP,dpd90_rate,8.132646802012228e-06,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-07-31,GROUP,dpd90_rate,-0.00011580089504654306,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-07-31,GROUP,new_originations_eur,9887.990199999884,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-07-31,GROUP,new_originations_eur,-41100.44510000013,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-07-31,GROUP,portfolio_balance_eur,0.7883715592324734,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2026-07-31,GROUP,portfolio_balance_eur,-3262932.9246358685,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-07-31,GROUP,portfolio_balance_eur,-589397.8103799485,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-07-31,PL,approval_rate,0.05775719378660549,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-07-31,PL,avg_balance_per_customer_eur,106.70058799147637,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-07-31,PL,avg_balance_per_customer_eur,-273.9140675726808,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-07-31,PL,dpd30_rate,-0.004178861194823181,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-07-31,PL,new_originations_eur,6778.803799999994,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-07-31,PL,portfolio_balance_eur,0.5632758606225252,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2026-07-31,PL,portfolio_balance_eur,-1394496.518012518,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-07-31,RO,approval_rate,0.060404724682994626,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-07-31,RO,avg_balance_per_customer_eur,95.07062087288114,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-07-31,RO,avg_balance_per_customer_eur,-286.6337705254073,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-07-31,RO,avg_balance_per_customer_eur,-195.7481934174525,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-07-31,RO,dpd30_rate,-0.002524978797546998,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-07-31,RO,new_originations_eur,745.5733999999939,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-07-31,RO,new_originations_eur,-41100.445099999895,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-07-31,RO,portfolio_balance_eur,-863054.2830520002,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-07-31,RO,portfolio_balance_eur,-589397.8103799494,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-08-31,CZ,approval_rate,0.05181372549019614,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-08-31,CZ,avg_balance_per_customer_eur,87.51421759031382,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-08-31,CZ,avg_balance_per_customer_eur,-267.40435424669613,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-08-31,CZ,dpd30_rate,-0.0038521534718423643,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-08-31,CZ,new_originations_eur,-2210.390000000014,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-08-31,CZ,new_originations_eur,0.3349999999627471,0.1,D3,"convert each account's amount to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2026-08-31,CZ,portfolio_balance_eur,-1011590.6721152514,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-08-31,GROUP,approval_rate,0.055455496452150976,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-08-31,GROUP,avg_balance_per_customer_eur,96.17601970130727,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-08-31,GROUP,avg_balance_per_customer_eur,-276.9287797716711,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-08-31,GROUP,avg_balance_per_customer_eur,-50.97202150135581,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-08-31,GROUP,dpd30_rate,-5.742273006849319e-06,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-08-31,GROUP,dpd30_rate,-0.0001925597743033594,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-08-31,GROUP,dpd30_rate,-0.0014071953672569956,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-08-31,GROUP,dpd90_rate,-2.0397762785125118e-06,1e-07,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-08-31,GROUP,dpd90_rate,-9.88746145769541e-05,1e-07,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-08-31,GROUP,new_originations_eur,-1422.2984000002034,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-08-31,GROUP,new_originations_eur,0.3996000001206994,0.1,D3,"convert each account's amount to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2026-08-31,GROUP,new_originations_eur,-45731.95019999985,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-08-31,GROUP,portfolio_balance_eur,-0.1440786011517048,0.1,D1,"convert each account's balance to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2026-08-31,GROUP,portfolio_balance_eur,-3336161.009909317,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-08-31,GROUP,portfolio_balance_eur,-614059.9430268332,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-08-31,PL,approval_rate,0.06236945927129267,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-08-31,PL,avg_balance_per_customer_eur,105.19003653749769,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-08-31,PL,avg_balance_per_customer_eur,-270.60234942677243,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-08-31,PL,dpd30_rate,0.0029830329603621093,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-08-31,PL,new_originations_eur,935.9219999999041,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-08-31,PL,new_originations_eur,0.10400000005029142,0.1,D3,"convert each account's amount to EUR and sum, instead of converting the country total",DEFINITION_CHANGE,rounding
+2026-08-31,PL,portfolio_balance_eur,-1407673.4217180703,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-08-31,RO,approval_rate,0.047251845775225565,1e-07,D6,"divide by decisioned applications (approved plus declined), instead of all applications received",DEFINITION_CHANGE,definition
+2026-08-31,RO,avg_balance_per_customer_eur,92.01388471732434,0.1,D7,"divide by distinct customers, instead of active accounts",DEFINITION_CHANGE,definition
+2026-08-31,RO,avg_balance_per_customer_eur,-299.443800155454,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-08-31,RO,avg_balance_per_customer_eur,-200.5421107207153,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-08-31,RO,dpd30_rate,-0.006024297604783457,1e-07,F3,The 30+ days past due rate uses the previous month's arrears,LEGACY_ERROR,legacy_formula
+2026-08-31,RO,new_originations_eur,-147.8304000000935,0.1,D2,"convert flows at the monthly average rate, instead of the month end rate",DEFINITION_CHANGE,definition
+2026-08-31,RO,new_originations_eur,-45731.95020000008,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
+2026-08-31,RO,portfolio_balance_eur,-916896.9160760008,0.1,F1,A personal loan product is counted twice in the portfolio balance,LEGACY_ERROR,legacy_formula
+2026-08-31,RO,portfolio_balance_eur,-614059.9430268295,0.1,F2,Romania is converted to EUR at a hardcoded rate,LEGACY_ERROR,legacy_formula
