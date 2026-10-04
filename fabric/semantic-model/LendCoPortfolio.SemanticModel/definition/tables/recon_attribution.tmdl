@@ -1,0 +1,85 @@
+/// Every difference between the legacy pack and gold, with its named cause.
+table recon_attribution
+	lineageTag: b42de1ed-e86c-585e-adc2-f57ce6a98004
+
+	/// How much of the difference between the legacy pack and the new model is explained by faults in the legacy formulas, on the portfolio balance. Negative means the legacy pack was too high.
+	measure 'Legacy error effect (EUR)' = CALCULATE(SUM(recon_attribution[amount]), recon_attribution[classification] = "LEGACY_ERROR", recon_attribution[kpi] = "portfolio_balance_eur")
+		formatString: #,0
+		displayFolder: Trust
+		lineageTag: 9d6ac822-146a-571f-9a76-8863adb529d3
+
+	/// Published figures whose difference has no named cause. This must be zero, or the migration is not finished.
+	measure 'Unexplained differences' = CALCULATE(COUNTROWS(recon_attribution), recon_attribution[classification] = "UNEXPLAINED")
+		formatString: #,0
+		displayFolder: Trust
+		lineageTag: 19ac9681-9688-57d5-9a5d-339bd6d727e6
+
+	column month_end
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: cba2b46d-fe6b-5cc4-a0e8-7b5bc6b72a93
+		summarizeBy: none
+		sourceColumn: month_end
+
+	/// Country code, or GROUP.
+	column scope
+		dataType: string
+		lineageTag: 55dc1935-7ab2-577a-a73a-ab00704629c8
+		summarizeBy: none
+		sourceColumn: scope
+
+	column kpi
+		dataType: string
+		lineageTag: 35e51cef-7e67-5b56-9c6a-5259206d54ac
+		summarizeBy: none
+		sourceColumn: kpi
+
+	/// Effect of this cause on this figure, in the KPI's own unit.
+	column amount
+		dataType: double
+		formatString: #,0.00
+		lineageTag: c89c79a5-f2dc-5d61-90cc-54e834fefbfe
+		summarizeBy: none
+		sourceColumn: amount
+
+	column tolerance
+		dataType: double
+		isHidden
+		formatString: #,0.00######
+		lineageTag: dfbb1e6c-fb80-5ea9-ae91-a4b3b4599fcb
+		summarizeBy: none
+		sourceColumn: tolerance
+
+	/// F1 to F3 are legacy faults, D1 to D8 definition changes.
+	column cause_id
+		dataType: string
+		lineageTag: 7451b468-effc-5d3c-8da4-1fa44f99d357
+		summarizeBy: none
+		sourceColumn: cause_id
+
+	column cause
+		dataType: string
+		lineageTag: ce0f89aa-40b6-5bb4-9040-8daa4b68cf4b
+		summarizeBy: none
+		sourceColumn: cause
+
+	/// LEGACY_ERROR, DEFINITION_CHANGE, NEW_MODEL_ERROR or UNEXPLAINED.
+	column classification
+		dataType: string
+		lineageTag: 63e44b72-912b-5f27-a4f7-0c480bbdf84b
+		summarizeBy: none
+		sourceColumn: classification
+
+	column kind
+		dataType: string
+		isHidden
+		lineageTag: 25e5f759-d506-5f9d-af0b-01f45348da66
+		summarizeBy: none
+		sourceColumn: kind
+
+	partition recon_attribution = entity
+		mode: directLake
+		source
+			entityName: recon_attribution
+			schemaName: dbo
+			expressionSource: DatabaseQuery

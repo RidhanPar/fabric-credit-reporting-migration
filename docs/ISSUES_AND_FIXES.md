@@ -187,3 +187,43 @@ Only issues that actually happened are recorded here.
 * **Say:** "The cheap CI job is the one that catches layering mistakes. It does
   not install Spark, so an accidental dependency on it fails immediately. I moved
   the shared metadata into a module that neither layer owns."
+
+## Phase 5
+
+### 12. TMDL descriptions have to sit above the object
+
+* **Seen:** the first generated TMDL put each column's `///` description inside
+  the column block, above `dataType`.
+* **Diagnosis:** in TMDL a description is a comment on the line *above* the
+  object it documents, at the object's own indentation. Inside the block it is
+  either ignored or a parse error, so every column description would have been
+  silently lost on load.
+* **Fix:** the generator emits the comment before the `column` line.
+* **Evidence:** `tests/test_semantic_model.py` parses the files back and asserts
+  every measure has a description, so a regression fails the build.
+* **Say:** "I generate the model and then parse it back in a test. The parser is
+  how I know the documentation is really attached to the objects, rather than
+  trusting that I typed it in the right place."
+
+### 13. My own tests caught two things I would have shipped
+
+* **Seen:** two failures the first time the model tests ran. One measure had a
+  36 character description. One rule, "hide anything starting with is_", flagged
+  `dim_product[is_revolving]`, which is a genuine business attribute.
+* **Fix:** wrote the real definition for the measure, and narrowed the rule to
+  boolean flags on fact tables, which are measure plumbing, with the reason
+  written into the test.
+* **Say:** "Tests on a semantic model are worth having because the failures are
+  about intent. One told me a definition was lazy. The other told me my rule was
+  wrong, not the model."
+
+### 14. A shell sitting in a folder broke the generator on Windows
+
+* **Seen:** `PermissionError: [WinError 32] ... used by another process` when the
+  generator tried to delete its output folder before rebuilding.
+* **Root cause:** a shell had its working directory inside that folder. Windows
+  will not remove a directory any process is sitting in.
+* **Fix:** the generator clears the generated `.tmdl` files instead of removing
+  the directories.
+* **Say:** "Small thing, but build scripts that delete directories are fragile on
+  Windows. Deleting the files you generated is enough."

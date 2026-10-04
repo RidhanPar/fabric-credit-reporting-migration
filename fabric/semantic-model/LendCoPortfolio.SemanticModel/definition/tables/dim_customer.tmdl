@@ -1,0 +1,57 @@
+/// One row per customer. Filtered by row level security.
+table dim_customer
+	lineageTag: e451fab7-e3a4-5100-bf4d-59b6ce22f10a
+
+	column customer_id
+		dataType: string
+		lineageTag: eeb9a493-288e-5777-9de6-4af61f0ea994
+		summarizeBy: none
+		sourceColumn: customer_id
+
+	column country_code
+		dataType: string
+		isHidden
+		lineageTag: 543fd720-bbfd-5325-8011-ff70a6a5f898
+		summarizeBy: none
+		sourceColumn: country_code
+
+	column employment_status
+		dataType: string
+		lineageTag: 1b8df65f-f035-51e9-b4c5-ac6c6d59fcba
+		summarizeBy: none
+		sourceColumn: employment_status
+
+	/// A to E at application.
+	column risk_grade
+		dataType: string
+		lineageTag: 82d22ec0-b5a3-5ddd-ad0a-294ad830034f
+		summarizeBy: none
+		sourceColumn: risk_grade
+
+	column customer_since
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 8c80abf6-15ef-50c5-94b9-838e42f696c0
+		summarizeBy: none
+		sourceColumn: customer_since
+
+	column monthly_income_local
+		dataType: decimal
+		isHidden
+		formatString: #,0.00
+		lineageTag: 5b45844c-3f3e-5dda-9fbe-01cbe8ee1322
+		summarizeBy: none
+		sourceColumn: monthly_income_local
+
+	column age_band
+		dataType: string
+		lineageTag: 5c59aa3d-6a48-54fb-b343-beae5b342572
+		summarizeBy: none
+		sourceColumn: age_band
+
+	partition dim_customer = entity
+		mode: directLake
+		source
+			entityName: dim_customer
+			schemaName: dbo
+			expressionSource: DatabaseQuery

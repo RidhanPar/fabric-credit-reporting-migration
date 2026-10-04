@@ -21,6 +21,8 @@ jobs:
         run: ruff check src tests scripts
       - name: Notebooks are up to date with the generator
         run: python scripts/build_fabric_notebooks.py && git diff --exit-code fabric/notebooks
+      - name: Semantic model is up to date with the generator
+        run: python scripts/build_semantic_model.py && git diff --exit-code fabric/semantic-model docs/MEASURES.md
       - name: Unit tests
         run: pytest -q
       - name: Generate data and legacy workbook

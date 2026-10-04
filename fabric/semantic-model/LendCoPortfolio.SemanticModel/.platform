@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "LendCoPortfolio"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "9a75ef63-2d7f-504f-ae1e-692ca82c0f41"
+  }
+}

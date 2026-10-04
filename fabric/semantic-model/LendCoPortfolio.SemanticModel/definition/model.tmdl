@@ -1,0 +1,30 @@
+model Model
+	culture: en-GB
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-GB
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["DatabaseQuery"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table dim_date
+ref table dim_country
+ref table dim_product
+ref table dim_customer
+ref table dim_account
+ref table fx_rate_monthly
+ref table fact_balance_snapshot
+ref table fact_origination
+ref table fact_application
+ref table fact_repayment
+ref table dq_results
+ref table recon_attribution
+
+ref role 'Poland country manager'
+ref role 'Czech country manager'
+ref role 'Romania country manager'
+ref role 'Group reporting'

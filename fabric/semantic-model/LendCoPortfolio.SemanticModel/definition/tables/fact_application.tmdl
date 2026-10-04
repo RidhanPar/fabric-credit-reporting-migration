@@ -1,0 +1,146 @@
+/// One row per credit application, in its current state.
+table fact_application
+	lineageTag: 4cdfcbdc-885f-525e-a907-a7dfd6d866b7
+
+	/// Applications submitted in the period, whatever happened to them.
+	measure 'Applications received' = COUNTROWS(fact_application)
+		formatString: #,0
+		displayFolder: Applications
+		lineageTag: 3689aa11-ffb0-5b41-8cde-cb0f1955e1a6
+
+	/// Applications that reached a credit decision: approved or declined. Withdrawn and incomplete applications are excluded.
+	measure 'Applications decisioned' = CALCULATE(COUNTROWS(fact_application), fact_application[is_decisioned] = TRUE())
+		formatString: #,0
+		displayFolder: Applications
+		lineageTag: 09c64e79-4ffb-54c6-88a8-1059195abbfe
+
+	/// Applications approved in the period, counted by the month the application was submitted, so approvals line up with the demand that produced them.
+	measure 'Applications approved' = CALCULATE(COUNTROWS(fact_application), fact_application[is_approved] = TRUE())
+		formatString: #,0
+		displayFolder: Applications
+		lineageTag: 1421d9a0-a2d2-538b-8807-aecc5de5a555
+
+	/// Approved as a share of decisioned applications. This is the definition agreed in the migration, because an application nobody decided says nothing about credit appetite.
+	measure 'Approval rate' = DIVIDE([Applications approved], [Applications decisioned])
+		formatString: 0.0%
+		displayFolder: Applications
+		lineageTag: b2b664e2-1b9c-5332-9193-737086f98d3e
+
+	/// The legacy definition: approved over everything received, including withdrawn and incomplete. Kept for the parallel run, and it reads about 5 points lower.
+	measure 'Approval rate (legacy definition)' = DIVIDE([Applications approved], [Applications received])
+		formatString: 0.0%
+		displayFolder: Migration
+		lineageTag: f061cd5b-55d2-5ac6-bfde-623cb082bb89
+
+	column application_id
+		dataType: string
+		isHidden
+		lineageTag: cde68a06-17b4-57d3-a53e-001654001f90
+		summarizeBy: none
+		sourceColumn: application_id
+
+	column customer_id
+		dataType: string
+		isHidden
+		lineageTag: ad90ed35-daac-5a88-964c-e09a70c1a7f2
+		summarizeBy: none
+		sourceColumn: customer_id
+
+	column country_code
+		dataType: string
+		isHidden
+		lineageTag: a2c9e22a-1075-5ba6-a700-35099ecf413f
+		summarizeBy: none
+		sourceColumn: country_code
+
+	column product_code
+		dataType: string
+		isHidden
+		lineageTag: a53bdb46-10a4-5f61-b196-9949c4544117
+		summarizeBy: none
+		sourceColumn: product_code
+
+	/// ONLINE, BRANCH or BROKER.
+	column channel
+		dataType: string
+		lineageTag: be0e3b90-a719-5127-aa8d-6aeb08e3fdfe
+		summarizeBy: none
+		sourceColumn: channel
+
+	column risk_grade
+		dataType: string
+		lineageTag: b97c7789-fc03-5fd0-a712-ae7087eb3b22
+		summarizeBy: none
+		sourceColumn: risk_grade
+
+	/// APPROVED, DECLINED, WITHDRAWN or INCOMPLETE.
+	column status
+		dataType: string
+		lineageTag: 6cd3bc65-0457-560a-b736-90745d2e89dd
+		summarizeBy: none
+		sourceColumn: status
+
+	column application_date
+		dataType: dateTime
+		isHidden
+		formatString: yyyy-mm-dd
+		lineageTag: 82e81871-3425-5692-9877-66282f7cd8e5
+		summarizeBy: none
+		sourceColumn: application_date
+
+	column date_key
+		dataType: int64
+		isHidden
+		lineageTag: ca284c76-2de2-521e-b54a-c20d06277abb
+		summarizeBy: none
+		sourceColumn: date_key
+
+	column month_end_key
+		dataType: int64
+		isHidden
+		lineageTag: 1d13bc48-0b90-52e9-ab25-af603eae8e08
+		summarizeBy: none
+		sourceColumn: month_end_key
+
+	column decision_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 18fc0f18-45df-5af2-b358-106dcfd537f3
+		summarizeBy: none
+		sourceColumn: decision_date
+
+	column is_decisioned
+		dataType: boolean
+		isHidden
+		lineageTag: 7a14ec94-df35-55e9-9486-a28bae7dec2c
+		summarizeBy: none
+		sourceColumn: is_decisioned
+
+	column is_approved
+		dataType: boolean
+		isHidden
+		lineageTag: 5637cd0b-b416-5f35-8dc0-26e79fcc4d1d
+		summarizeBy: none
+		sourceColumn: is_approved
+
+	column requested_amount_local
+		dataType: decimal
+		isHidden
+		formatString: #,0.00
+		lineageTag: 1e8f8649-a8d8-5ca1-9ba2-5721683e4b0a
+		summarizeBy: none
+		sourceColumn: requested_amount_local
+
+	column requested_amount_eur
+		dataType: decimal
+		formatString: #,0.00
+		lineageTag: fd00249e-86a0-5bd1-ae42-e5ffec2839e8
+		summarizeBy: none
+		sourceColumn: requested_amount_eur
+
+	partition fact_application = entity
+		mode: directLake
+		source
+			entityName: fact_application
+			schemaName: dbo
+			expressionSource: DatabaseQuery

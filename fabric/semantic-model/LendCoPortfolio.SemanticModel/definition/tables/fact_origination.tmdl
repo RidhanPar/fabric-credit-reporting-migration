@@ -1,0 +1,124 @@
+/// One row per account, at the month end it was disbursed in.
+table fact_origination
+	lineageTag: 39b9b980-7209-528a-becd-da199324e572
+
+	/// Accounts disbursed in the period, counted in the month the money left the building.
+	measure 'New accounts' = COUNTROWS(fact_origination)
+		formatString: #,0
+		displayFolder: Origination
+		lineageTag: 15157c85-1e58-5068-a933-4b247587f410
+
+	/// Amount disbursed in the period, in EUR. A flow, so it is converted at the monthly average rate rather than the month end rate.
+	measure 'New originations (EUR)' = SUM(fact_origination[amount_eur])
+		formatString: #,0
+		displayFolder: Origination
+		lineageTag: cff320de-f5aa-507d-b45f-0fc6297463c4
+
+	/// Average amount disbursed per new account.
+	measure 'Avg loan size (EUR)' = DIVIDE([New originations (EUR)], [New accounts])
+		formatString: #,0
+		displayFolder: Origination
+		lineageTag: b6f2c60a-dbb1-54bc-9cf8-f4648720a502
+
+	column account_id
+		dataType: string
+		isHidden
+		lineageTag: 9f684ba5-1477-59fb-a45a-d15ef9185e76
+		summarizeBy: none
+		sourceColumn: account_id
+
+	column customer_id
+		dataType: string
+		isHidden
+		lineageTag: f76f3d5a-c618-5df6-a022-94a4b64b54d7
+		summarizeBy: none
+		sourceColumn: customer_id
+
+	column country_code
+		dataType: string
+		isHidden
+		lineageTag: af43b8f7-2b8c-5018-a127-26a23c78c726
+		summarizeBy: none
+		sourceColumn: country_code
+
+	column product_code
+		dataType: string
+		isHidden
+		lineageTag: 85017bc9-ef3c-5843-8ef2-5cce38e8abb1
+		summarizeBy: none
+		sourceColumn: product_code
+
+	column currency
+		dataType: string
+		isHidden
+		lineageTag: 993dc97c-0ab9-5461-b6be-ace32324f364
+		summarizeBy: none
+		sourceColumn: currency
+
+	column open_date
+		dataType: dateTime
+		isHidden
+		formatString: yyyy-mm-dd
+		lineageTag: 8128dbe6-af99-528c-831a-c687c3c61bfc
+		summarizeBy: none
+		sourceColumn: open_date
+
+	column date_key
+		dataType: int64
+		isHidden
+		lineageTag: 88617638-537c-53db-93d1-06aac5d84826
+		summarizeBy: none
+		sourceColumn: date_key
+
+	column month_end_key
+		dataType: int64
+		isHidden
+		lineageTag: 7a30db9e-29a5-59c1-aba7-de1138a9bc36
+		summarizeBy: none
+		sourceColumn: month_end_key
+
+	column amount_local
+		dataType: decimal
+		isHidden
+		formatString: #,0.00
+		lineageTag: e87a2d28-6673-55d4-9a0b-589c12c89cad
+		summarizeBy: none
+		sourceColumn: amount_local
+
+	column fx_rate_avg
+		dataType: decimal
+		isHidden
+		formatString: 0.0000
+		lineageTag: f2d62bec-2f5d-57e7-a511-9363cfcfca9c
+		summarizeBy: none
+		sourceColumn: fx_rate_avg
+
+	column amount_eur
+		dataType: decimal
+		formatString: #,0.00
+		lineageTag: 9ab6746b-16b5-51ca-b214-e785109b6429
+		summarizeBy: none
+		sourceColumn: amount_eur
+
+	column fx_rate_month_end
+		dataType: decimal
+		isHidden
+		formatString: 0.0000
+		lineageTag: 6b349d71-a976-501c-b110-dd7119c1e677
+		summarizeBy: none
+		sourceColumn: fx_rate_month_end
+
+	column amount_eur_month_end_rate
+		dataType: decimal
+		isHidden
+		formatString: #,0.00
+		lineageTag: 7f8adccd-a0d6-51fb-946b-d9343a87ccd4
+		summarizeBy: none
+		sourceColumn: amount_eur_month_end_rate
+
+	partition fact_origination = entity
+		mode: directLake
+		source
+			entityName: fact_origination
+			schemaName: dbo
+			expressionSource: DatabaseQuery

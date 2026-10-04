@@ -1,0 +1,98 @@
+/// Data quality check results, one row per check per run. Reported on, not joined.
+table dq_results
+	lineageTag: bf9c6267-d845-59c0-a397-a4fdcd2e01a2
+
+	/// Data quality checks recorded for the runs in context.
+	measure 'Quality checks run' = COUNTROWS(dq_results)
+		formatString: #,0
+		displayFolder: Trust
+		lineageTag: da87b1b5-dbe6-532f-aa8b-9b81eb8d93d7
+
+	/// Checks that failed. An ERROR here means gold did not publish.
+	measure 'Quality checks failed' = CALCULATE(COUNTROWS(dq_results), dq_results[passed] = FALSE())
+		formatString: #,0
+		displayFolder: Trust
+		lineageTag: 469d2977-8b1d-5239-974f-09764cd3f253
+
+	column batch_id
+		dataType: string
+		lineageTag: ff03de04-a255-582f-b5af-372e37fae7ac
+		summarizeBy: none
+		sourceColumn: batch_id
+
+	/// silver, gold or kpi.
+	column layer
+		dataType: string
+		lineageTag: 16966d43-6f0e-505a-9aaf-f3def65d2764
+		summarizeBy: none
+		sourceColumn: layer
+
+	column table_name
+		dataType: string
+		lineageTag: d778477e-d3e7-536a-8b5c-17a6860f78b8
+		summarizeBy: none
+		sourceColumn: table_name
+
+	column check_name
+		dataType: string
+		lineageTag: 1833d79a-d591-5923-a397-3d8e86296651
+		summarizeBy: none
+		sourceColumn: check_name
+
+	column kind
+		dataType: string
+		lineageTag: d83e6ac9-f0e3-5b0f-8e44-4bd991492f9f
+		summarizeBy: none
+		sourceColumn: kind
+
+	/// ERROR stops the publish, WARN does not.
+	column severity
+		dataType: string
+		lineageTag: a73bebb3-1925-5549-8145-556845cc3b64
+		summarizeBy: none
+		sourceColumn: severity
+
+	column rows_checked
+		dataType: int64
+		lineageTag: e301d3ff-a0fd-5b92-bfc0-de4d86552269
+		summarizeBy: none
+		sourceColumn: rows_checked
+
+	column rows_failed
+		dataType: int64
+		lineageTag: 6ece394f-5695-51a2-8284-f0150e9f1027
+		summarizeBy: none
+		sourceColumn: rows_failed
+
+	column passed
+		dataType: boolean
+		lineageTag: 60732429-476a-55c1-9a23-a914a1466b76
+		summarizeBy: none
+		sourceColumn: passed
+
+	column detail
+		dataType: string
+		lineageTag: 4e8c45e0-871b-50bc-be04-1023458db513
+		summarizeBy: none
+		sourceColumn: detail
+
+	column seconds
+		dataType: double
+		formatString: 0.00
+		lineageTag: 57281679-cb8a-5829-bdeb-2d1ea99933b0
+		summarizeBy: none
+		sourceColumn: seconds
+
+	column checked_at
+		dataType: dateTime
+		formatString: yyyy-mm-dd hh:nn:ss
+		lineageTag: 4db5ad50-556b-588b-9dc2-dd0882fabba5
+		summarizeBy: none
+		sourceColumn: checked_at
+
+	partition dq_results = entity
+		mode: directLake
+		source
+			entityName: dq_results
+			schemaName: dbo
+			expressionSource: DatabaseQuery

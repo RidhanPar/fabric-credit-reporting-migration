@@ -1,0 +1,211 @@
+/// One row per account per month end. The balance measures are semi additive.
+table fact_balance_snapshot
+	lineageTag: 0b7a91bb-21e1-5cb0-88e7-781f5cd0780e
+
+	/// Balance of active accounts in EUR at a month end, converted at that month's closing rate. A balance is a stock, so over a longer period this reports the latest month end in the period rather than a sum of month ends.
+	measure 'Portfolio balance (EUR)' = LASTNONBLANKVALUE(dim_date[date_key], CALCULATE(SUM(fact_balance_snapshot[balance_eur]), fact_balance_snapshot[is_active] = TRUE()))
+		formatString: #,0
+		displayFolder: Portfolio
+		lineageTag: 05756482-8264-5313-beca-042d0d9be8b0
+
+	/// The portfolio balance one month earlier, used by the growth measure. Time intelligence like this only works because dim_date is marked as the model's date table.
+	measure 'Portfolio balance last month (EUR)' = CALCULATE([Portfolio balance (EUR)], DATEADD(dim_date[date], -1, MONTH))
+		formatString: #,0
+		isHidden
+		displayFolder: Portfolio
+		lineageTag: 28f5811b-790f-5f91-98a1-7bb95af4c934
+
+	/// Month on month growth of the portfolio balance.
+	measure 'Portfolio balance MoM %' = DIVIDE([Portfolio balance (EUR)] - [Portfolio balance last month (EUR)], [Portfolio balance last month (EUR)])
+		formatString: 0.0%
+		displayFolder: Portfolio
+		lineageTag: eb2b1d04-aec2-53e3-af08-060b200ba8cd
+
+	/// Accounts with an active status at a month end. Semi additive, like the balance.
+	measure 'Active accounts' = LASTNONBLANKVALUE(dim_date[date_key], CALCULATE(COUNTROWS(fact_balance_snapshot), fact_balance_snapshot[is_active] = TRUE()))
+		formatString: #,0
+		displayFolder: Portfolio
+		lineageTag: e7631cfc-f119-51c6-bcb2-4a294d9d6255
+
+	/// Distinct customers holding at least one active account at a month end. A customer with a loan and a card counts once.
+	measure 'Active customers' = LASTNONBLANKVALUE(dim_date[date_key], CALCULATE(DISTINCTCOUNT(fact_balance_snapshot[customer_id]), fact_balance_snapshot[is_active] = TRUE()))
+		formatString: #,0
+		displayFolder: Portfolio
+		lineageTag: f1253d0e-ce24-5a2b-8f74-ea80dfa1130e
+
+	/// Portfolio balance divided by distinct active customers. This is the definition agreed in the migration. The legacy pack divided by active accounts, which is a different number.
+	measure 'Avg balance per customer (EUR)' = DIVIDE([Portfolio balance (EUR)], [Active customers])
+		formatString: #,0
+		displayFolder: Portfolio
+		lineageTag: 87cb1725-019a-5136-8e2d-df27e5054efc
+
+	/// The legacy definition of average balance, kept so the old and new figures can be compared during the parallel run.
+	measure 'Avg balance per account (EUR)' = DIVIDE([Portfolio balance (EUR)], [Active accounts])
+		formatString: #,0
+		displayFolder: Migration
+		lineageTag: 2fec3c14-79a3-50a7-bb32-5ae9ddbd5ff1
+
+	/// Balance of active accounts 30 or more days past due, at a month end.
+	measure 'Balance 30+ DPD (EUR)' = LASTNONBLANKVALUE(dim_date[date_key], CALCULATE(SUM(fact_balance_snapshot[balance_eur]), fact_balance_snapshot[is_dpd30] = TRUE()))
+		formatString: #,0
+		displayFolder: Credit quality
+		lineageTag: ae83bd1f-7a24-5f5a-925c-3ad31b63d467
+
+	/// Balance 30 or more days past due as a share of the active portfolio balance. A balance weighted rate, not an account count rate, because it is the money at risk that matters for impairment.
+	measure '30+ DPD rate' = DIVIDE([Balance 30+ DPD (EUR)], [Portfolio balance (EUR)])
+		formatString: 0.00%
+		displayFolder: Credit quality
+		lineageTag: 4f486655-2e16-56d1-9250-82985f07f1cc
+
+	/// Balance of active accounts 90 or more days past due, at a month end. Accounts are written off at 180 days, so they leave this measure then.
+	measure 'Balance 90+ DPD (EUR)' = LASTNONBLANKVALUE(dim_date[date_key], CALCULATE(SUM(fact_balance_snapshot[balance_eur]), fact_balance_snapshot[is_dpd90] = TRUE()))
+		formatString: #,0
+		displayFolder: Credit quality
+		lineageTag: 9fd159bf-f54a-5cb5-8a24-ef0e4df9abe5
+
+	/// Balance 90 or more days past due as a share of the active portfolio balance.
+	measure '90+ DPD rate' = DIVIDE([Balance 90+ DPD (EUR)], [Portfolio balance (EUR)])
+		formatString: 0.00%
+		displayFolder: Credit quality
+		lineageTag: d882e79f-a0db-5d40-861c-738271b0f271
+
+	/// The 30+ rate one month earlier, used by the change measure. Hidden, because a report author should pick the change measure rather than build the subtraction again.
+	measure '30+ DPD rate last month' = CALCULATE([30+ DPD rate], DATEADD(dim_date[date], -1, MONTH))
+		formatString: 0.00%
+		isHidden
+		displayFolder: Credit quality
+		lineageTag: 00e053d4-a65f-5604-beb6-283a39ff4320
+
+	/// Change in the 30+ rate against the previous month, in percentage points.
+	measure '30+ DPD rate change' = [30+ DPD rate] - [30+ DPD rate last month]
+		formatString: +0.00%;-0.00%;0.00%
+		displayFolder: Credit quality
+		lineageTag: e0ab179e-a8e5-5ab0-94be-82433a458447
+
+	column account_id
+		dataType: string
+		isHidden
+		lineageTag: 4d76fed4-711e-5795-bd1f-cf59973b12fe
+		summarizeBy: none
+		sourceColumn: account_id
+
+	column customer_id
+		dataType: string
+		isHidden
+		lineageTag: 27654b47-c4e1-53c2-94b7-619a466abec9
+		summarizeBy: none
+		sourceColumn: customer_id
+
+	column country_code
+		dataType: string
+		isHidden
+		lineageTag: 20a1b2af-43a9-5751-bda5-6ba2193623eb
+		summarizeBy: none
+		sourceColumn: country_code
+
+	column product_code
+		dataType: string
+		isHidden
+		lineageTag: a40db7c3-cc0b-5019-b617-46d6c1c7b229
+		summarizeBy: none
+		sourceColumn: product_code
+
+	column currency
+		dataType: string
+		isHidden
+		lineageTag: d66b0646-e4aa-511d-a5d5-02f7e4656e07
+		summarizeBy: none
+		sourceColumn: currency
+
+	column snapshot_date
+		dataType: dateTime
+		isHidden
+		formatString: yyyy-mm-dd
+		lineageTag: fa4cdaf5-1b49-5ca9-91a6-6e56a6786a63
+		summarizeBy: none
+		sourceColumn: snapshot_date
+
+	column date_key
+		dataType: int64
+		isHidden
+		lineageTag: 285af862-2719-591e-a26d-5753e3ea0ce1
+		summarizeBy: none
+		sourceColumn: date_key
+
+	column account_status
+		dataType: string
+		lineageTag: 458f0fef-0600-5fd9-ac17-716f48162c6f
+		summarizeBy: none
+		sourceColumn: account_status
+
+	column is_active
+		dataType: boolean
+		isHidden
+		lineageTag: 44af5e38-8987-56cd-97de-d1627bb60ac0
+		summarizeBy: none
+		sourceColumn: is_active
+
+	column days_past_due
+		dataType: int64
+		lineageTag: 70cd86db-a7d7-55a7-9a39-82643acd8c7a
+		summarizeBy: none
+		sourceColumn: days_past_due
+
+	/// Current, 1-29, 30-59, 60-89, 90-179.
+	column dpd_bucket
+		dataType: string
+		lineageTag: 8d104747-c253-50af-94c1-69c16436747b
+		summarizeBy: none
+		sourceColumn: dpd_bucket
+		sortByColumn: dpd_bucket_order
+
+	column dpd_bucket_order
+		dataType: int64
+		isHidden
+		lineageTag: 8eb94a0e-7ee5-566f-9854-728060188199
+		summarizeBy: none
+		sourceColumn: dpd_bucket_order
+
+	column is_dpd30
+		dataType: boolean
+		isHidden
+		lineageTag: d6eeaa24-441e-5ec5-a637-454ec85a9679
+		summarizeBy: none
+		sourceColumn: is_dpd30
+
+	column is_dpd90
+		dataType: boolean
+		isHidden
+		lineageTag: 5ab0a3df-54df-5283-b9ed-dcb8941843e3
+		summarizeBy: none
+		sourceColumn: is_dpd90
+
+	column balance_local
+		dataType: decimal
+		isHidden
+		formatString: #,0.00
+		lineageTag: eef22690-4cb8-5781-878a-bc0fc52967cc
+		summarizeBy: none
+		sourceColumn: balance_local
+
+	column fx_rate
+		dataType: decimal
+		isHidden
+		formatString: 0.0000
+		lineageTag: 3df6baf9-3b67-5687-9304-810ee881ada0
+		summarizeBy: none
+		sourceColumn: fx_rate
+
+	column balance_eur
+		dataType: decimal
+		formatString: #,0.00
+		lineageTag: cd23e059-ff81-5056-882d-e0ff3c4663bd
+		summarizeBy: none
+		sourceColumn: balance_eur
+
+	partition fact_balance_snapshot = entity
+		mode: directLake
+		source
+			entityName: fact_balance_snapshot
+			schemaName: dbo
+			expressionSource: DatabaseQuery
