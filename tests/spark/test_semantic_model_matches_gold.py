@@ -12,8 +12,12 @@ from portfolio_migration import semantic_model as sm
 # workbook in OneLake, so it is not part of the local pipeline run.
 NOT_BUILT_LOCALLY = {"recon_attribution"}
 
+# Keys are what Spark's DataType.simpleString() returns, which is SQL style:
+# a LongType reads as "bigint", not "long".
 SPARK_TO_TMDL = {
-    "string": "string", "long": "int64", "int": "int64", "integer": "int64",
+    "string": "string",
+    "bigint": "int64", "long": "int64", "int": "int64", "integer": "int64",
+    "smallint": "int64", "tinyint": "int64",
     "date": "dateTime", "timestamp": "dateTime", "timestamp_ntz": "dateTime",
     "boolean": "boolean", "double": "double", "float": "double",
 }
