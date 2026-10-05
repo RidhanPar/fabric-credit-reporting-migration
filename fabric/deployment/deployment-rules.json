@@ -1,0 +1,110 @@
+{
+  "_comment": [
+    "The intended configuration of the Fabric deployment pipeline, recorded as text so it can be",
+    "reviewed and so a new item cannot be promoted without someone deciding what happens to its",
+    "connections. Deployment rules themselves are set in the portal: this file is the specification",
+    "and the checklist, not an importable artefact.",
+    "The rule that repoints the default lakehouse is the most important line here. Promote without it",
+    "and production reads development data, which is the worst kind of bug: everything works and the",
+    "numbers are wrong."
+  ],
+  "pipeline": "portfolio-reporting",
+  "stages": [
+    {
+      "name": "Development",
+      "workspace": "portfolio-reporting-dev",
+      "git_connected": true,
+      "git_branch": "main",
+      "git_directory": "fabric/workspace",
+      "note": "The only workspace connected to Git. Everything starts here."
+    },
+    {
+      "name": "Production",
+      "workspace": "portfolio-reporting-prod",
+      "git_connected": false,
+      "note": "Fed only by promotion from Development, so there is exactly one path into production."
+    }
+  ],
+  "rules": [
+    {
+      "item": "nb_01_bronze.Notebook",
+      "item_type": "Notebook",
+      "rule": "Default lakehouse",
+      "development": "lh_portfolio in portfolio-reporting-dev",
+      "production": "lh_portfolio in portfolio-reporting-prod",
+      "why": "Without this rule the promoted notebook keeps writing to the development lakehouse."
+    },
+    {
+      "item": "nb_02_silver.Notebook",
+      "item_type": "Notebook",
+      "rule": "Default lakehouse",
+      "development": "lh_portfolio in portfolio-reporting-dev",
+      "production": "lh_portfolio in portfolio-reporting-prod",
+      "why": "Same reason as bronze."
+    },
+    {
+      "item": "nb_03_gold.Notebook",
+      "item_type": "Notebook",
+      "rule": "Default lakehouse",
+      "development": "lh_portfolio in portfolio-reporting-dev",
+      "production": "lh_portfolio in portfolio-reporting-prod",
+      "why": "Same reason as bronze."
+    },
+    {
+      "item": "nb_04_reconciliation.Notebook",
+      "item_type": "Notebook",
+      "rule": "Default lakehouse",
+      "development": "lh_portfolio in portfolio-reporting-dev",
+      "production": "lh_portfolio in portfolio-reporting-prod",
+      "why": "Also needs Files/legacy/Monthly_Portfolio_Pack.xlsx present in the production lakehouse."
+    },
+    {
+      "item": "nb_05_monitoring.Notebook",
+      "item_type": "Notebook",
+      "rule": "Default lakehouse",
+      "development": "lh_portfolio in portfolio-reporting-dev",
+      "production": "lh_portfolio in portfolio-reporting-prod",
+      "why": "Monitoring must watch production's own run log, not development's."
+    },
+    {
+      "item": "LendCoPortfolio.SemanticModel",
+      "item_type": "SemanticModel",
+      "rule": "Data source connection",
+      "development": "SQL analytics endpoint of lh_portfolio in portfolio-reporting-dev",
+      "production": "SQL analytics endpoint of lh_portfolio in portfolio-reporting-prod",
+      "why": "A Direct Lake model promoted without this rule would read development gold tables."
+    },
+    {
+      "item": "pl_portfolio_medallion.DataPipeline",
+      "item_type": "DataPipeline",
+      "rule": "Notebook references",
+      "development": "the notebooks in portfolio-reporting-dev",
+      "production": "the notebooks in portfolio-reporting-prod",
+      "why": "Fabric rebinds activities to the promoted items. Check each activity after the first promotion."
+    }
+  ],
+  "not_promoted": [
+    {
+      "item": "env_portfolio.Environment",
+      "why": "The wheel is built in CI and published per workspace, so each stage gets its own Environment and the version in use is explicit.",
+      "action": "Upload the same wheel version to the production Environment before promoting the notebooks."
+    },
+    {
+      "item": "lh_portfolio.Lakehouse",
+      "why": "Data is not promoted. Production lands its own files and builds its own tables.",
+      "action": "Create the lakehouse in production once, with the same name, and land files into Files/landing."
+    }
+  ],
+  "before_promoting": [
+    "The development pipeline run is green, including the monitoring activity.",
+    "dq_results has no failed ERROR check in the latest batch.",
+    "recon_attribution has no UNEXPLAINED rows.",
+    "The wheel version in the production Environment matches the one in development.",
+    "The semantic model opens in development and row level security has been tested as each role."
+  ],
+  "after_promoting": [
+    "Run the production pipeline once by hand and check ops_pipeline_run has a SUCCEEDED row per step.",
+    "Check ops_freshness in production shows no stale source.",
+    "Open the production report and confirm the migration evidence page shows 0 unexplained differences."
+  ]
+}

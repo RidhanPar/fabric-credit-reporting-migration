@@ -227,3 +227,36 @@ Only issues that actually happened are recorded here.
   the directories.
 * **Say:** "Small thing, but build scripts that delete directories are fragile on
   Windows. Deleting the files you generated is enough."
+
+## Phase 6
+
+### 15. Freshness checks rot when the data has a fixed end date
+
+* **Seen:** adding a freshness check against the wall clock meant the monitoring
+  step would start failing on its own, a few weeks later, with no code change.
+  The generated data stops at a fixed month end, so the newest month end in gold
+  gets older every day while the pipeline keeps saying it succeeded.
+* **Why it matters:** a check that fails with time is worse than no check,
+  because people learn to ignore it.
+* **Fix:** freshness is measured against an `as_of` timestamp rather than
+  `now()`. In Fabric that is the real clock. A local run passes
+  `simulated_close()`, the morning after the last month end in the data, so the
+  check means something and CI does not rot. The reason is in the docstring, and
+  the freshness table records the `measured_at` it used.
+* **Say:** "Freshness has to be measured against a clock, so on a dataset with a
+  fixed end I inject the clock. Otherwise the test rots and the team learns to
+  ignore the alarm, which is worse than not having it."
+
+### 16. Monitoring on the success path would never fire
+
+* **Seen:** the first pipeline draft had Monitoring depending on Gold with
+  `Succeeded`, like every other activity.
+* **Diagnosis:** if silver fails, gold is skipped, so monitoring never runs. The
+  alerting is wired to exactly the case where it stays silent.
+* **Fix:** Monitoring depends on Gold with `Succeeded`, `Failed` and `Skipped`,
+  and the notebook raises afterwards if a critical alert fired, so the activity
+  itself goes red and the pipeline's failure path sends the message. A test
+  asserts those three conditions, because this is easy to undo by accident.
+* **Say:** "The monitoring step has to run when the pipeline fails, which is the
+  one case a success dependency excludes. It is in a test because it looks wrong
+  to anyone tidying up the dependencies."

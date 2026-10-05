@@ -1,19 +1,8 @@
 """The gate must stop a bad gold build from reaching the published tables."""
-import shutil
-
 import pytest
 
 from portfolio_migration.lakehouse import dq_checks, gold, quality
 from portfolio_migration.lakehouse.io import LocalLake
-
-
-@pytest.fixture
-def mutable_lake(lake_run, spark, tmp_path):
-    """A copy of the good lake, so a test can break it without affecting other tests."""
-    lake, _, _ = lake_run
-    root = tmp_path / "lake"
-    shutil.copytree(lake.root, root)
-    return LocalLake(spark, root, lake.landing_root)
 
 
 def test_every_check_passes_on_a_clean_run(lake_run):
