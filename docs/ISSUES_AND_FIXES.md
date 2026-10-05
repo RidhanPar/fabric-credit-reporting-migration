@@ -9,12 +9,13 @@ Only issues that actually happened are recorded here.
 | # | Story | Phase |
 |---|---|---|
 | 1 | The reconciliation found a bug in my own model: Spark truncated every rate to 6 decimals | 4 |
-| 2 | A null country code would have passed validation: unknown must mean invalid | 2 |
-| 3 | Spark would not start on Windows; ran it in a container matching Fabric Runtime 1.3 | 2 |
-| 4 | Interest rates silently rounded to 2 decimals in the landed files | 1 |
-| 5 | Spark columns built at import time crash before a session exists | 2 |
-| 6 | Python `hash()` would have made the JSON timestamps change on every run | 1 |
-| 7 | A bad parse gives null, not a wrong number, which changes which check catches it | 3 |
+| 2 | The alerts judged the newest run, not the run being monitored | 6 |
+| 3 | A null country code would have passed validation: unknown must mean invalid | 2 |
+| 4 | Spark would not start on Windows; ran it in a container matching Fabric Runtime 1.3 | 2 |
+| 5 | Interest rates silently rounded to 2 decimals in the landed files | 1 |
+| 6 | Spark columns built at import time crash before a session exists | 2 |
+| 7 | Python `hash()` would have made the JSON timestamps change on every run | 1 |
+| 8 | A bad parse gives null, not a wrong number, which changes which check catches it | 3 |
 
 ## Phase 1
 
@@ -227,3 +228,60 @@ Only issues that actually happened are recorded here.
   the directories.
 * **Say:** "Small thing, but build scripts that delete directories are fragile on
   Windows. Deleting the files you generated is enough."
+
+## Phase 6
+
+### 15. Freshness checks rot when the data has a fixed end date
+
+* **Seen:** adding a freshness check against the wall clock meant the monitoring
+  step would start failing on its own, a few weeks later, with no code change.
+  The generated data stops at a fixed month end, so the newest month end in gold
+  gets older every day while the pipeline keeps saying it succeeded.
+* **Why it matters:** a check that fails with time is worse than no check,
+  because people learn to ignore it.
+* **Fix:** freshness is measured against an `as_of` timestamp rather than
+  `now()`. In Fabric that is the real clock. A local run passes
+  `simulated_close()`, the morning after the last month end in the data, so the
+  check means something and CI does not rot. The reason is in the docstring, and
+  the freshness table records the `measured_at` it used.
+* **Say:** "Freshness has to be measured against a clock, so on a dataset with a
+  fixed end I inject the clock. Otherwise the test rots and the team learns to
+  ignore the alarm, which is worse than not having it."
+
+### 16. Monitoring on the success path would never fire
+
+* **Seen:** the first pipeline draft had Monitoring depending on Gold with
+  `Succeeded`, like every other activity.
+* **Diagnosis:** if silver fails, gold is skipped, so monitoring never runs. The
+  alerting is wired to exactly the case where it stays silent.
+* **Fix:** Monitoring depends on Gold with `Succeeded`, `Failed` and `Skipped`,
+  and the notebook raises afterwards if a critical alert fired, so the activity
+  itself goes red and the pipeline's failure path sends the message. A test
+  asserts those three conditions, because this is easy to undo by accident.
+* **Say:** "The monitoring step has to run when the pipeline fails, which is the
+  one case a success dependency excludes. It is in a test because it looks wrong
+  to anyone tidying up the dependencies."
+
+### 17. The alerts judged the newest run, not the run being monitored
+
+* **Seen:** two of the new monitoring tests failed. A FAILED step was written to
+  the run log and `PIPELINE_FAILED` did not fire. So did a silver step finishing
+  after gold, and `GOLD_BEHIND_SILVER` stayed quiet.
+* **Diagnosis:** the conditions looked up "the latest batch" by timestamp. The
+  tests injected rows dated before the rows the clean run had already written, so
+  the newest batch was still the clean one and the conditions reported on that.
+  My first instinct was that the tests were wrong. They were not: the logic was.
+* **Root cause:** monitoring runs as part of a run, so it has to report on *that*
+  run. Judging whichever batch is newest means a rerun of an older batch inherits
+  a later run's verdict, and a late arriving row from another process can mask a
+  failure.
+* **Fix:** alert conditions now take an `AlertContext` carrying the batch being
+  monitored, and report on that batch when it has rows, falling back to the
+  newest run only when it has none.
+* **Evidence:** `test_an_older_batch_is_not_judged_by_a_later_run` asserts both
+  directions: the old batch fires, the clean batch does not.
+* **Say:** "Two tests failed and I nearly fixed the tests. The real bug was that
+  my monitoring reported on whichever run was newest rather than the run it was
+  part of, so a rerun could inherit someone else's verdict. The alerting is the
+  part nobody reads until it matters, so it is the part I want wrong assumptions
+  out of."

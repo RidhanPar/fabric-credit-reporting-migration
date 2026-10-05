@@ -1,0 +1,67 @@
+{
+  "measured_on": "local Spark in Docker, not Direct Lake",
+  "environment": {
+    "spark": "3.5.5",
+    "python": "3.11.16",
+    "cores": 2
+  },
+  "fact_balance_snapshot_rows": 225357,
+  "queries": {
+    "exec_balance_by_month": {
+      "description": "Executive summary, portfolio balance by month and country",
+      "rows_returned": 72,
+      "runs": 5,
+      "first_run_ms": 10223.2,
+      "median_ms": 1264.0,
+      "best_ms": 1104.9
+    },
+    "exec_country_summary": {
+      "description": "Executive summary, the country table for the latest month end",
+      "rows_returned": 3,
+      "runs": 5,
+      "first_run_ms": 2490.1,
+      "median_ms": 1673.6,
+      "best_ms": 1465.5
+    },
+    "delinquency_trend": {
+      "description": "Delinquency page, 30+ and 90+ rates by month and country",
+      "rows_returned": 72,
+      "runs": 5,
+      "first_run_ms": 992.5,
+      "median_ms": 992.5,
+      "best_ms": 982.1
+    },
+    "delinquency_buckets": {
+      "description": "Delinquency page, balance by DPD bucket and month",
+      "rows_returned": 120,
+      "runs": 5,
+      "first_run_ms": 1182.2,
+      "median_ms": 1027.4,
+      "best_ms": 969.4
+    },
+    "delinquency_matrix": {
+      "description": "Delinquency page, country and product matrix with rates",
+      "rows_returned": 15,
+      "runs": 5,
+      "first_run_ms": 5138.3,
+      "median_ms": 2327.5,
+      "best_ms": 2159.2
+    },
+    "account_drillthrough": {
+      "description": "Account detail page, one account's balance and payment history",
+      "rows_returned": 1,
+      "runs": 5,
+      "first_run_ms": 2833.0,
+      "median_ms": 1409.9,
+      "best_ms": 1198.9
+    },
+    "kpi_table_scan": {
+      "description": "Migration evidence page, the whole monthly KPI table",
+      "rows_returned": 60,
+      "runs": 5,
+      "first_run_ms": 2925.9,
+      "median_ms": 1334.4,
+      "best_ms": 1262.3
+    }
+  }
+}

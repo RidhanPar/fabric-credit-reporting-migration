@@ -7,7 +7,7 @@ real gold schema.
 
     py -3.11 scripts/build_semantic_model.py
 
-Output: fabric/semantic-model/LendCoPortfolio.SemanticModel/ in the same layout
+Output: fabric/workspace/LendCoPortfolio.SemanticModel/ in the same layout
 Fabric Git integration uses, so the folder can be synced straight into a workspace.
 """
 from __future__ import annotations
@@ -18,7 +18,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 ROOT = Path(__file__).parents[1]
-OUT = ROOT / "fabric" / "semantic-model" / "LendCoPortfolio.SemanticModel"
+OUT = ROOT / "fabric" / "workspace" / "LendCoPortfolio.SemanticModel"
 NAMESPACE = uuid.UUID("1b6e7a8c-0d4f-4c3a-9f51-6c0e6a1d2f30")
 
 # Placeholders filled in by scripts/set_semantic_model_connection.py once the

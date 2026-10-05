@@ -20,7 +20,7 @@ py -3.11 -m pytest -q tests/test_semantic_model.py
 
 Then read two files. They are the deliverable of this phase:
 
-* `fabric/semantic-model/LendCoPortfolio.SemanticModel/definition/tables/fact_balance_snapshot.tmdl`,
+* `fabric/workspace/LendCoPortfolio.SemanticModel/definition/tables/fact_balance_snapshot.tmdl`,
   which holds the portfolio and credit quality measures with their business
   definitions as `///` comments.
 * `docs/REPORT_SPEC.md`, the four pages and every visual on them.
@@ -43,7 +43,7 @@ py -3.11 scripts/set_semantic_model_connection.py --endpoint <your endpoint> --d
 
 4. Commit the model through Git integration (Phase 6 sets this up), or, if you
    prefer to do Phase 5 before Phase 6: open the folder
-   `fabric/semantic-model/LendCoPortfolio.SemanticModel` in Power BI Desktop as a
+   `fabric/workspace/LendCoPortfolio.SemanticModel` in Power BI Desktop as a
    project and publish it to the workspace.
 5. Delete `LendCoPortfolio_probe`.
 6. Put the placeholders back before committing anything:

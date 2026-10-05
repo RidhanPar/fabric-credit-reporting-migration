@@ -16,7 +16,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).parents[1]
-EXPRESSIONS = ROOT / "fabric" / "semantic-model" / "LendCoPortfolio.SemanticModel" / "definition" / "expressions.tmdl"
+EXPRESSIONS = ROOT / "fabric" / "workspace" / "LendCoPortfolio.SemanticModel" / "definition" / "expressions.tmdl"
 ENDPOINT_PLACEHOLDER = "<SQL_ANALYTICS_ENDPOINT>"
 DATABASE_PLACEHOLDER = "<LAKEHOUSE_NAME_OR_ID>"
 SOURCE_LINE = re.compile(r'Source = Sql\.Database\("([^"]*)", "([^"]*)"\)')

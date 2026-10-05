@@ -10,7 +10,7 @@ import re
 from dataclasses import dataclass, field
 from pathlib import Path
 
-MODEL_DIR = Path(__file__).parents[2] / "fabric" / "semantic-model" / "LendCoPortfolio.SemanticModel"
+MODEL_DIR = Path(__file__).parents[2] / "fabric" / "workspace" / "LendCoPortfolio.SemanticModel"
 DEFINITION = MODEL_DIR / "definition"
 
 
