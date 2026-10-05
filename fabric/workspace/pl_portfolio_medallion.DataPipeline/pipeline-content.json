@@ -1,7 +1,6 @@
 {
-  "name": "pl_portfolio_medallion",
   "properties": {
-    "description": "Bronze, then silver, then gold. Each step runs only if the previous one succeeded. Retries are safe because every layer is idempotent.",
+    "description": "Bronze, then silver, then gold, each on success. Monitoring runs whatever happened upstream, so a failed run still raises the alarm. Retries are safe because every layer is idempotent.",
     "activities": [
       {
         "name": "Bronze",
@@ -15,8 +14,8 @@
           "secureInput": false
         },
         "typeProperties": {
-          "notebookId": "<nb_01_bronze item id, set by the portal>",
-          "workspaceId": "<portfolio-reporting-dev workspace id, set by the portal>",
+          "notebookId": "<nb_01_bronze item id, set by the portal on first sync>",
+          "workspaceId": "<workspace id, set by the portal on first sync>",
           "parameters": {
             "batch_id": {
               "value": {
@@ -47,8 +46,8 @@
           "secureInput": false
         },
         "typeProperties": {
-          "notebookId": "<nb_02_silver item id, set by the portal>",
-          "workspaceId": "<portfolio-reporting-dev workspace id, set by the portal>",
+          "notebookId": "<nb_02_silver item id, set by the portal on first sync>",
+          "workspaceId": "<workspace id, set by the portal on first sync>",
           "parameters": {
             "batch_id": {
               "value": {
@@ -79,8 +78,42 @@
           "secureInput": false
         },
         "typeProperties": {
-          "notebookId": "<nb_03_gold item id, set by the portal>",
-          "workspaceId": "<portfolio-reporting-dev workspace id, set by the portal>",
+          "notebookId": "<nb_03_gold item id, set by the portal on first sync>",
+          "workspaceId": "<workspace id, set by the portal on first sync>",
+          "parameters": {
+            "batch_id": {
+              "value": {
+                "value": "@pipeline().RunId",
+                "type": "Expression"
+              },
+              "type": "string"
+            }
+          }
+        }
+      },
+      {
+        "name": "Monitoring",
+        "type": "TridentNotebook",
+        "dependsOn": [
+          {
+            "activity": "Gold",
+            "dependencyConditions": [
+              "Succeeded",
+              "Failed",
+              "Skipped"
+            ]
+          }
+        ],
+        "policy": {
+          "timeout": "0.01:00:00",
+          "retry": 1,
+          "retryIntervalInSeconds": 60,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": "<nb_05_monitoring item id, set by the portal on first sync>",
+          "workspaceId": "<workspace id, set by the portal on first sync>",
           "parameters": {
             "batch_id": {
               "value": {

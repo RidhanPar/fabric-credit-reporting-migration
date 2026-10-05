@@ -1,0 +1,1335 @@
+{
+  "batch_id": "local-1a53ecb9-1e4d-4e78-8707-95194fc906eb",
+  "steps": {
+    "bronze": {
+      "tables": [
+        {
+          "table": "bronze_products",
+          "new_files": 1,
+          "new_rows": 5
+        },
+        {
+          "table": "bronze_fx_rates",
+          "new_files": 1,
+          "new_rows": 126
+        },
+        {
+          "table": "bronze_customers",
+          "new_files": 3,
+          "new_rows": 30545
+        },
+        {
+          "table": "bronze_accounts",
+          "new_files": 3,
+          "new_rows": 16569
+        },
+        {
+          "table": "bronze_balances",
+          "new_files": 73,
+          "new_rows": 228308
+        },
+        {
+          "table": "bronze_repayments",
+          "new_files": 72,
+          "new_rows": 194393
+        },
+        {
+          "table": "bronze_applications",
+          "new_files": 42,
+          "new_rows": 35720
+        }
+      ],
+      "seconds": 68.2
+    },
+    "silver": {
+      "entities": [
+        {
+          "entity": "products",
+          "bronze_rows": 5,
+          "control_rows": 0,
+          "quarantined_rows": 0,
+          "duplicate_rows": 0,
+          "silver_rows": 5
+        },
+        {
+          "entity": "fx_rates",
+          "bronze_rows": 126,
+          "control_rows": 0,
+          "quarantined_rows": 0,
+          "duplicate_rows": 0,
+          "silver_rows": 126
+        },
+        {
+          "entity": "customers",
+          "bronze_rows": 30545,
+          "control_rows": 0,
+          "quarantined_rows": 0,
+          "duplicate_rows": 0,
+          "silver_rows": 30545
+        },
+        {
+          "entity": "accounts",
+          "bronze_rows": 16569,
+          "control_rows": 0,
+          "quarantined_rows": 0,
+          "duplicate_rows": 0,
+          "silver_rows": 16569
+        },
+        {
+          "entity": "balances",
+          "bronze_rows": 228308,
+          "control_rows": 73,
+          "quarantined_rows": 9,
+          "duplicate_rows": 2869,
+          "silver_rows": 225357
+        },
+        {
+          "entity": "repayments",
+          "bronze_rows": 194393,
+          "control_rows": 0,
+          "quarantined_rows": 0,
+          "duplicate_rows": 376,
+          "silver_rows": 194017
+        },
+        {
+          "entity": "application_events",
+          "bronze_rows": 35720,
+          "control_rows": 0,
+          "quarantined_rows": 37,
+          "duplicate_rows": 0,
+          "silver_rows": 35683
+        }
+      ],
+      "seconds": 76.7
+    },
+    "silver_quality": {
+      "checks": 43,
+      "failed_error": 0,
+      "failed_warn": 0,
+      "check_results": [
+        {
+          "check": "silver_balances.unique",
+          "layer": "silver",
+          "table_name": "silver_balances",
+          "kind": "unique",
+          "severity": "ERROR",
+          "rows_checked": 225357,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 3.66
+        },
+        {
+          "check": "silver_balances.not_null",
+          "layer": "silver",
+          "table_name": "silver_balances",
+          "kind": "not_null",
+          "severity": "ERROR",
+          "rows_checked": 225357,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.51
+        },
+        {
+          "check": "silver_accounts.unique",
+          "layer": "silver",
+          "table_name": "silver_accounts",
+          "kind": "unique",
+          "severity": "ERROR",
+          "rows_checked": 16569,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 1.69
+        },
+        {
+          "check": "silver_accounts.not_null",
+          "layer": "silver",
+          "table_name": "silver_accounts",
+          "kind": "not_null",
+          "severity": "ERROR",
+          "rows_checked": 16569,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.23
+        },
+        {
+          "check": "silver_customers.unique",
+          "layer": "silver",
+          "table_name": "silver_customers",
+          "kind": "unique",
+          "severity": "ERROR",
+          "rows_checked": 30545,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 1.87
+        },
+        {
+          "check": "silver_customers.not_null",
+          "layer": "silver",
+          "table_name": "silver_customers",
+          "kind": "not_null",
+          "severity": "ERROR",
+          "rows_checked": 30545,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.26
+        },
+        {
+          "check": "silver_applications.unique",
+          "layer": "silver",
+          "table_name": "silver_applications",
+          "kind": "unique",
+          "severity": "ERROR",
+          "rows_checked": 34714,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 3.37
+        },
+        {
+          "check": "silver_applications.not_null",
+          "layer": "silver",
+          "table_name": "silver_applications",
+          "kind": "not_null",
+          "severity": "ERROR",
+          "rows_checked": 34714,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.24
+        },
+        {
+          "check": "silver_application_events.unique",
+          "layer": "silver",
+          "table_name": "silver_application_events",
+          "kind": "unique",
+          "severity": "ERROR",
+          "rows_checked": 35683,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 1.3
+        },
+        {
+          "check": "silver_repayments.unique",
+          "layer": "silver",
+          "table_name": "silver_repayments",
+          "kind": "unique",
+          "severity": "ERROR",
+          "rows_checked": 194017,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 2.38
+        },
+        {
+          "check": "silver_repayments.not_null",
+          "layer": "silver",
+          "table_name": "silver_repayments",
+          "kind": "not_null",
+          "severity": "ERROR",
+          "rows_checked": 194017,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.26
+        },
+        {
+          "check": "silver_products.unique",
+          "layer": "silver",
+          "table_name": "silver_products",
+          "kind": "unique",
+          "severity": "ERROR",
+          "rows_checked": 5,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 1.33
+        },
+        {
+          "check": "silver_fx_rates.unique",
+          "layer": "silver",
+          "table_name": "silver_fx_rates",
+          "kind": "unique",
+          "severity": "ERROR",
+          "rows_checked": 126,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 2.17
+        },
+        {
+          "check": "silver_balances.account_id.ref_silver_accounts",
+          "layer": "silver",
+          "table_name": "silver_balances",
+          "kind": "referential_integrity",
+          "severity": "ERROR",
+          "rows_checked": 225357,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.79
+        },
+        {
+          "check": "silver_balances.product_code.ref_silver_products",
+          "layer": "silver",
+          "table_name": "silver_balances",
+          "kind": "referential_integrity",
+          "severity": "ERROR",
+          "rows_checked": 225357,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.4
+        },
+        {
+          "check": "silver_accounts.customer_id.ref_silver_customers",
+          "layer": "silver",
+          "table_name": "silver_accounts",
+          "kind": "referential_integrity",
+          "severity": "ERROR",
+          "rows_checked": 16569,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.44
+        },
+        {
+          "check": "silver_accounts.application_id.ref_silver_applications",
+          "layer": "silver",
+          "table_name": "silver_accounts",
+          "kind": "referential_integrity",
+          "severity": "ERROR",
+          "rows_checked": 16569,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.48
+        },
+        {
+          "check": "silver_repayments.account_id.ref_silver_accounts",
+          "layer": "silver",
+          "table_name": "silver_repayments",
+          "kind": "referential_integrity",
+          "severity": "ERROR",
+          "rows_checked": 194017,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.35
+        },
+        {
+          "check": "silver_applications.product_code.ref_silver_products",
+          "layer": "silver",
+          "table_name": "silver_applications",
+          "kind": "referential_integrity",
+          "severity": "ERROR",
+          "rows_checked": 34714,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.3
+        },
+        {
+          "check": "silver_applications.customer_id.ref_silver_customers",
+          "layer": "silver",
+          "table_name": "silver_applications",
+          "kind": "referential_integrity",
+          "severity": "ERROR",
+          "rows_checked": 34714,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.49
+        },
+        {
+          "check": "silver_balances.account_status.accepted_values",
+          "layer": "silver",
+          "table_name": "silver_balances",
+          "kind": "accepted_values",
+          "severity": "ERROR",
+          "rows_checked": 225357,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.31
+        },
+        {
+          "check": "silver_balances.country_code.accepted_values",
+          "layer": "silver",
+          "table_name": "silver_balances",
+          "kind": "accepted_values",
+          "severity": "ERROR",
+          "rows_checked": 225357,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.18
+        },
+        {
+          "check": "silver_balances.currency.accepted_values",
+          "layer": "silver",
+          "table_name": "silver_balances",
+          "kind": "accepted_values",
+          "severity": "ERROR",
+          "rows_checked": 225357,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.18
+        },
+        {
+          "check": "silver_applications.status.accepted_values",
+          "layer": "silver",
+          "table_name": "silver_applications",
+          "kind": "accepted_values",
+          "severity": "ERROR",
+          "rows_checked": 34714,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.18
+        },
+        {
+          "check": "silver_products.product_line.accepted_values",
+          "layer": "silver",
+          "table_name": "silver_products",
+          "kind": "accepted_values",
+          "severity": "ERROR",
+          "rows_checked": 5,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.15
+        },
+        {
+          "check": "silver_customers.risk_grade.accepted_values",
+          "layer": "silver",
+          "table_name": "silver_customers",
+          "kind": "accepted_values",
+          "severity": "ERROR",
+          "rows_checked": 30545,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.15
+        },
+        {
+          "check": "silver_balances.days_past_due.range",
+          "layer": "silver",
+          "table_name": "silver_balances",
+          "kind": "range",
+          "severity": "ERROR",
+          "rows_checked": 225357,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.19
+        },
+        {
+          "check": "silver_balances.balance_local.range",
+          "layer": "silver",
+          "table_name": "silver_balances",
+          "kind": "range",
+          "severity": "ERROR",
+          "rows_checked": 225357,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.17
+        },
+        {
+          "check": "silver_accounts.original_amount_local.range",
+          "layer": "silver",
+          "table_name": "silver_accounts",
+          "kind": "range",
+          "severity": "ERROR",
+          "rows_checked": 16569,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.17
+        },
+        {
+          "check": "silver_repayments.amount_local.range",
+          "layer": "silver",
+          "table_name": "silver_repayments",
+          "kind": "range",
+          "severity": "ERROR",
+          "rows_checked": 194017,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.19
+        },
+        {
+          "check": "silver_fx_rates.rate_to_eur_month_end.range",
+          "layer": "silver",
+          "table_name": "silver_fx_rates",
+          "kind": "range",
+          "severity": "ERROR",
+          "rows_checked": 126,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.14
+        },
+        {
+          "check": "silver_fx_rates.rate_to_eur_month_avg.range",
+          "layer": "silver",
+          "table_name": "silver_fx_rates",
+          "kind": "range",
+          "severity": "ERROR",
+          "rows_checked": 126,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.16
+        },
+        {
+          "check": "silver_balances.snapshot_is_month_end",
+          "layer": "silver",
+          "table_name": "silver_balances",
+          "kind": "expression",
+          "severity": "ERROR",
+          "rows_checked": 225357,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.33
+        },
+        {
+          "check": "silver_balances.closed_accounts_have_no_balance",
+          "layer": "silver",
+          "table_name": "silver_balances",
+          "kind": "expression",
+          "severity": "ERROR",
+          "rows_checked": 225357,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.27
+        },
+        {
+          "check": "silver_accounts.closed_after_opened",
+          "layer": "silver",
+          "table_name": "silver_accounts",
+          "kind": "expression",
+          "severity": "ERROR",
+          "rows_checked": 16569,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.2
+        },
+        {
+          "check": "silver_applications.decided_applications_have_a_decision_date",
+          "layer": "silver",
+          "table_name": "silver_applications",
+          "kind": "expression",
+          "severity": "ERROR",
+          "rows_checked": 34714,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.19
+        },
+        {
+          "check": "silver_applications.no_undecided_applications_left",
+          "layer": "silver",
+          "table_name": "silver_applications",
+          "kind": "expression",
+          "severity": "WARN",
+          "rows_checked": 34714,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.17
+        },
+        {
+          "check": "silver_load_audit.layer_row_reconciliation",
+          "layer": "silver",
+          "table_name": "silver_load_audit",
+          "kind": "expression",
+          "severity": "ERROR",
+          "rows_checked": 7,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 3.28
+        },
+        {
+          "check": "bronze_balances.control_totals",
+          "layer": "silver",
+          "table_name": "bronze_balances",
+          "kind": "control_total",
+          "severity": "ERROR",
+          "rows_checked": 73,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 5.76
+        },
+        {
+          "check": "silver_fx_rates.fx_coverage",
+          "layer": "silver",
+          "table_name": "silver_fx_rates",
+          "kind": "metric",
+          "severity": "ERROR",
+          "rows_checked": 1,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "72 of 72 month and currency rates present (limit 0)",
+          "seconds": 0.15
+        },
+        {
+          "check": "silver_load_audit.quarantine_rate_balances",
+          "layer": "silver",
+          "table_name": "silver_load_audit",
+          "kind": "metric",
+          "severity": "WARN",
+          "rows_checked": 1,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "balances: 9 of 228308 rows quarantined (0.0039%) (limit 0.01)",
+          "seconds": 0.12
+        },
+        {
+          "check": "silver_load_audit.quarantine_rate_repayments",
+          "layer": "silver",
+          "table_name": "silver_load_audit",
+          "kind": "metric",
+          "severity": "WARN",
+          "rows_checked": 1,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "repayments: 0 of 194393 rows quarantined (0.0000%) (limit 0.01)",
+          "seconds": 0.09
+        },
+        {
+          "check": "silver_load_audit.quarantine_rate_application_events",
+          "layer": "silver",
+          "table_name": "silver_load_audit",
+          "kind": "metric",
+          "severity": "WARN",
+          "rows_checked": 1,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "application_events: 37 of 35720 rows quarantined (0.1036%) (limit 0.01)",
+          "seconds": 0.09
+        }
+      ],
+      "seconds": 37.0
+    },
+    "gold": {
+      "tables": [
+        {
+          "table": "dim_date",
+          "rows": 1280
+        },
+        {
+          "table": "dim_country",
+          "rows": 3
+        },
+        {
+          "table": "dim_product",
+          "rows": 5
+        },
+        {
+          "table": "dim_customer",
+          "rows": 30545
+        },
+        {
+          "table": "dim_account",
+          "rows": 16569
+        },
+        {
+          "table": "fx_rate_monthly",
+          "rows": 126
+        },
+        {
+          "table": "fact_balance_snapshot",
+          "rows": 225357
+        },
+        {
+          "table": "fact_origination",
+          "rows": 16569
+        },
+        {
+          "table": "fact_application",
+          "rows": 34714
+        },
+        {
+          "table": "fact_repayment",
+          "rows": 194017
+        }
+      ],
+      "checks": 43,
+      "failed_error": 0,
+      "failed_warn": 0,
+      "check_results": [
+        {
+          "check": "fact_balance_snapshot.unique",
+          "layer": "gold",
+          "table_name": "fact_balance_snapshot",
+          "kind": "unique",
+          "severity": "ERROR",
+          "rows_checked": 225357,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 4.08
+        },
+        {
+          "check": "fact_origination.unique",
+          "layer": "gold",
+          "table_name": "fact_origination",
+          "kind": "unique",
+          "severity": "ERROR",
+          "rows_checked": 16569,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 2.44
+        },
+        {
+          "check": "fact_application.unique",
+          "layer": "gold",
+          "table_name": "fact_application",
+          "kind": "unique",
+          "severity": "ERROR",
+          "rows_checked": 34714,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 2.23
+        },
+        {
+          "check": "fact_repayment.unique",
+          "layer": "gold",
+          "table_name": "fact_repayment",
+          "kind": "unique",
+          "severity": "ERROR",
+          "rows_checked": 194017,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 2.89
+        },
+        {
+          "check": "dim_account.unique",
+          "layer": "gold",
+          "table_name": "dim_account",
+          "kind": "unique",
+          "severity": "ERROR",
+          "rows_checked": 16569,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 2.46
+        },
+        {
+          "check": "dim_customer.unique",
+          "layer": "gold",
+          "table_name": "dim_customer",
+          "kind": "unique",
+          "severity": "ERROR",
+          "rows_checked": 30545,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 2.35
+        },
+        {
+          "check": "dim_product.unique",
+          "layer": "gold",
+          "table_name": "dim_product",
+          "kind": "unique",
+          "severity": "ERROR",
+          "rows_checked": 5,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 2.2
+        },
+        {
+          "check": "dim_country.unique",
+          "layer": "gold",
+          "table_name": "dim_country",
+          "kind": "unique",
+          "severity": "ERROR",
+          "rows_checked": 3,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 2.17
+        },
+        {
+          "check": "dim_date.unique",
+          "layer": "gold",
+          "table_name": "dim_date",
+          "kind": "unique",
+          "severity": "ERROR",
+          "rows_checked": 1280,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 2.48
+        },
+        {
+          "check": "fx_rate_monthly.unique",
+          "layer": "gold",
+          "table_name": "fx_rate_monthly",
+          "kind": "unique",
+          "severity": "ERROR",
+          "rows_checked": 126,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 2.17
+        },
+        {
+          "check": "fact_balance_snapshot.not_null",
+          "layer": "gold",
+          "table_name": "fact_balance_snapshot",
+          "kind": "not_null",
+          "severity": "ERROR",
+          "rows_checked": 225357,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.41
+        },
+        {
+          "check": "fact_origination.not_null",
+          "layer": "gold",
+          "table_name": "fact_origination",
+          "kind": "not_null",
+          "severity": "ERROR",
+          "rows_checked": 16569,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.24
+        },
+        {
+          "check": "fact_application.not_null",
+          "layer": "gold",
+          "table_name": "fact_application",
+          "kind": "not_null",
+          "severity": "ERROR",
+          "rows_checked": 34714,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.23
+        },
+        {
+          "check": "fact_repayment.not_null",
+          "layer": "gold",
+          "table_name": "fact_repayment",
+          "kind": "not_null",
+          "severity": "ERROR",
+          "rows_checked": 194017,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.25
+        },
+        {
+          "check": "fact_balance_snapshot.account_id.ref_dim_account",
+          "layer": "gold",
+          "table_name": "fact_balance_snapshot",
+          "kind": "referential_integrity",
+          "severity": "ERROR",
+          "rows_checked": 225357,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.61
+        },
+        {
+          "check": "fact_balance_snapshot.customer_id.ref_dim_customer",
+          "layer": "gold",
+          "table_name": "fact_balance_snapshot",
+          "kind": "referential_integrity",
+          "severity": "ERROR",
+          "rows_checked": 225357,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.5
+        },
+        {
+          "check": "fact_balance_snapshot.product_code.ref_dim_product",
+          "layer": "gold",
+          "table_name": "fact_balance_snapshot",
+          "kind": "referential_integrity",
+          "severity": "ERROR",
+          "rows_checked": 225357,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.35
+        },
+        {
+          "check": "fact_balance_snapshot.country_code.ref_dim_country",
+          "layer": "gold",
+          "table_name": "fact_balance_snapshot",
+          "kind": "referential_integrity",
+          "severity": "ERROR",
+          "rows_checked": 225357,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.28
+        },
+        {
+          "check": "fact_balance_snapshot.date_key.ref_dim_date",
+          "layer": "gold",
+          "table_name": "fact_balance_snapshot",
+          "kind": "referential_integrity",
+          "severity": "ERROR",
+          "rows_checked": 225357,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.56
+        },
+        {
+          "check": "fact_origination.account_id.ref_dim_account",
+          "layer": "gold",
+          "table_name": "fact_origination",
+          "kind": "referential_integrity",
+          "severity": "ERROR",
+          "rows_checked": 16569,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.44
+        },
+        {
+          "check": "fact_origination.date_key.ref_dim_date",
+          "layer": "gold",
+          "table_name": "fact_origination",
+          "kind": "referential_integrity",
+          "severity": "ERROR",
+          "rows_checked": 16569,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.27
+        },
+        {
+          "check": "fact_application.product_code.ref_dim_product",
+          "layer": "gold",
+          "table_name": "fact_application",
+          "kind": "referential_integrity",
+          "severity": "ERROR",
+          "rows_checked": 34714,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.26
+        },
+        {
+          "check": "fact_application.date_key.ref_dim_date",
+          "layer": "gold",
+          "table_name": "fact_application",
+          "kind": "referential_integrity",
+          "severity": "ERROR",
+          "rows_checked": 34714,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.29
+        },
+        {
+          "check": "fact_repayment.account_id.ref_dim_account",
+          "layer": "gold",
+          "table_name": "fact_repayment",
+          "kind": "referential_integrity",
+          "severity": "ERROR",
+          "rows_checked": 194017,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.42
+        },
+        {
+          "check": "fact_repayment.date_key.ref_dim_date",
+          "layer": "gold",
+          "table_name": "fact_repayment",
+          "kind": "referential_integrity",
+          "severity": "ERROR",
+          "rows_checked": 194017,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.3
+        },
+        {
+          "check": "fact_balance_snapshot.dpd_bucket.accepted_values",
+          "layer": "gold",
+          "table_name": "fact_balance_snapshot",
+          "kind": "accepted_values",
+          "severity": "ERROR",
+          "rows_checked": 225357,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.3
+        },
+        {
+          "check": "fact_balance_snapshot.account_status.accepted_values",
+          "layer": "gold",
+          "table_name": "fact_balance_snapshot",
+          "kind": "accepted_values",
+          "severity": "ERROR",
+          "rows_checked": 225357,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.25
+        },
+        {
+          "check": "dim_account.account_state.accepted_values",
+          "layer": "gold",
+          "table_name": "dim_account",
+          "kind": "accepted_values",
+          "severity": "ERROR",
+          "rows_checked": 16569,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.17
+        },
+        {
+          "check": "dim_customer.age_band.accepted_values",
+          "layer": "gold",
+          "table_name": "dim_customer",
+          "kind": "accepted_values",
+          "severity": "ERROR",
+          "rows_checked": 30545,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.3
+        },
+        {
+          "check": "fact_balance_snapshot.balance_eur.range",
+          "layer": "gold",
+          "table_name": "fact_balance_snapshot",
+          "kind": "range",
+          "severity": "ERROR",
+          "rows_checked": 225357,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.26
+        },
+        {
+          "check": "fact_balance_snapshot.days_past_due.range",
+          "layer": "gold",
+          "table_name": "fact_balance_snapshot",
+          "kind": "range",
+          "severity": "ERROR",
+          "rows_checked": 225357,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.18
+        },
+        {
+          "check": "fact_balance_snapshot.eur_conversion_is_consistent",
+          "layer": "gold",
+          "table_name": "fact_balance_snapshot",
+          "kind": "expression",
+          "severity": "ERROR",
+          "rows_checked": 225357,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.54
+        },
+        {
+          "check": "fact_balance_snapshot.dpd90_implies_dpd30",
+          "layer": "gold",
+          "table_name": "fact_balance_snapshot",
+          "kind": "expression",
+          "severity": "ERROR",
+          "rows_checked": 225357,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.31
+        },
+        {
+          "check": "fact_balance_snapshot.inactive_rows_are_not_delinquent",
+          "layer": "gold",
+          "table_name": "fact_balance_snapshot",
+          "kind": "expression",
+          "severity": "ERROR",
+          "rows_checked": 225357,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.39
+        },
+        {
+          "check": "fact_application.approved_implies_decisioned",
+          "layer": "gold",
+          "table_name": "fact_application",
+          "kind": "expression",
+          "severity": "ERROR",
+          "rows_checked": 34714,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.23
+        },
+        {
+          "check": "fact_balance_snapshot.rows_match_silver_balances",
+          "layer": "gold",
+          "table_name": "fact_balance_snapshot",
+          "kind": "reconciliation",
+          "severity": "ERROR",
+          "rows_checked": 225357,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "fact_balance_snapshot=225357, silver_balances=225357",
+          "seconds": 1.54
+        },
+        {
+          "check": "fact_origination.rows_match_silver_accounts",
+          "layer": "gold",
+          "table_name": "fact_origination",
+          "kind": "reconciliation",
+          "severity": "ERROR",
+          "rows_checked": 16569,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "fact_origination=16569, silver_accounts=16569",
+          "seconds": 0.86
+        },
+        {
+          "check": "fact_application.rows_match_silver_applications",
+          "layer": "gold",
+          "table_name": "fact_application",
+          "kind": "reconciliation",
+          "severity": "ERROR",
+          "rows_checked": 34714,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "fact_application=34714, silver_applications=34714",
+          "seconds": 0.83
+        },
+        {
+          "check": "fact_repayment.rows_match_silver_repayments",
+          "layer": "gold",
+          "table_name": "fact_repayment",
+          "kind": "reconciliation",
+          "severity": "ERROR",
+          "rows_checked": 194017,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "fact_repayment=194017, silver_repayments=194017",
+          "seconds": 1.34
+        },
+        {
+          "check": "dim_customer.rows_match_silver_customers",
+          "layer": "gold",
+          "table_name": "dim_customer",
+          "kind": "reconciliation",
+          "severity": "ERROR",
+          "rows_checked": 30545,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "dim_customer=30545, silver_customers=30545",
+          "seconds": 0.81
+        },
+        {
+          "check": "fact_balance_snapshot.balance_local.sum_matches_silver_balances",
+          "layer": "gold",
+          "table_name": "fact_balance_snapshot",
+          "kind": "reconciliation",
+          "severity": "ERROR",
+          "rows_checked": 225357,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "fact_balance_snapshot=6578123561.74, silver_balances=6578123561.74, gap=0.00",
+          "seconds": 0.24
+        },
+        {
+          "check": "fact_repayment.amount_local.sum_matches_silver_repayments",
+          "layer": "gold",
+          "table_name": "fact_repayment",
+          "kind": "reconciliation",
+          "severity": "ERROR",
+          "rows_checked": 194017,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "fact_repayment=710012900.95, silver_repayments=710012900.95, gap=0.00",
+          "seconds": 0.17
+        },
+        {
+          "check": "fact_origination.amount_local.sum_matches_silver_accounts",
+          "layer": "gold",
+          "table_name": "fact_origination",
+          "kind": "reconciliation",
+          "severity": "ERROR",
+          "rows_checked": 16569,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "fact_origination=878336500.00, silver_accounts=878336500.00, gap=0.00",
+          "seconds": 0.13
+        }
+      ],
+      "rows": 519185,
+      "seconds": 92.4
+    },
+    "kpis": {
+      "rows": 2016,
+      "seconds": 24.8
+    },
+    "kpi_quality": {
+      "checks": 10,
+      "failed_error": 0,
+      "failed_warn": 0,
+      "check_results": [
+        {
+          "check": "gold_kpi_monthly.unique",
+          "layer": "kpi",
+          "table_name": "gold_kpi_monthly",
+          "kind": "unique",
+          "severity": "ERROR",
+          "rows_checked": 2016,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 2.07
+        },
+        {
+          "check": "gold_kpi_monthly.not_null",
+          "layer": "kpi",
+          "table_name": "gold_kpi_monthly",
+          "kind": "not_null",
+          "severity": "ERROR",
+          "rows_checked": 2016,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.15
+        },
+        {
+          "check": "gold_kpi_monthly.kpi.accepted_values",
+          "layer": "kpi",
+          "table_name": "gold_kpi_monthly",
+          "kind": "accepted_values",
+          "severity": "ERROR",
+          "rows_checked": 2016,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.14
+        },
+        {
+          "check": "gold_kpi_monthly.scope.accepted_values",
+          "layer": "kpi",
+          "table_name": "gold_kpi_monthly",
+          "kind": "accepted_values",
+          "severity": "ERROR",
+          "rows_checked": 2016,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.13
+        },
+        {
+          "check": "gold_kpi_monthly.rates_between_zero_and_one",
+          "layer": "kpi",
+          "table_name": "gold_kpi_monthly",
+          "kind": "expression",
+          "severity": "ERROR",
+          "rows_checked": 2016,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.21
+        },
+        {
+          "check": "gold_kpi_monthly.amounts_not_negative",
+          "layer": "kpi",
+          "table_name": "gold_kpi_monthly",
+          "kind": "expression",
+          "severity": "ERROR",
+          "rows_checked": 2016,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "",
+          "seconds": 0.22
+        },
+        {
+          "check": "gold_kpi_monthly.rates_not_truncated",
+          "layer": "kpi",
+          "table_name": "gold_kpi_monthly",
+          "kind": "metric",
+          "severity": "ERROR",
+          "rows_checked": 1,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "11 of 720 rate values sit exactly on 6 decimals (1.5%) (limit 0.5)",
+          "seconds": 0.15
+        },
+        {
+          "check": "gold_kpi_monthly.group_equals_sum_portfolio_balance_eur",
+          "layer": "kpi",
+          "table_name": "gold_kpi_monthly",
+          "kind": "metric",
+          "severity": "ERROR",
+          "rows_checked": 1,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "portfolio_balance_eur: largest gap between group and the sum of countries is 3.725290298461914e-09 (limit 0.05)",
+          "seconds": 0.22
+        },
+        {
+          "check": "gold_kpi_monthly.group_equals_sum_new_originations_eur",
+          "layer": "kpi",
+          "table_name": "gold_kpi_monthly",
+          "kind": "metric",
+          "severity": "ERROR",
+          "rows_checked": 1,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "new_originations_eur: largest gap between group and the sum of countries is 4.656612873077393e-10 (limit 0.05)",
+          "seconds": 0.16
+        },
+        {
+          "check": "gold_kpi_monthly.group_equals_sum_new_accounts",
+          "layer": "kpi",
+          "table_name": "gold_kpi_monthly",
+          "kind": "metric",
+          "severity": "ERROR",
+          "rows_checked": 1,
+          "rows_failed": 0,
+          "passed": true,
+          "detail": "new_accounts: largest gap between group and the sum of countries is 0.0 (limit 0.05)",
+          "seconds": 0.18
+        }
+      ],
+      "seconds": 5.3
+    },
+    "monitor": {
+      "alerts_evaluated": 6,
+      "fired": [],
+      "stale_sources": [],
+      "seconds": 16.7
+    }
+  }
+}

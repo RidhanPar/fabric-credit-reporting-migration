@@ -56,7 +56,7 @@ Run **Run all** a second time. **You should see:** every `new_rows` is 0. That i
 5. Drag the green **On success** handle from Bronze to Silver, and from Silver to Gold.
 6. **Save**, then **Run**.
 
-Reference definition: `fabric/pipelines/pl_portfolio_medallion.json`.
+Reference definition: `fabric/workspace/pl_portfolio_medallion.DataPipeline/pipeline-content.json`.
 
 **You should see:** all three activities go green. Bronze adds 0 rows this time, because step D already loaded the files.
 

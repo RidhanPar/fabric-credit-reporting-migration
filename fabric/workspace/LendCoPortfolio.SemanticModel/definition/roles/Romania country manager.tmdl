@@ -1,0 +1,9 @@
+/// Sees RO only.
+role 'Romania country manager'
+	modelPermission: read
+
+	tablePermission dim_country = dim_country[country_code] = "RO"
+
+	tablePermission dim_account = dim_account[country_code] = "RO"
+
+	tablePermission dim_customer = dim_customer[country_code] = "RO"

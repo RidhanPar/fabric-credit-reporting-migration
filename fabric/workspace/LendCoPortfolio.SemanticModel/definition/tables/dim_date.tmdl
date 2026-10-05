@@ -1,0 +1,84 @@
+/// Calendar. Marked as the model's date table so time intelligence works.
+table dim_date
+	dataCategory: Time
+	lineageTag: 9fbbdf0f-863a-5fb4-9ee0-64bce97280e4
+
+	column date_key
+		dataType: int64
+		isHidden
+		lineageTag: aedfb0cd-f1ec-5780-8152-a6936c89d928
+		summarizeBy: none
+		sourceColumn: date_key
+
+	/// Calendar date. The fact tables only carry month end dates.
+	column date
+		dataType: dateTime
+		isKey
+		formatString: yyyy-mm-dd
+		lineageTag: 222a8331-b9a6-5205-869e-820b2d404fb4
+		summarizeBy: none
+		sourceColumn: date
+
+	column year
+		dataType: int64
+		lineageTag: 2119c2e5-5c4a-5c8a-a77b-08d26814039f
+		summarizeBy: none
+		sourceColumn: year
+
+	column quarter
+		dataType: int64
+		lineageTag: 67f89ea4-157f-543e-9c5c-6b7a976706f7
+		summarizeBy: none
+		sourceColumn: quarter
+
+	column month
+		dataType: int64
+		isHidden
+		lineageTag: c2db7882-804c-561d-89d9-11f5143cee71
+		summarizeBy: none
+		sourceColumn: month
+
+	column month_name
+		dataType: string
+		lineageTag: 2220b797-dd79-521b-8da0-3b1a62b25947
+		summarizeBy: none
+		sourceColumn: month_name
+		sortByColumn: month
+
+	/// Year and month, as 2026-08.
+	column year_month
+		dataType: string
+		lineageTag: c0b55777-e00d-5954-89ce-c587619b9bc6
+		summarizeBy: none
+		sourceColumn: year_month
+
+	column month_end_date
+		dataType: dateTime
+		isHidden
+		formatString: yyyy-mm-dd
+		lineageTag: 5cc602f8-78e0-5871-a641-0aa81d66707b
+		summarizeBy: none
+		sourceColumn: month_end_date
+
+	column month_end_key
+		dataType: int64
+		isHidden
+		lineageTag: 794cfb0a-e113-53dd-b7f6-8c24548a60f2
+		summarizeBy: none
+		sourceColumn: month_end_key
+
+	column is_month_end
+		dataType: boolean
+		isHidden
+		lineageTag: 080736e2-ed57-54d2-b12e-6871476206c0
+		summarizeBy: none
+		sourceColumn: is_month_end
+
+	partition dim_date = entity
+		mode: directLake
+		source
+			entityName: dim_date
+			schemaName: dbo
+			expressionSource: DatabaseQuery
+
+	annotation PBI_MarkedDateTable = true

@@ -19,8 +19,10 @@ jobs:
       - run: pip install -r requirements-dev.txt && pip install -e .
       - name: Lint
         run: ruff check src tests scripts
-      - name: Notebooks are up to date with the generator
-        run: python scripts/build_fabric_notebooks.py && git diff --exit-code fabric/notebooks
+      - name: Fabric items are up to date with the generator
+        run: python scripts/build_fabric_items.py && git diff --exit-code fabric/notebooks fabric/workspace
+      - name: Semantic model is up to date with the generator
+        run: python scripts/build_semantic_model.py && git diff --exit-code fabric/workspace docs/MEASURES.md
       - name: Unit tests
         run: pytest -q
       - name: Generate data and legacy workbook

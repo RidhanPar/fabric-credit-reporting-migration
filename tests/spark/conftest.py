@@ -20,6 +20,19 @@ def spark():
     s.stop()
 
 
+@pytest.fixture
+def mutable_lake(lake_run, spark, tmp_path):
+    """A copy of the good lake, so a test can break it without affecting other tests."""
+    import shutil
+
+    from portfolio_migration.lakehouse.io import LocalLake
+
+    lake, _, _ = lake_run
+    root = tmp_path / "lake"
+    shutil.copytree(lake.root, root)
+    return LocalLake(spark, root, lake.landing_root)
+
+
 @pytest.fixture(scope="session")
 def lake_run(spark, landing, tmp_path_factory):
     """Run the full medallion flow once over the generated landing files."""

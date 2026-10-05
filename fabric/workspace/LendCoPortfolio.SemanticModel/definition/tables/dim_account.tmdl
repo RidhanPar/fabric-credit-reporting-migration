@@ -1,0 +1,115 @@
+/// One row per account, for the account level drillthrough.
+table dim_account
+	lineageTag: 2da913f1-3f88-5fa2-a4d4-eac51eec73df
+
+	column account_id
+		dataType: string
+		lineageTag: f8d06b7b-58d8-5586-a06e-0c114cf1edc8
+		summarizeBy: none
+		sourceColumn: account_id
+
+	column customer_id
+		dataType: string
+		isHidden
+		lineageTag: 66c03cfc-572c-585c-ad8d-731fb923c7c0
+		summarizeBy: none
+		sourceColumn: customer_id
+
+	column application_id
+		dataType: string
+		isHidden
+		lineageTag: c67c51e6-a029-5abc-b614-65b275d9bf3c
+		summarizeBy: none
+		sourceColumn: application_id
+
+	column country_code
+		dataType: string
+		isHidden
+		lineageTag: 04aa3820-c166-5b61-a3da-037e14bf37a9
+		summarizeBy: none
+		sourceColumn: country_code
+
+	column product_code
+		dataType: string
+		isHidden
+		lineageTag: f91c8bbe-c434-5e6f-a4fe-cc002c31b43b
+		summarizeBy: none
+		sourceColumn: product_code
+
+	column currency
+		dataType: string
+		lineageTag: fd4e6317-a6a8-51f8-9893-04b664dcbd37
+		summarizeBy: none
+		sourceColumn: currency
+
+	column open_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 50e20ba3-f4d0-5773-b4fe-a9aeb8b91d87
+		summarizeBy: none
+		sourceColumn: open_date
+
+	column open_date_key
+		dataType: int64
+		isHidden
+		lineageTag: ba9c86b5-55bf-53eb-af5e-e9e888f1fd8b
+		summarizeBy: none
+		sourceColumn: open_date_key
+
+	column original_amount_local
+		dataType: decimal
+		isHidden
+		formatString: #,0.00
+		lineageTag: fe017576-cdfd-5727-8367-9b055b6043a8
+		summarizeBy: none
+		sourceColumn: original_amount_local
+
+	/// Null for credit cards, which have no term.
+	column term_months
+		dataType: int64
+		lineageTag: 10219826-ac7a-5798-ac1c-8947339e01c5
+		summarizeBy: none
+		sourceColumn: term_months
+
+	column annual_interest_rate
+		dataType: decimal
+		formatString: 0.00%
+		lineageTag: 2a1eeb26-5128-5b54-bfe5-341aca8ad1ac
+		summarizeBy: none
+		sourceColumn: annual_interest_rate
+
+	column close_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: de61a0ba-5172-58f6-9286-d79e3e702de7
+		summarizeBy: none
+		sourceColumn: close_date
+
+	column write_off_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: ca17ac91-05ee-5a62-bcda-c66210c4c674
+		summarizeBy: none
+		sourceColumn: write_off_date
+
+	column write_off_amount_local
+		dataType: decimal
+		isHidden
+		formatString: #,0.00
+		lineageTag: 5520e892-3937-5d9a-8cc1-efa65cb68d11
+		summarizeBy: none
+		sourceColumn: write_off_amount_local
+
+	/// OPEN, CLOSED or WRITTEN_OFF.
+	column account_state
+		dataType: string
+		lineageTag: e8d3cb11-043a-5f80-a222-cf136e3042a2
+		summarizeBy: none
+		sourceColumn: account_state
+
+	partition dim_account = entity
+		mode: directLake
+		source
+			entityName: dim_account
+			schemaName: dbo
+			expressionSource: DatabaseQuery

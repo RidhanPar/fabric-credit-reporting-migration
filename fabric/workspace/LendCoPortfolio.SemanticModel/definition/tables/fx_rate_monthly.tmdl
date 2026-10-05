@@ -1,0 +1,45 @@
+/// Treasury rates per month end. Stocks use the closing rate, flows the average.
+table fx_rate_monthly
+	lineageTag: 4050dc2b-adc1-5340-b834-14ff9467a4de
+
+	column month_end_key
+		dataType: int64
+		isHidden
+		lineageTag: 4832ab1c-b983-5911-9037-d0ed987c7611
+		summarizeBy: none
+		sourceColumn: month_end_key
+
+	column month_end
+		dataType: dateTime
+		isHidden
+		formatString: yyyy-mm-dd
+		lineageTag: c36ef607-e27a-59a1-bdca-76b4cdec9089
+		summarizeBy: none
+		sourceColumn: month_end
+
+	column currency
+		dataType: string
+		lineageTag: 7f515cfe-c93b-548b-a520-dbc3d4a23a7c
+		summarizeBy: none
+		sourceColumn: currency
+
+	column rate_to_eur_month_end
+		dataType: decimal
+		formatString: 0.0000
+		lineageTag: 428f0ec4-521f-5535-a5dd-8ee7268e0bc9
+		summarizeBy: none
+		sourceColumn: rate_to_eur_month_end
+
+	column rate_to_eur_month_avg
+		dataType: decimal
+		formatString: 0.0000
+		lineageTag: 1171479c-520b-57c7-ba40-e795e8e82bac
+		summarizeBy: none
+		sourceColumn: rate_to_eur_month_avg
+
+	partition fx_rate_monthly = entity
+		mode: directLake
+		source
+			entityName: fx_rate_monthly
+			schemaName: dbo
+			expressionSource: DatabaseQuery

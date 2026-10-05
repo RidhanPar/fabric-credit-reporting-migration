@@ -1,0 +1,9 @@
+/// Direct Lake connection to the lakehouse. Filled in per workspace by
+/// scripts/set_semantic_model_connection.py, because the values are tenant specific.
+expression DatabaseQuery =
+		let
+		    Source = Sql.Database("<SQL_ANALYTICS_ENDPOINT>", "<LAKEHOUSE_NAME_OR_ID>")
+		in
+		    Source
+	lineageTag: 8e439233-9d3f-5087-8002-d6670957ebbd
+	annotation PBI_IncludeFutureArtifacts = False
