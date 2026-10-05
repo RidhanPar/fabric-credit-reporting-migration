@@ -1,290 +1,396 @@
 # Legacy Excel to Microsoft Fabric: consumer credit portfolio reporting migration
 
 A consumer lender (personal loans and credit cards in Poland, the Czech Republic
-and Romania) runs its monthly board portfolio pack from a formula driven Excel
-workbook. This project migrates it to a Microsoft Fabric medallion lakehouse
-and a Direct Lake Power BI model, and proves with a reconciliation which of the
-old numbers were wrong.
+and Romania) produces its monthly board portfolio pack from a formula driven
+Excel workbook. This project migrates that pack to a Microsoft Fabric medallion
+lakehouse with a Direct Lake Power BI model, and reconciles every published
+figure against the old workbook to prove which numbers were wrong.
 
-All data is synthetic and generated from a fixed seed. The legacy workbook is a
-real formula workbook, and its published figures come from recalculating its own
-formulas.
+The reconciliation is the point. The pipeline is how you get to it.
 
-> **Status:** Phases 1 to 6 of 7 built. This README grows each phase. Every number
-> in it traces to a committed run output.
+> **Status:** all 7 phases built. Every number in this README comes from a run
+> output committed in `docs/results/` or `data/`, and
+> [a test](tests/test_documentation.py) fails if any of them stops matching.
 >
-> **Where it has run:** every result quoted here was measured locally, on Spark
-> 3.5.5 and Delta 3.2.1, the versions Fabric Runtime 1.3 uses, in a container and
-> in GitHub Actions. Nothing has run in a Fabric tenant yet, because a Fabric
-> trial is not available for the author's account. The Fabric items (Environment,
-> notebooks, data pipeline) are authored and version controlled here, and no
-> Fabric timing or screenshot is quoted until one exists.
+> **Where it has run:** everything quoted here was measured locally, on Spark
+> 3.5.5 and Delta 3.2.1 (the versions Fabric Runtime 1.3 uses) in a container and
+> in GitHub Actions. **Nothing has run in a Fabric tenant yet**, because a Fabric
+> trial is not available for this account and Direct Lake needs a Fabric capacity.
+> The Fabric items are authored, generated and tested as text. No Fabric timing
+> and no screenshot is quoted until a real run produces one.
+>
+> **The data is synthetic**, generated from a fixed seed. The defects in it are
+> deliberate and documented.
 
-## Phases
+## What the migration found
 
-| # | Phase | Status |
+672 published figures were compared, month by month and country by country
+(24 month ends, 4 scopes, 7 KPIs). 498 differed. **Nothing was left unexplained.**
+
+Three faults in the legacy workbook's own formulas, affecting 336 of those 672
+figures. Each was proved by correcting that formula in a copy of the workbook and
+recalculating it, so the effect is measured rather than argued.
+
+| | The fault | Largest single month effect |
 |---|---|---|
-| 1 | Legacy world: source data, landed files, legacy workbook | Done |
-| 2 | Medallion lakehouse: bronze, silver, gold notebooks and pipeline | Built, awaiting Fabric run |
-| 3 | Data quality gates | Built, awaiting Fabric run |
-| 4 | Reconciliation, legacy vs gold | Done |
-| 5 | Semantic model (TMDL, Direct Lake, RLS) and report spec | Authored, not yet loaded in Fabric |
-| 6 | Production operations (Git, deployment pipeline, monitoring) | Built, portal wiring pending a capacity |
-| 7 | Documentation, runbook, teardown | Next |
+| F1 | Cards were summed with the wildcard product code `CC*`. The card consolidation loan is a personal loan whose code starts with CC, so it was counted twice from its launch in March 2025 | Group balance overstated by EUR 3,336,161.01 |
+| F2 | The Romania tab multiplied by the literal `0.2012`, while the column showing the correct Treasury rate sat unused beside it | Group balance overstated by EUR 614,059.94 |
+| F3 | The 30+ days past due numerator filtered on the previous month end while the denominator used the current one, so the first month of the series reported 0.00% | 30+ rate wrong by 3.53 percentage points |
 
-## Phase 1 output (seed 42, from `data/generation_manifest.json`)
+Effect on what the board has been reading, over the 24 months:
+
+* The group portfolio balance was overstated in **every single month**, by
+  EUR 1,984,052.50 on average (7.32%), between EUR 282,650.13 and EUR 3,950,221.10.
+* Arrears were **understated**: the group 30+ rate averaged 3.041% in the legacy
+  pack against 3.246% in the new model.
+
+Everything else is an agreed definition change (5 with a measurable effect) or
+currency conversion rounding. After every cause is removed the residual is at
+most 0.000000004 EUR on any amount and 1e-16 on any rate.
+
+Full write up with the proof for each finding, the diagnosis trail and the
+attribution of every difference:
+**[docs/RECONCILIATION_FINDINGS.md](docs/RECONCILIATION_FINDINGS.md)**.
+
+The reconciliation also found a bug in the **new** model: Spark caps the scale
+when one decimal column is divided by another, which had truncated every gold
+rate to 6 decimal places. The rate residual broke tolerance, which is how it
+surfaced. It was fixed before anything was published, and a quality check now
+fails if rates ever look truncated again
+([issue 10](docs/ISSUES_AND_FIXES.md)).
+
+## Architecture
+
+```mermaid
+flowchart TB
+    subgraph sources["Source systems (synthetic)"]
+        cb["Core banking<br/>3 countries, 3 local formats"]
+        los["Loan origination system<br/>nested JSON events"]
+        tr["Treasury FX rates"]
+    end
+
+    subgraph lake["Fabric lakehouse: lh_portfolio (OneLake, Delta)"]
+        landing["Files/landing<br/>195 files as delivered"]
+        bronze["bronze_*<br/>raw strings and lineage<br/>incremental by file"]
+        silver["silver_*<br/>typed, deduped, validated<br/>plus quarantine, control totals, audit"]
+        stg["stg_*<br/>gold candidate"]
+        gold["gold star schema<br/>4 facts, 5 dimensions<br/>plus gold_kpi_monthly"]
+        ops["ops_* and dq_results<br/>run log, freshness, alerts, checks"]
+    end
+
+    subgraph bi["Power BI"]
+        model["LendCoPortfolio<br/>Direct Lake semantic model<br/>26 measures, RLS by country"]
+        report["Report: executive summary,<br/>delinquency, account drillthrough,<br/>migration evidence"]
+    end
+
+    legacy["Legacy Excel pack<br/>Monthly_Portfolio_Pack.xlsx"]
+    recon["Reconciliation<br/>recalculate the workbook,<br/>walk every figure to gold"]
+
+    cb --> landing
+    los --> landing
+    tr --> landing
+    landing -->|nb_01| bronze
+    bronze -->|nb_02| silver
+    silver -->|nb_03| stg
+    stg -->|"96 checks pass"| gold
+    gold --> model --> report
+    silver --- ops
+    gold --- ops
+    legacy -->|nb_04| recon
+    gold --> recon
+    recon --> report
+```
+
+If the diagram does not render: landed files, then bronze (raw as delivered),
+then silver (cleaned, with a quarantine), then gold written to staging and
+published only if the quality checks pass, then a Direct Lake model and the
+report. The legacy workbook is recalculated and reconciled against gold, and the
+run log, freshness and alert tables sit alongside.
+
+Orchestrated by the data pipeline `pl_portfolio_medallion`: bronze, silver and
+gold on success, then monitoring on success, failure **or** skip, because a
+failed run still has to raise the alarm.
+
+## How it works
+
+| Phase | What it does | Where |
+|---|---|---|
+| 1 | Simulates the lender's core systems, writes the landed files with realistic defects, and builds the legacy Excel pack with three seeded faults | [concepts](docs/concepts/01-legacy-world.md), [steps](docs/fabric-steps/phase-1.md) |
+| 2 | Medallion lakehouse: bronze, silver and gold in PySpark, shipped to Fabric as a wheel, with thin notebooks | [concepts](docs/concepts/03-medallion-design.md), [steps](docs/fabric-steps/phase-2.md) |
+| 3 | 96 declarative quality checks and the write, audit, publish gate | [concepts](docs/concepts/04-data-quality-gates.md), [steps](docs/fabric-steps/phase-3.md) |
+| 4 | The reconciliation: every legacy figure walked to its gold counterpart in named steps | [concepts](docs/concepts/05-reconciliation.md), [findings](docs/RECONCILIATION_FINDINGS.md) |
+| 5 | Direct Lake semantic model as TMDL, 26 documented measures, RLS by country, report spec | [concepts](docs/concepts/06-semantic-model.md), [measures](docs/MEASURES.md), [report spec](docs/REPORT_SPEC.md) |
+| 6 | Git integration, deployment rules, run log, freshness and alerts | [concepts](docs/concepts/07-production-operations.md), [steps](docs/fabric-steps/phase-6.md) |
+| 7 | This README, the [runbook](docs/RUNBOOK.md) and the [teardown](docs/TEARDOWN.md) | |
+
+### The data
+
+Generated from seed 42, 24 month ends from 2024-09-30 to 2026-08-31
+(`data/generation_manifest.json`):
 
 | Core system table | Rows |
 |---|---|
 | Customers | 30,545 |
 | Applications | 34,714 |
 | Accounts | 16,569 |
-| Month end balance snapshots (24 months) | 225,357 |
+| Month end balance snapshots | 225,357 |
 | Repayments | 194,017 |
 
-Landed files: 195 files in local formats (CZ `;` and `,` decimals, RO
-`dd/mm/yyyy`), with trailer control totals and 6 kinds of transport defect.
-See [docs/concepts/01-legacy-world.md](docs/concepts/01-legacy-world.md).
+195 landed files in each country's own format (Czech `;` separators and `,`
+decimals, Romanian `dd/mm/yyyy` dates), with trailer control totals and six kinds
+of transport defect: a re-sent file (2,869 rows), repeated repayment rows (376),
+blank account ids (9), padded lower case product codes (1,009), earlier PENDING
+application events (969) and truncated JSON lines (37).
 
-Legacy workbook: [data/legacy/Monthly_Portfolio_Pack.xlsx](data/legacy/Monthly_Portfolio_Pack.xlsx),
-672 published KPI cells (24 months x 4 scopes x 7 KPIs) in
-[data/legacy/legacy_published_kpis.csv](data/legacy/legacy_published_kpis.csv).
+### Silver lost nothing
 
-## Phase 2: medallion lakehouse
-
-```
-Files/landing (CSV, JSONL)
-   |  nb_01_bronze   strings only, lineage, load by file (skip files already loaded)
-   v
-bronze_* ----------> ops_ingestion_log
-   |  nb_02_silver   locale parsing, typing, dedup (latest delivery wins), rules
-   v
-silver_* ----------> silver_quarantine, silver_control_totals, silver_load_audit
-   |  nb_03_gold     star schema, EUR at month end (stocks) and monthly average (flows)
-   v
-dim_date, dim_country, dim_product, dim_customer, dim_account, fx_rate_monthly,
-fact_balance_snapshot, fact_origination, fact_application, fact_repayment
-```
-
-Orchestrated by the data pipeline `pl_portfolio_medallion` (bronze, then silver,
-then gold, each on success, retry 1). All logic lives in the tested package
-`portfolio_migration.lakehouse`, shipped to Fabric as a wheel in the
-`env_portfolio` Environment. The notebooks only call it.
-
-Local run of the same code (Docker, Spark 3.5.5, Delta 3.2.1, seed 42), output in
-[docs/results/phase2_local_medallion_run.json](docs/results/phase2_local_medallion_run.json):
+From the committed run output
+[docs/results/phase6_local_run.json](docs/results/phase6_local_run.json):
 
 | Entity | Bronze rows | Trailers | Quarantined | Duplicates | Silver rows |
 |---|---|---|---|---|---|
 | balances | 228,308 | 73 | 9 | 2,869 | 225,357 |
-| repayments | 194,393 | 0 | 0 | 376 | 194,017 |
-| application events | 35,720 | 0 | 37 | 0 | 35,683 |
 
-Silver equals the simulated truth row for row (tested). Fabric run times will be
-added once measured in Fabric. Design and defence:
-[docs/concepts/03-medallion-design.md](docs/concepts/03-medallion-design.md).
+225,357 is exactly the true number of balance rows, and a test compares all of
+them value by value against the simulated truth. The same equation holds for
+every entity on every run, and it is written to `silver_load_audit`, so it does
+not have to be argued.
 
-## Phase 3: data quality gates
+## KPI definitions
 
-86 declarative checks, 43 on silver and 43 on gold, 82 of them severity ERROR and
-4 WARN. The full list is [dq_checks.py](src/portfolio_migration/lakehouse/dq_checks.py).
+The seven board KPIs, as agreed in the migration. The full dictionary, including
+the DAX and the supporting measures, is [docs/MEASURES.md](docs/MEASURES.md).
 
-| Check type | Count | Example |
+| KPI | Definition | Changed in the migration? |
 |---|---|---|
-| Uniqueness | 18 | one row per account per month end |
-| Referential integrity | 18 | every `account_id` in a fact exists in `dim_account` |
-| Accepted values | 10 | `account_status` in ACTIVE, CLOSED, WRITTEN_OFF |
-| Business rule (expression) | 10 | 90+ days past due is always also 30+ |
-| Not null | 9 | `balance_eur` is never null |
-| Range | 8 | `days_past_due` between 0 and 179 |
-| Reconciliation between layers | 8 | gold row count and amount totals equal silver's |
-| Threshold (metric) | 4 | quarantine rate at most 1 percent, severity WARN |
-| Control total | 1 | parsed rows and amount per file match the file's trailer |
+| Portfolio balance (EUR) | Balance of active accounts at a month end, each account converted at that month's closing rate | Legacy converted the country total rather than each account. Immaterial, named anyway |
+| New accounts | Accounts disbursed in the month | No |
+| New originations (EUR) | Amount disbursed in the month, converted at the **monthly average** rate | Yes. Legacy used the month end rate. Flows at average and stocks at closing is standard IAS 21 practice |
+| 30+ DPD rate | Balance of active accounts 30 or more days past due, over total active balance, at a month end | No, but the legacy formula read the wrong month (F3) |
+| 90+ DPD rate | The same at 90 days. Accounts are written off at 180 days and leave the measure | No |
+| Approval rate | Approved over **decisioned** applications (approved plus declined) | Yes. Legacy divided by everything received, including withdrawn and incomplete, which reads about 5 points lower |
+| Avg balance per customer (EUR) | Portfolio balance over **distinct customers** holding an active account | Yes. Legacy divided by active accounts, so a customer with a loan and a card counted twice |
 
-**Gold is never written directly.** It is built into `stg_*` tables, audited
-there, and published only if no ERROR check fails. A failure leaves the previous
-gold data in place for the report to keep using, and raises so the run goes red.
-This is the write, audit, publish pattern.
+A balance is a stock, so the balance measures are semi additive: over a quarter
+they report the latest month end in the period, not the sum of three.
 
-Proof the gate works, from `tests/spark/test_quality_gates.py`:
+## Design decisions
 
-| Injected fault | Result |
-|---|---|
-| One duplicate balance row in silver | Publish refused; `fact_balance_snapshot` keeps its row count; the duplicate is found in `stg_fact_balance_snapshot` |
-| August 2026 FX rates deleted | Publish refused, because `balance_eur` would have been null |
-| Quarantine tolerance set to zero | WARN recorded, run continues |
-| A Czech amount parsed as if the comma were a thousands separator | Row count still matches the trailer, the amount does not, and the control total check catches it |
-
-Measured locally (Docker, Spark 3.5.5, Delta 3.2.1, seed 42), from
-[docs/results/phase3_local_run.json](docs/results/phase3_local_run.json):
-
-| Step | Seconds |
-|---|---|
-| Bronze | 51.6 |
-| Silver | 76.2 |
-| Silver checks (43) | 34.7 |
-| Gold, including its 43 checks, staging and publish | 92.1 |
-| Total | 254.6 |
-
-All 86 checks passed, 0 failures. The 86 checks took 77.6 seconds of that in
-total; the slowest is the control total check at 5.25 seconds. These are local
-container timings on 2 cores, not Fabric timings. Concepts and the reasoning:
-[docs/concepts/04-data-quality-gates.md](docs/concepts/04-data-quality-gates.md).
-
-## Phase 4: the reconciliation, and what it found
-
-672 published figures were compared, month by month and country by country
-(24 month ends, 4 scopes, 7 KPIs). 498 of them differed. **Unexplained
-differences: 0.** Full write up with the proof for each finding:
-[docs/RECONCILIATION_FINDINGS.md](docs/RECONCILIATION_FINDINGS.md).
-
-### The old report was wrong, and here is the proof
-
-Three faults in the legacy workbook's own formulas, affecting 336 of the 672
-published figures. Each one was proved by correcting that formula in a copy of
-the workbook and recalculating it, so the effect is measured, not argued.
-
-| | Fault | What it did | Largest single month effect |
-|---|---|---|---|
-| F1 | A personal loan product counted twice in the portfolio balance | Cards were summed by the wildcard product code `CC*`, and the card consolidation loan is a personal loan whose code starts with CC, so it was added twice from its launch in March 2025 | Group balance overstated by EUR 3,336,161.01 |
-| F2 | Romania converted to EUR at a hardcoded rate | The Romania tab multiplied by the literal `0.2012` while the column showing the correct Treasury rate sat unused next to it | Group balance overstated by EUR 614,059.94 |
-| F3 | The 30+ DPD rate used the previous month's arrears | The numerator filtered the balance cube on the previous month end while the denominator used the current one, so the first month of the series reported 0.00% | 30+ rate wrong by 3.53 percentage points |
-
-Effect on the headline numbers the board saw, averaged over the 24 months:
-
-| KPI (group) | Legacy pack | New model | Effect |
-|---|---|---|---|
-| Portfolio balance | overstated | correct | EUR 1,984,052.50 too high on average, 7.32 percent |
-| 30+ DPD rate | 3.04% | 3.25% | arrears understated by 0.21 percentage points |
-| Approval rate | 51.12% | 56.77% | definition change, not an error |
-| Avg balance per customer | EUR 2,929.67 | EUR 2,862.13 | definition change, not an error |
-
-### How the differences were classified
-
-Every one of the 498 differing figures is attributed to a named cause:
-
-* **3 legacy errors**, each proved by recalculating the corrected workbook.
-* **5 definition changes** with a measurable effect, each quantified by having
-  gold compute both the old and the new definition. Three further conversion
-  steps have no effect above tolerance and are listed anyway.
-* **1 new model error**, found and fixed during the build. Spark caps the scale
-  when one decimal column is divided by another, which had truncated every rate
-  in the gold KPI table to 6 decimal places. The reconciliation caught it because
-  the rate residual broke tolerance. A data quality check now fails if rates ever
-  look truncated again. See issue 10 in
-  [docs/ISSUES_AND_FIXES.md](docs/ISSUES_AND_FIXES.md).
-* **0 unexplained.** After every cause is removed, the residual is at most
-  0.000000004 EUR on any amount and 1e-16 on any rate, against tolerances of
-  0.10 EUR and 1e-07.
-
-### Measured locally
-
-The full pipeline, including the KPI table and its checks, takes 282.2 seconds in
-the container (bronze 54.2, silver 73.2, silver checks 36.4, gold with its checks
-86.7, KPI table 27.4, KPI checks 4.3), from
-[docs/results/phase4_local_run.json](docs/results/phase4_local_run.json). The
-reconciliation on top takes 50 seconds, most of it recalculating the legacy
-workbook four times: as found, and after each of the three fixes.
-
-`tests/test_reconciliation.py` asserts the bridge closes for all 672 figures,
-that nothing is unexplained, that each fix still changes exactly the cells it
-claims, and that the findings document matches the run.
-
-## Phase 5: the semantic model
-
-A Direct Lake semantic model over the gold tables, saved as TMDL text so a
-measure change can be reviewed in a pull request like any other code change.
-Generated by [scripts/build_semantic_model.py](scripts/build_semantic_model.py)
-into [fabric/workspace/](fabric/workspace/LendCoPortfolio.SemanticModel):
-12 tables, 26 measures, 20 relationships, 4 security roles.
-
-* **Measures:** the 7 board KPIs under the definitions agreed in Phase 4, plus
-  supporting and time intelligence measures, plus the two legacy definitions kept
-  for the parallel run, plus 4 measures for the migration evidence page. Every one
-  carries its business definition in the model. Read them in
-  [docs/MEASURES.md](docs/MEASURES.md).
-* **Row level security:** three country manager roles and a group role. Each
-  country role filters `dim_country`, `dim_account` and `dim_customer`, because
-  the last two are not joined to the country dimension and a visual built only
-  from them would otherwise show every market.
-* **Report:** four pages specified in [docs/REPORT_SPEC.md](docs/REPORT_SPEC.md):
-  executive summary, delinquency, account level drillthrough, and a migration
-  evidence page that puts the reconciliation in front of the business.
-
-Modelling decisions worth defending:
+The ones worth defending, with the reason rather than the preference.
 
 | Decision | Why |
 |---|---|
-| Direct Lake, not import | The report is current the moment gold publishes. No refresh to schedule, no second copy of the data |
-| Balances are semi additive (`LASTNONBLANKVALUE`) | A balance is a stock. Summing 12 month ends would report twelve times the portfolio |
-| Local currency columns hidden | Adding koruna to zloty is meaningless, so the model only exposes EUR |
-| `discourageImplicitMeasures`, every column `summarizeBy: none` | A report author cannot drag a column in and invent a number |
-| Dimensions kept flat, relationships single direction | One path from each fact to each dimension, so no ambiguity and no bidirectional filtering |
-| No calculated columns | Direct Lake does not support them, and that work belongs in gold anyway |
-| The model is generated from one script | The columns, measures and documentation have a single source, and a Spark test compares the TMDL against the real gold schema |
+| One simulated truth feeds both the landed files and the legacy extracts | Every legacy versus gold difference must then have a cause. Nothing can hide as noise |
+| Legacy figures come from recalculating the workbook, before and after each fix | The effect of a fault is measured by the workbook itself, not asserted by me |
+| Gold computes the old definition as well as the new one | A definition change is then an exact number, not an estimate |
+| A declared tolerance, and a test that fails on any unexplained residual | "Nothing unexplained" stays true after a data change, or CI goes red |
+| Bronze keeps every column as a string | A wrong parse rule is fixed in silver and replayed. No resend needed |
+| Bronze loads by file and skips files already loaded | Reruns and pipeline retries can never duplicate |
+| Unknown means invalid: a rule that evaluates to null counts as failed | SQL three valued logic is the classic silent data quality bug |
+| Quarantine with every reason and the raw row, never a silent filter | Every row that leaves the pipeline leaves a receipt |
+| Amounts reconciled against each file's trailer, not just row counts | A parse that stays numeric keeps the row count and moves the money |
+| Money as `DECIMAL(18,2)`, rates as doubles | No float rounding in totals, and no truncated scale in ratios (issue 10) |
+| Gold is written to staging, audited, then published | A failed check leaves yesterday's good data in place instead of publishing today's wrong data |
+| Checks are declared as data, with a severity each | A reviewer reads the list, and adding a rule cannot break the engine |
+| Direct Lake, not import | The report is current the moment gold publishes. No refresh to schedule, no second copy |
+| Local currency columns hidden, implicit measures discouraged | Nobody adds koruna to zloty, and nobody drags a column in and invents a number |
+| Flat dimensions, single direction relationships | One path from each fact to each dimension, so no ambiguity |
+| Alert conditions in tested code, delivery in the portal | The condition can be proved without a capacity. Only the destination needs one |
+| Monitoring runs on success, failure or skip | A failed run still has to raise the alarm |
+| Prod is not connected to Git | One path into production: a reviewed commit, then a promotion |
 
-**Status, stated plainly:** the TMDL is authored, generated, documented and
-tested as text. It has not been loaded by the Power BI engine, because Direct
-Lake needs a Fabric capacity and the author's account cannot start a Fabric
-trial. [docs/fabric-steps/phase-5.md](docs/fabric-steps/phase-5.md) has the
-steps, including how to recover if the TMDL needs a formatting fix on first load.
+## Data quality and the publish gate
 
-## Phase 6: production operations
+96 checks: 43 on silver, 43 on gold and 10 on the KPI table. 92 stop the publish,
+4 only warn. The list is one readable file,
+[dq_checks.py](src/portfolio_migration/lakehouse/dq_checks.py), covering
+uniqueness, not null, referential integrity, accepted values, ranges, business
+rules, cross layer reconciliation, per file control totals and quarantine rate
+thresholds.
 
-### One folder Fabric can sync
+Gold is never written directly: it is built into `stg_*` tables, audited there,
+and published only if nothing at ERROR severity failed. Proved by breaking the
+data on purpose, in `tests/spark/test_quality_gates.py`:
 
-Every Fabric item now lives in [fabric/workspace/](fabric/workspace): five
-notebooks, the data pipeline and the semantic model, each as a folder with a
-`.platform` file, which is the layout Fabric's Git integration reads. The dev
-workspace points at that folder. Prod is **not** connected to Git: it is fed only
-by the deployment pipeline, so there is exactly one path into production.
-
-[fabric/deployment/deployment-rules.json](fabric/deployment/deployment-rules.json)
-records the rules that must be set when promoting, item by item, with the reason
-for each. A test fails if a notebook has no rule repointing its default lakehouse,
-because a notebook promoted without that rule keeps reading dev data and every run
-still looks green.
-
-### Three tables you can report on
-
-| Table | What it holds |
+| Injected fault | Result |
 |---|---|
-| `ops_pipeline_run` | One row per step per run: start, finish, seconds, status, rows written, and the error text if it failed |
-| `ops_freshness` | The age of the newest data per source, against an agreed limit |
-| `ops_alerts` | Six alert conditions, evaluated, each with the action to take |
+| One duplicate balance row in silver | Publish refused, the live fact table keeps its row count, and the duplicate is found in staging |
+| August 2026 FX rates deleted | Publish refused, because EUR balances would have been null |
+| Quarantine tolerance set to zero | Warning recorded, run continues |
+| A Czech amount parsed as if the comma were a thousands separator | Row count still matches the trailer, the money does not, and the control total catches it |
 
-Run status and freshness are separate alarms on purpose. A pipeline that
-succeeds while the source never delivered leaves every run green and the report a
-month stale, which is the failure mode that embarrasses you in a meeting.
+Monitoring adds six alert conditions over three reportable tables
+(`ops_pipeline_run`, `ops_freshness`, `ops_alerts`). Run status and freshness are
+separate alarms, because a pipeline that succeeds while the source never
+delivered leaves every run green and the report a month stale.
 
-The alert conditions are tested by breaking a copy of the lakehouse: a failed
-step, a 120 day gap, silver finishing after gold, and a failed ERROR check all
-fire the right alert, and none fire on a clean run. The monitoring notebook runs
-on success, failure **or** skip of the earlier steps, because a failed run still
-has to raise the alarm, and it raises on a critical alert so the pipeline goes red.
+## Measured performance
 
-### Measured, not estimated
-
-Local run, Spark 3.5.5 and Delta 3.2.1 on 2 cores, from
+Local run in Docker, Spark 3.5.5 and Delta 3.2.1 on 2 cores, from
 [docs/results/phase6_local_run.json](docs/results/phase6_local_run.json):
-bronze 68.2s, silver 76.7s, silver checks 37.0s, gold 92.4s, KPI table 24.8s,
-KPI checks 5.3s, monitoring 16.7s, **total 321.1s**. The 96 quality checks are
-78.7s of that, about a quarter of the run, which is the price of the publish gate.
 
-The report's own aggregations were benchmarked against gold
-([docs/results/phase6_query_benchmark.json](docs/results/phase6_query_benchmark.json)):
-median 1.0s to 2.3s per query on two cores, with the executive summary query
-dropping from 10.2s cold to 1.1s warm. Those are Spark timings, not Direct Lake.
-Fabric pipeline durations and Power BI query times are marked "not measured yet"
-in [docs/PERFORMANCE.md](docs/PERFORMANCE.md) and stay that way until a real run
-produces them.
+| Step | Seconds |
+|---|---|
+| bronze | 68.2 |
+| silver | 76.7 |
+| silver checks (43) | 37.0 |
+| gold, including its 43 checks, staging and publish | 92.4 |
+| KPI table | 24.8 |
+| KPI checks (10) | 5.3 |
+| monitoring | 16.7 |
+| **Total** | **321.1** |
+
+The 96 checks account for 78.7 seconds, about a quarter of the run. That is the
+price of the publish gate, and it is a better answer than "about five minutes".
+
+The report's own aggregations, benchmarked against gold over five runs each:
+median 992 ms to 2,328 ms per query, with the executive summary query dropping
+from 10,223 ms cold to 1,105 ms warm. Those are Spark timings on two cores, not
+Direct Lake.
+
+Fabric pipeline durations and Power BI query response times are listed as **not
+measured yet** in [docs/PERFORMANCE.md](docs/PERFORMANCE.md), with the method for
+capturing them. They stay that way until a real capacity run produces them.
+
+## Tests and CI
+
+117 tests, run in GitHub Actions on every push:
+
+| Job | What it covers |
+|---|---|
+| data generation, legacy workbook, unit tests | 77 tests with no Spark: the simulation, the landed files, the legacy workbook's own recalculation, the reconciliation closing, the semantic model's TMDL, the Fabric item formats, the deployment rules, and every number in this README |
+| medallion on Spark 3.5 and Delta 3.2 | 40 tests on a real Spark: silver rules, the end to end medallion run against the truth, the quality gates, the KPI table, the semantic model against the real gold schema, and the monitoring alerts |
+
+CI also fails if the generated Fabric items, the semantic model or the measure
+dictionary are stale, and if the legacy workbook's published figures stop
+reproducing from the seed.
+
+Spark cannot start on Windows without Hadoop's `winutils`, so the Spark tests run
+in a container pinned to the Fabric Runtime 1.3 versions, and skip themselves on
+Windows with the reason.
+
+## Screenshots
+
+None yet, and the empty folder is deliberate. Screenshots need a Fabric capacity,
+which this project has not had. `docs/screenshots/` is where they go, and each
+phase's steps document names the file it expects (`p2-pipeline-run.png`,
+`p3-dq-results.png`, `p5-rls-poland.png`, `p6-git-connected.png` and so on).
+
+## What a real enterprise migration would add
+
+This project is complete as a migration of one report. A real programme at a
+lender would need the following, and saying so is more useful than pretending
+otherwise.
+
+**Data and modelling**
+
+* Slowly changing dimensions. Customers and accounts are current state here. Risk
+  grade and credit limit history matter for vintage and roll rate analysis.
+* Incremental loads. Silver is rebuilt in full, which is right at 230 thousand
+  rows and wrong at 50 million. That becomes a MERGE on the business key, with
+  partitioning and `OPTIMIZE` scheduling.
+* Change data capture from the source systems instead of nightly files, and a
+  policy for late arriving data and restatements.
+* Master data management. A customer holding products in two countries is two
+  customers in this model.
+
+**Controls and governance**
+
+* A reconciliation to the general ledger. Tying to the old spreadsheet proves the
+  report. Tying to the GL proves the business, and Finance signs that one.
+* Data contracts with each source system, with schema versioning and a rejection
+  path when a contract is broken.
+* Sensitivity labels, Purview lineage and classification, column level security
+  for identifying data, and lakehouse level security so row level security is not
+  the only control.
+* Retention and erasure. A GDPR erasure request against an append only lakehouse
+  with time travel is a project of its own.
+* Change control over KPI definitions: a business glossary, an owner per measure
+  and an approval path, because the Excel problem returns as soon as two people
+  can define the same number.
+
+**Operations**
+
+* A test stage between dev and prod, and a validation workspace per pull request.
+* An on call rota, incident severities and an SLA on the morning pack, with
+  alerts routed to the rota rather than an inbox.
+* Capacity management: sizing, bursting, throttling behaviour, and cost
+  chargeback per workspace.
+* Disaster recovery: the real recovery point and recovery time for OneLake, and a
+  tested restore rather than an assumed one.
+* Volume testing at production scale, including what Direct Lake does when a
+  query exceeds the capacity guardrails and falls back to DirectQuery.
+
+**Regulatory, for a lender specifically**
+
+* IFRS 9 staging and expected credit loss, which needs this data with model
+  governance on top: a versioned ECL model, challenger runs, and evidence for the
+  auditors.
+* Regulatory reporting definitions that are not the management ones, and a
+  documented mapping between them.
+* Evidence retention: which figures were published, when, from which data, and
+  for how many years.
+
+**And the honest caveats on this repo**
+
+* The data is synthetic. Real source data is messier in ways no generator invents.
+* Nothing has run in a Fabric tenant. The lakehouse code runs on the same Spark
+  and Delta versions and the Fabric items are tested as text, but the portal work
+  and the Direct Lake model remain unvalidated.
+* The three legacy faults were seeded deliberately. The reconciliation method is
+  real, and it found a genuine bug in my own model, but a real parallel run
+  surfaces causes nobody planted.
+
+## Repo layout
+
+```
+src/portfolio_migration/
+  config.py               countries, products, calendar, DPD buckets
+  kpi_definitions.py      KPI names and variant chains, shared and Spark free
+  generate/core.py        simulates the core systems (the truth)
+  generate/landing.py     writes raw files as the source systems deliver them
+  legacy/extracts.py      the old DWH job's three extracts
+  legacy/workbook.py      builds the formula driven Excel pack
+  legacy/evaluate.py      recalculates the workbook formulas with pycel
+  lakehouse/io.py         Lake abstraction: Fabric lakehouse or local Delta folders
+  lakehouse/bronze.py     raw as landed, incremental by file
+  lakehouse/silver.py     parse, validate, quarantine, dedup, audit
+  lakehouse/gold.py       star schema, staged then published if the audit passes
+  lakehouse/kpis.py       the 7 board KPIs, in old and new definitions
+  lakehouse/quality.py    check engine, results table, publish gate
+  lakehouse/dq_checks.py  the check list: what is guaranteed, and at what severity
+  lakehouse/ops.py        run log, freshness checks, alert conditions
+  lakehouse/runner.py     the whole pipeline in order, for local runs and tests
+  reconcile/legacy_fixes.py  the faults found in the workbook, as formula patches
+  reconcile/bridge.py     the walk from each legacy figure to its gold counterpart
+  reconcile/diagnose.py   diagnose a difference from its shape, round by round
+  reconcile/report.py     generates the findings document
+  semantic_model.py       reads the TMDL back, so the model can be tested
+fabric/workspace/         every Fabric item in Git format: notebooks, pipeline, semantic model
+fabric/notebooks/         the same notebooks as .ipynb, for importing by hand
+fabric/deployment/        the deployment pipeline's rules, as a reviewable specification
+fabric/sql/               checks to run in the SQL analytics endpoint
+scripts/                  generators for the Fabric items and the model, and the query benchmark
+tests/                    117 tests; tests/spark/ needs a Spark session
+docs/                     concepts, portal steps, findings, runbook, teardown, results
+Dockerfile.spark          local Spark matching Fabric Runtime 1.3
+```
 
 ## Run it
 
 ```bash
 py -3.11 -m pip install -r requirements-dev.txt
+```
+
+```bash
 py -3.11 -m pip install -e .
+```
+
+```bash
 py -3.11 -m pytest -q
+```
+
+```bash
 py -3.11 -m portfolio_migration generate
 ```
 
@@ -292,82 +398,38 @@ Spark tests and a local medallion run (Spark needs winutils on Windows, so use D
 
 ```bash
 docker build -f Dockerfile.spark -t portfolio-spark:3.5 .
+```
+
+```bash
 docker run --rm -v "%cd%:/repo" -e PYTHONPATH=/repo/src portfolio-spark:3.5 python -m pytest -q tests/spark
-docker run --rm -v "%cd%:/repo" -e PYTHONPATH=/repo/src portfolio-spark:3.5 python -m portfolio_migration lakehouse --landing /repo/data/landing --lake /tmp/lake
 ```
 
-## Repo layout
-
-```
-src/portfolio_migration/
-  config.py               countries, products, calendar, DPD buckets
-  generate/core.py        simulates the core systems (the truth)
-  generate/landing.py     writes raw files as the source systems deliver them
-  legacy/extracts.py      the old DWH job's three extracts
-  legacy/workbook.py      builds the formula driven Excel pack
-  legacy/evaluate.py      recalculates the workbook formulas with pycel
-  lakehouse/io.py         Lake abstraction: Fabric default lakehouse or local Delta folders
-  lakehouse/bronze.py     raw as landed, incremental by file
-  lakehouse/silver.py     parse, validate, quarantine, dedup, audit
-  lakehouse/gold.py       star schema, written to staging then published if the audit passes
-  lakehouse/quality.py    check engine, results table, publish gate
-  lakehouse/dq_checks.py  the check list: what is guaranteed, and at what severity
-  lakehouse/ops.py        run log, freshness checks, alert conditions
-  kpi_definitions.py      KPI names and variant chains, shared and Spark free
-  lakehouse/kpis.py       the 7 board KPIs from gold, in old and new definitions
-  reconcile/legacy_fixes.py  the faults found in the workbook, as formula patches
-  reconcile/bridge.py     the walk from each legacy figure to its gold counterpart
-  reconcile/diagnose.py   diagnose a difference from its shape, round by round
-  reconcile/report.py     generates the findings document
-  semantic_model.py       reads the TMDL back, so the model can be tested
-fabric/workspace/    the Power BI semantic model as TMDL text
-fabric/workspace/         every Fabric item in Git format: notebooks, pipeline, semantic model
-fabric/notebooks/         the same notebooks as .ipynb, for importing by hand
-fabric/deployment/        the deployment pipeline's rules, as a reviewable specification
-fabric/sql/               checks to run in the SQL analytics endpoint
-Dockerfile.spark          local Spark matching Fabric Runtime 1.3
-tests/                    pytest suite, run in GitHub Actions
-docs/concepts/            one concept guide per phase, with interview lines
-docs/fabric-steps/        exact portal steps per phase
-docs/ISSUES_AND_FIXES.md  real problems hit during the build
+```bash
+docker run --rm -v "%cd%:/repo" -e PYTHONPATH=/repo/src portfolio-spark:3.5 python -m portfolio_migration lakehouse --landing /repo/data/landing --lake /repo/build/lake --summary /repo/docs/results/phase6_local_run.json
 ```
 
-## Design decisions so far
+Then the reconciliation, which is plain Python:
 
-| Decision | Why |
-|---|---|
-| Generate a single truth, then derive both the landed files and the legacy extracts from it | Every legacy vs gold difference must then have a cause. Nothing can hide as noise |
-| Published legacy numbers come from recalculating the workbook formulas, not from Python | The reconciliation tests the workbook the business actually uses |
-| Landed files carry realistic defects (locale formats, resends, retries, trailers, truncated JSON) | Silver has real work to do, and every defect is counted so tests can prove silver handled it |
-| Pinned dependency versions and a test that regenerates the committed legacy figures | Any number in the docs reproduces from the seed |
-| 18 month burn in before the 24 month window | The first reported month already has a mature book, as a real lender would |
-| Gold is written to staging, audited, then published | A failed check leaves yesterday's good data in place instead of publishing today's wrong data |
-| Checks are declared as data, with a severity each | A reviewer reads the list, and adding a rule cannot break the engine |
-| Amounts reconciled against each file's trailer, not just row counts | A parse that stays numeric keeps the row count and moves the money |
-| Legacy figures come from recalculating the workbook, before and after each fix | The effect of a fault is measured by the workbook itself, not asserted by me |
-| Gold computes the old definition as well as the new one | A definition change is then an exact number, not an estimate |
-| A declared tolerance, and a test that fails on any unexplained residual | "Nothing unexplained" stays true after a data change, or CI goes red |
-| Alert conditions in tested code, delivery in the portal | The condition can be proved without a capacity; only the destination needs one |
-| Monitoring runs on success, failure or skip | A failed run still has to raise the alarm |
-| Prod is not connected to Git | One path into production: a reviewed commit, then a promotion |
+```bash
+py -3.11 -m portfolio_migration reconcile
+```
 
 ## Documentation
 
-* [Issues and fixes](docs/ISSUES_AND_FIXES.md)
-* [01 The legacy world](docs/concepts/01-legacy-world.md)
-* [02 Fabric lakehouse primer](docs/concepts/02-fabric-lakehouse-primer.md)
-* [03 Medallion design](docs/concepts/03-medallion-design.md)
-* [04 Data quality gates](docs/concepts/04-data-quality-gates.md)
-* [05 Reconciliation](docs/concepts/05-reconciliation.md)
-* [06 The semantic model](docs/concepts/06-semantic-model.md)
-* [07 Production operations](docs/concepts/07-production-operations.md)
+* [Reconciliation findings](docs/RECONCILIATION_FINDINGS.md), what the migration proved
+* [Migration runbook](docs/RUNBOOK.md), how a team would actually run this
+* [Measure dictionary](docs/MEASURES.md) and [report specification](docs/REPORT_SPEC.md)
 * [Measured performance](docs/PERFORMANCE.md)
-* [Measure dictionary](docs/MEASURES.md)
-* [Report specification](docs/REPORT_SPEC.md)
-* [Reconciliation findings](docs/RECONCILIATION_FINDINGS.md)
-* [Phase 1 portal steps](docs/fabric-steps/phase-1.md)
-* [Phase 2 portal steps](docs/fabric-steps/phase-2.md)
-* [Phase 3 portal steps](docs/fabric-steps/phase-3.md)
-* [Phase 4 portal steps](docs/fabric-steps/phase-4.md)
-* [Phase 5 portal steps](docs/fabric-steps/phase-5.md)
-* [Phase 6 portal steps](docs/fabric-steps/phase-6.md)
+* [Issues and fixes](docs/ISSUES_AND_FIXES.md), every real problem hit during the build
+* [Teardown](docs/TEARDOWN.md)
+* Concepts, one per phase: [01 the legacy world](docs/concepts/01-legacy-world.md),
+  [02 Fabric primer](docs/concepts/02-fabric-lakehouse-primer.md),
+  [03 medallion design](docs/concepts/03-medallion-design.md),
+  [04 quality gates](docs/concepts/04-data-quality-gates.md),
+  [05 reconciliation](docs/concepts/05-reconciliation.md),
+  [06 semantic model](docs/concepts/06-semantic-model.md),
+  [07 production operations](docs/concepts/07-production-operations.md)
+* Portal steps, one per phase: [1](docs/fabric-steps/phase-1.md),
+  [2](docs/fabric-steps/phase-2.md), [3](docs/fabric-steps/phase-3.md),
+  [4](docs/fabric-steps/phase-4.md), [5](docs/fabric-steps/phase-5.md),
+  [6](docs/fabric-steps/phase-6.md)

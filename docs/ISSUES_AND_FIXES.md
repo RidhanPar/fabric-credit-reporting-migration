@@ -285,3 +285,22 @@ Only issues that actually happened are recorded here.
   part of, so a rerun could inherit someone else's verdict. The alerting is the
   part nobody reads until it matters, so it is the part I want wrong assumptions
   out of."
+
+## Phase 7
+
+### 18. The README was already out of date by the time it was written
+
+* **Seen:** the new test that recomputes the README's figures from the committed
+  run outputs failed on its first run: the README said 104 tests, the suite had
+  117, because the documentation tests I had just added counted too.
+* **Why it matters:** that is the smallest possible version of the problem this
+  whole project is about. A number written by hand goes stale the moment
+  something changes, and nobody notices until someone checks.
+* **Fix:** the figures in the README are asserted against the committed outputs:
+  the generation manifest, the reconciliation summary, the attribution and bridge
+  CSVs, the run summary, the query benchmark, and the test suite itself counted
+  by walking its own AST. The test also checks that every relative link resolves
+  and that no screenshot is referenced that does not exist.
+* **Say:** "The README has a test. The first thing it caught was the README. That
+  is the same failure mode as the spreadsheet I migrated: a figure typed once and
+  trusted afterwards."
