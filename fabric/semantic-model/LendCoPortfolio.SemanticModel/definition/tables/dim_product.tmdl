@@ -1,0 +1,43 @@
+/// Product catalogue: two product lines, five products.
+table dim_product
+	lineageTag: 6f2b97f2-3524-5f48-94b1-cd1f847edf78
+
+	column product_code
+		dataType: string
+		lineageTag: 20651a1d-b8d2-5182-b657-e2756868f8b5
+		summarizeBy: none
+		sourceColumn: product_code
+
+	column product_name
+		dataType: string
+		lineageTag: e648a88e-bb3d-5cec-b33d-b37520b1c49f
+		summarizeBy: none
+		sourceColumn: product_name
+
+	/// Personal Loans or Credit Cards.
+	column product_line
+		dataType: string
+		lineageTag: 7a69e610-f263-5a57-8b75-3651fd082546
+		summarizeBy: none
+		sourceColumn: product_line
+
+	/// True for credit cards.
+	column is_revolving
+		dataType: boolean
+		lineageTag: 3518fe65-f915-58e6-9654-a4e38a9bfb69
+		summarizeBy: none
+		sourceColumn: is_revolving
+
+	column launch_date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 2b8577d1-dc06-5b94-9422-8fff05375eb1
+		summarizeBy: none
+		sourceColumn: launch_date
+
+	partition dim_product = entity
+		mode: directLake
+		source
+			entityName: dim_product
+			schemaName: dbo
+			expressionSource: DatabaseQuery

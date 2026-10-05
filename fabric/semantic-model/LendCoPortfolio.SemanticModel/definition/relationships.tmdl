@@ -1,0 +1,79 @@
+relationship fda29d86-34ad-5743-a47d-7fe25883f9a4
+	fromColumn: fact_balance_snapshot.date_key
+	toColumn: dim_date.date_key
+
+relationship 13455250-f363-5692-b7df-e0d6721ca5a4
+	fromColumn: fact_balance_snapshot.account_id
+	toColumn: dim_account.account_id
+
+relationship 46df316a-e3ee-5d50-86b3-af38c5ec78dc
+	fromColumn: fact_balance_snapshot.customer_id
+	toColumn: dim_customer.customer_id
+
+relationship dc5834b0-8114-50e5-9366-f63dc985a653
+	fromColumn: fact_balance_snapshot.product_code
+	toColumn: dim_product.product_code
+
+relationship b529bc49-eb4e-5460-be83-787560b97881
+	fromColumn: fact_balance_snapshot.country_code
+	toColumn: dim_country.country_code
+
+relationship e27c43ef-62b7-5115-8faa-55af2a5fc437
+	fromColumn: fact_origination.date_key
+	toColumn: dim_date.date_key
+
+relationship 93d946f2-1e31-5936-a561-0a08dd4e4ac0
+	fromColumn: fact_origination.account_id
+	toColumn: dim_account.account_id
+
+relationship 69e19fef-6761-5e0a-9232-58cb04474503
+	fromColumn: fact_origination.customer_id
+	toColumn: dim_customer.customer_id
+
+relationship 2fbc89a9-13c1-58b7-aa40-a6ec696bc974
+	fromColumn: fact_origination.product_code
+	toColumn: dim_product.product_code
+
+relationship 4fa883f4-da09-5a9b-8a88-f7702218b6b9
+	fromColumn: fact_origination.country_code
+	toColumn: dim_country.country_code
+
+relationship 3c9fee3a-1265-5616-90ab-e25e73b60f23
+	fromColumn: fact_application.date_key
+	toColumn: dim_date.date_key
+
+relationship af13b822-478f-5abd-9120-892b01d04921
+	fromColumn: fact_application.customer_id
+	toColumn: dim_customer.customer_id
+
+relationship 86d816c4-1d61-5959-ad0a-c8c3788396d3
+	fromColumn: fact_application.product_code
+	toColumn: dim_product.product_code
+
+relationship 552d3081-7ea6-5851-9e38-2cb375886977
+	fromColumn: fact_application.country_code
+	toColumn: dim_country.country_code
+
+relationship 36ae2497-cc02-55d0-a483-7f2d4e4a4ba2
+	fromColumn: fact_repayment.date_key
+	toColumn: dim_date.date_key
+
+relationship 2beb6ca4-ef32-5071-842b-1e6fa289fbcf
+	fromColumn: fact_repayment.account_id
+	toColumn: dim_account.account_id
+
+relationship 0a500971-823c-5fa4-94e6-91b55b6dee5b
+	fromColumn: fact_repayment.customer_id
+	toColumn: dim_customer.customer_id
+
+relationship 44744b9e-3c53-5e1a-887d-61a610001f29
+	fromColumn: fact_repayment.product_code
+	toColumn: dim_product.product_code
+
+relationship f0be6e4a-473a-5a1b-94db-efb47f1584ea
+	fromColumn: fact_repayment.country_code
+	toColumn: dim_country.country_code
+
+relationship 7f4ab48f-3a05-5a5b-bd5b-ed496e7911d5
+	fromColumn: fx_rate_monthly.month_end_key
+	toColumn: dim_date.date_key

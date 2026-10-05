@@ -1,0 +1,95 @@
+/// One row per payment received.
+table fact_repayment
+	lineageTag: 78914046-d9c7-5d50-b566-6ddf9cc06538
+
+	/// Payments received in the period, in EUR at the monthly average rate.
+	measure 'Repayments (EUR)' = SUM(fact_repayment[amount_eur])
+		formatString: #,0
+		displayFolder: Collections
+		lineageTag: 1443763b-f34c-5614-b4db-ed52519ac6d9
+
+	column payment_id
+		dataType: string
+		isHidden
+		lineageTag: 4c613edb-f15e-553d-af6b-7a4e17255977
+		summarizeBy: none
+		sourceColumn: payment_id
+
+	column account_id
+		dataType: string
+		isHidden
+		lineageTag: e4e84a2c-ea63-5593-bfee-a52a40b88571
+		summarizeBy: none
+		sourceColumn: account_id
+
+	column customer_id
+		dataType: string
+		isHidden
+		lineageTag: 79401b57-9ecd-5197-860f-719182ffcec0
+		summarizeBy: none
+		sourceColumn: customer_id
+
+	column country_code
+		dataType: string
+		isHidden
+		lineageTag: 49c8b6df-594b-5a9d-9fd3-74ccf2a4995d
+		summarizeBy: none
+		sourceColumn: country_code
+
+	column product_code
+		dataType: string
+		isHidden
+		lineageTag: 0e6ec2a9-433d-559b-84ca-b61d4df14a5d
+		summarizeBy: none
+		sourceColumn: product_code
+
+	column currency
+		dataType: string
+		isHidden
+		lineageTag: 5afa11c2-02aa-5386-a7c0-9edf5b98f09f
+		summarizeBy: none
+		sourceColumn: currency
+
+	column payment_date
+		dataType: dateTime
+		isHidden
+		formatString: yyyy-mm-dd
+		lineageTag: 574bc6a1-df57-5439-8979-86db14765ec6
+		summarizeBy: none
+		sourceColumn: payment_date
+
+	column date_key
+		dataType: int64
+		isHidden
+		lineageTag: 9cb2c467-9a42-53d3-b85d-9e562f9cdd4b
+		summarizeBy: none
+		sourceColumn: date_key
+
+	/// DIRECT_DEBIT, BANK_TRANSFER or CARD.
+	column payment_channel
+		dataType: string
+		lineageTag: b6ddccfb-25fc-57e9-b37f-f5bf738d98cf
+		summarizeBy: none
+		sourceColumn: payment_channel
+
+	column amount_local
+		dataType: decimal
+		isHidden
+		formatString: #,0.00
+		lineageTag: 4be27020-2f7b-59a4-92c6-21bd6349c473
+		summarizeBy: none
+		sourceColumn: amount_local
+
+	column amount_eur
+		dataType: decimal
+		formatString: #,0.00
+		lineageTag: f2ecfb65-47e6-5df2-ad1b-72f4c3f0fcb3
+		summarizeBy: none
+		sourceColumn: amount_eur
+
+	partition fact_repayment = entity
+		mode: directLake
+		source
+			entityName: fact_repayment
+			schemaName: dbo
+			expressionSource: DatabaseQuery

@@ -1,0 +1,3 @@
+/// Sees every country.
+role 'Group reporting'
+	modelPermission: read

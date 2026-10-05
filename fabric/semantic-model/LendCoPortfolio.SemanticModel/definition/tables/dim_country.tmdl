@@ -1,0 +1,30 @@
+/// The three lending markets. Row level security filters this table.
+table dim_country
+	lineageTag: 3ad290c7-78d3-5eaf-85de-afbde71e6b26
+
+	/// PL, CZ or RO.
+	column country_code
+		dataType: string
+		lineageTag: 48e33b0d-5c19-53fa-a66f-07e2c90d252b
+		summarizeBy: none
+		sourceColumn: country_code
+
+	column country_name
+		dataType: string
+		lineageTag: 4c72f6ac-83b3-5ee0-be49-01de2af2b8f5
+		summarizeBy: none
+		sourceColumn: country_name
+
+	/// Local currency. Reporting currency is always EUR.
+	column currency
+		dataType: string
+		lineageTag: c1e2debc-3ceb-5668-92ed-e241463f9dff
+		summarizeBy: none
+		sourceColumn: currency
+
+	partition dim_country = entity
+		mode: directLake
+		source
+			entityName: dim_country
+			schemaName: dbo
+			expressionSource: DatabaseQuery
