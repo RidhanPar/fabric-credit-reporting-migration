@@ -52,13 +52,15 @@ def test_freshness_goes_stale_when_nothing_new_arrives(lake_run):
 
 
 def test_no_alert_fires_on_a_clean_run(lake_run):
-    lake, _, _ = lake_run
+    lake, summary, _ = lake_run
     fresh = ops.freshness(lake, simulated_close())
-    fired = [(a.id, detail) for a, flag, detail in ops.evaluate_alerts(lake, fresh) if flag]
+    fired = [(a.id, detail) for a, flag, detail in
+             ops.evaluate_alerts(lake, fresh, summary["batch_id"]) if flag]
     assert fired == []
 
 
 def test_a_failed_step_fires_a_critical_alert(mutable_lake):
+    """The alert judges the run being monitored, not whichever batch is newest."""
     ops.log_step(mutable_lake, "broken-batch", "silver", ops.FAILED, 3.0, 0,
                  "OSError: the file never arrived", datetime(2026, 9, 1, 4), datetime(2026, 9, 1, 4, 1))
     with pytest.raises(ops.CriticalAlert, match="PIPELINE_FAILED"):
@@ -80,11 +82,18 @@ def test_stale_data_fires_a_critical_alert_even_though_every_run_succeeded(mutab
 
 
 def test_gold_falling_behind_silver_fires_an_alert(mutable_lake):
-    """Silver loaded, gold did not publish, so the report is behind the data."""
+    """Silver loaded, gold did not publish, so the report is behind the data.
+
+    The condition compares the newest successful silver against the newest
+    successful gold, so the injected silver row has to be newer than the ones the
+    clean run wrote.
+    """
+    later = datetime.now() + timedelta(hours=1)
     ops.log_step(mutable_lake, "late-silver", "silver", ops.SUCCEEDED, 10.0, 100, "",
-                 datetime(2026, 9, 2, 4), datetime(2026, 9, 2, 4, 5))
+                 later - timedelta(minutes=5), later)
     fresh = ops.freshness(mutable_lake, simulated_close())
-    fired = {a.id: detail for a, flag, detail in ops.evaluate_alerts(mutable_lake, fresh) if flag}
+    fired = {a.id: detail for a, flag, detail in
+             ops.evaluate_alerts(mutable_lake, fresh, "late-silver") if flag}
     assert "GOLD_BEHIND_SILVER" in fired
     assert "behind the data" in fired["GOLD_BEHIND_SILVER"]
 
@@ -96,7 +105,8 @@ def test_a_failed_error_check_fires_an_alert(mutable_lake):
                                  "unique", quality.ERROR, 100, 2, False, "two duplicates", 0.1)
     quality.write_results(mutable_lake, [result], "bad-quality-batch")
     fresh = ops.freshness(mutable_lake, simulated_close())
-    fired = {a.id: detail for a, flag, detail in ops.evaluate_alerts(mutable_lake, fresh) if flag}
+    fired = {a.id: detail for a, flag, detail in
+             ops.evaluate_alerts(mutable_lake, fresh, "bad-quality-batch") if flag}
     assert "QUALITY_ERROR" in fired
     assert "fact_balance_snapshot.unique" in fired["QUALITY_ERROR"]
 
@@ -109,3 +119,14 @@ def test_every_alert_says_what_to_do_about_it(lake_run):
         assert len(alert.action) > 40, alert.id
     rows = lake.read(ops.ALERTS_TABLE).collect()
     assert {r["alert_id"] for r in rows} == {a.id for a in ops.ALERTS}
+
+
+def test_an_older_batch_is_not_judged_by_a_later_run(mutable_lake):
+    """Rerunning an old batch must not inherit a newer batch's verdict."""
+    ops.log_step(mutable_lake, "old-batch", "silver", ops.FAILED, 1.0, 0, "it broke",
+                 datetime(2026, 1, 1, 4), datetime(2026, 1, 1, 4, 1))
+    fresh = ops.freshness(mutable_lake, simulated_close())
+    fired = {a.id for a, flag, _ in ops.evaluate_alerts(mutable_lake, fresh, "old-batch") if flag}
+    assert "PIPELINE_FAILED" in fired
+    clean = {a.id for a, flag, _ in ops.evaluate_alerts(mutable_lake, fresh, "test-batch-1") if flag}
+    assert "PIPELINE_FAILED" not in clean

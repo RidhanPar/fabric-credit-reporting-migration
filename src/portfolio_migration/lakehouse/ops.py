@@ -132,45 +132,62 @@ def freshness(lake: Lake, as_of: datetime | None = None) -> DataFrame:
 # Alerts ------------------------------------------------------------------------------
 
 @dataclass(frozen=True)
+class AlertContext:
+    """What an alert condition is allowed to look at.
+
+    ``batch_id`` is the run being monitored. Monitoring is part of that run, so a
+    condition reports on it rather than on whichever batch happens to be newest:
+    a rerun of an older batch must not be judged by a later one's results.
+    """
+    lake: Lake
+    freshness: DataFrame
+    batch_id: str
+
+
+@dataclass(frozen=True)
 class Alert:
     id: str
     severity: str
     title: str
     action: str
-    evaluate: Callable[[Lake, DataFrame], tuple[bool, str]]
+    evaluate: Callable[[AlertContext], tuple[bool, str]]
 
 
-def _latest_batch(lake: Lake, table: str, order_column: str) -> str | None:
-    if not lake.exists(table):
+def _batch_to_judge(ctx: AlertContext, table: str, order_column: str) -> str | None:
+    """The run being monitored if it wrote to this table, otherwise the newest run."""
+    if not ctx.lake.exists(table):
         return None
-    row = lake.read(table).orderBy(F.col(order_column).desc()).limit(1).collect()
+    df = ctx.lake.read(table)
+    if df.filter(F.col("batch_id") == ctx.batch_id).limit(1).count():
+        return ctx.batch_id
+    row = df.orderBy(F.col(order_column).desc()).limit(1).collect()
     return row[0]["batch_id"] if row else None
 
 
-def _a_step_failed(lake: Lake, _: DataFrame) -> tuple[bool, str]:
-    batch = _latest_batch(lake, RUN_LOG, "finished_at")
+def _a_step_failed(ctx: AlertContext) -> tuple[bool, str]:
+    batch = _batch_to_judge(ctx, RUN_LOG, "finished_at")
     if batch is None:
         return True, "no pipeline run has been recorded"
-    failed = lake.read(RUN_LOG).filter(f"batch_id = '{batch}' AND status = '{FAILED}'").collect()
+    failed = ctx.lake.read(RUN_LOG).filter(f"batch_id = '{batch}' AND status = '{FAILED}'").collect()
     if not failed:
         return False, f"every step of batch {batch} succeeded"
     steps = ", ".join(r["step"] for r in failed)
     return True, f"batch {batch} failed at: {steps}"
 
 
-def _data_is_stale(_: Lake, fresh: DataFrame) -> tuple[bool, str]:
-    stale = fresh.filter("is_stale").collect()
+def _data_is_stale(ctx: AlertContext) -> tuple[bool, str]:
+    stale = ctx.freshness.filter("is_stale").collect()
     if not stale:
         return False, "every source is inside its freshness limit"
     worst = ", ".join(f"{r['check_name']} ({r['detail']})" for r in stale)
     return True, f"stale: {worst}"
 
 
-def _quality_error(lake: Lake, _: DataFrame) -> tuple[bool, str]:
-    batch = _latest_batch(lake, quality.RESULTS_TABLE, "checked_at")
+def _quality_error(ctx: AlertContext) -> tuple[bool, str]:
+    batch = _batch_to_judge(ctx, quality.RESULTS_TABLE, "checked_at")
     if batch is None:
         return True, "no quality checks have been recorded"
-    failed = lake.read(quality.RESULTS_TABLE).filter(
+    failed = ctx.lake.read(quality.RESULTS_TABLE).filter(
         f"batch_id = '{batch}' AND NOT passed AND severity = '{quality.ERROR}'").collect()
     if not failed:
         return False, f"no ERROR check failed in batch {batch}"
@@ -178,21 +195,21 @@ def _quality_error(lake: Lake, _: DataFrame) -> tuple[bool, str]:
     return True, f"{len(failed)} ERROR check(s) failed in batch {batch}: {names}"
 
 
-def _quality_warning(lake: Lake, _: DataFrame) -> tuple[bool, str]:
-    batch = _latest_batch(lake, quality.RESULTS_TABLE, "checked_at")
+def _quality_warning(ctx: AlertContext) -> tuple[bool, str]:
+    batch = _batch_to_judge(ctx, quality.RESULTS_TABLE, "checked_at")
     if batch is None:
         return False, "no quality checks have been recorded"
-    warned = lake.read(quality.RESULTS_TABLE).filter(
+    warned = ctx.lake.read(quality.RESULTS_TABLE).filter(
         f"batch_id = '{batch}' AND NOT passed AND severity = '{quality.WARN}'").collect()
     if not warned:
         return False, f"no warnings in batch {batch}"
     return True, f"{len(warned)} warning(s) in batch {batch}: " + ", ".join(r["check_name"] for r in warned[:5])
 
 
-def _gold_behind_silver(lake: Lake, _: DataFrame) -> tuple[bool, str]:
-    if not lake.exists(RUN_LOG):
+def _gold_behind_silver(ctx: AlertContext) -> tuple[bool, str]:
+    if not ctx.lake.exists(RUN_LOG):
         return True, "no pipeline run has been recorded"
-    log = lake.read(RUN_LOG).filter(f"status = '{SUCCEEDED}'")
+    log = ctx.lake.read(RUN_LOG).filter(f"status = '{SUCCEEDED}'")
     latest = {r["step"]: r["finished_at"] for r in
               log.groupBy("step").agg(F.max("finished_at").alias("finished_at")).collect()}
     silver_at, gold_at = latest.get("silver"), latest.get("gold")
@@ -204,10 +221,10 @@ def _gold_behind_silver(lake: Lake, _: DataFrame) -> tuple[bool, str]:
                   f"{gold_at:%Y-%m-%d %H:%M}, so the report is behind the data")
 
 
-def _reconciliation_unexplained(lake: Lake, _: DataFrame) -> tuple[bool, str]:
-    if not lake.exists("recon_attribution"):
+def _reconciliation_unexplained(ctx: AlertContext) -> tuple[bool, str]:
+    if not ctx.lake.exists("recon_attribution"):
         return False, "the reconciliation has not been run in this lakehouse"
-    rows = lake.read("recon_attribution").filter("classification = 'UNEXPLAINED'").count()
+    rows = ctx.lake.read("recon_attribution").filter("classification = 'UNEXPLAINED'").count()
     if rows == 0:
         return False, "every difference against the legacy pack has a named cause"
     return True, f"{rows} published figure(s) differ from the legacy pack with no named cause"
@@ -234,15 +251,16 @@ ALERTS: tuple[Alert, ...] = (
 )
 
 
-def evaluate_alerts(lake: Lake, fresh: DataFrame) -> list[tuple[Alert, bool, str]]:
-    return [(alert, *alert.evaluate(lake, fresh)) for alert in ALERTS]
+def evaluate_alerts(lake: Lake, fresh: DataFrame, batch_id: str = "") -> list[tuple[Alert, bool, str]]:
+    ctx = AlertContext(lake, fresh, batch_id)
+    return [(alert, *alert.evaluate(ctx)) for alert in ALERTS]
 
 
 def monitor(lake: Lake, batch_id: str, as_of: datetime | None = None, gate: bool = True) -> dict:
     """Write the freshness and alert tables, and raise if a critical alert fired."""
     fresh = freshness(lake, as_of).cache()
     lake.write(fresh, FRESHNESS_TABLE)
-    results = evaluate_alerts(lake, fresh)
+    results = evaluate_alerts(lake, fresh, batch_id)
     rows = [(batch_id, alert.id, alert.severity, alert.title, fired, detail, alert.action)
             for alert, fired, detail in results]
     alerts_df = (lake.spark.createDataFrame(
