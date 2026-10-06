@@ -37,12 +37,20 @@ recalculating it, so the effect is measured rather than argued.
 | F2 | The Romania tab multiplied by the literal `0.2012`, while the column showing the correct Treasury rate sat unused beside it | Group balance overstated by EUR 614,059.94 |
 | F3 | The 30+ days past due numerator filtered on the previous month end while the denominator used the current one, so the first month of the series reported 0.00% | 30+ rate wrong by 3.53 percentage points |
 
+![Waterfall showing the legacy group portfolio balance of EUR 34.02m walking down to the new figure of EUR 30.07m through two legacy formula faults](docs/figures/reconciliation-bridge.png)
+
+*Drawn from `data/reconciliation/bridge.csv`. Not a Power BI screenshot: see [Figures and screenshots](#figures-and-screenshots).*
+
 Effect on what the board has been reading, over the 24 months:
 
 * The group portfolio balance was overstated in **every single month**, by
   EUR 1,984,052.50 on average (7.32%), between EUR 282,650.13 and EUR 3,950,221.10.
 * Arrears were **understated**: the group 30+ rate averaged 3.041% in the legacy
   pack against 3.246% in the new model.
+
+![Line chart of the group portfolio balance by month, the legacy pack sitting above the new model in all 24 months](docs/figures/legacy-vs-gold-balance.png)
+
+![Horizontal bars showing the double counted product worth EUR 36.9m and the hardcoded Romania rate worth EUR 10.7m across the 24 months](docs/figures/difference-by-cause.png)
 
 Everything else is an agreed definition change (5 with a measurable effect) or
 currency conversion rounding. After every cause is removed the residual is at
@@ -174,6 +182,8 @@ the DAX and the supporting measures, is [docs/MEASURES.md](docs/MEASURES.md).
 A balance is a stock, so the balance measures are semi additive: over a quarter
 they report the latest month end in the period, not the sum of three.
 
+![Line chart of the 30+ days past due rate for the three countries over 24 months](docs/figures/arrears-by-country.png)
+
 ## Design decisions
 
 The ones worth defending, with the reason rather than the preference.
@@ -243,6 +253,8 @@ Local run in Docker, Spark 3.5.5 and Delta 3.2.1 on 2 cores, from
 The 96 checks account for 78.7 seconds, about a quarter of the run. That is the
 price of the publish gate, and it is a better answer than "about five minutes".
 
+![Horizontal bars of the seconds each pipeline step took, gold the longest at 92.4 seconds](docs/figures/pipeline-step-times.png)
+
 The report's own aggregations, benchmarked against gold over five runs each:
 median 992 ms to 2,328 ms per query, with the executive summary query dropping
 from 10,223 ms cold to 1,105 ms warm. Those are Spark timings on two cores, not
@@ -254,11 +266,11 @@ capturing them. They stay that way until a real capacity run produces them.
 
 ## Tests and CI
 
-117 tests, run in GitHub Actions on every push:
+118 tests, run in GitHub Actions on every push:
 
 | Job | What it covers |
 |---|---|
-| data generation, legacy workbook, unit tests | 77 tests with no Spark: the simulation, the landed files, the legacy workbook's own recalculation, the reconciliation closing, the semantic model's TMDL, the Fabric item formats, the deployment rules, and every number in this README |
+| data generation, legacy workbook, unit tests | 78 tests with no Spark: the simulation, the landed files, the legacy workbook's own recalculation, the reconciliation closing, the semantic model's TMDL, the Fabric item formats, the deployment rules, and every number in this README |
 | medallion on Spark 3.5 and Delta 3.2 | 40 tests on a real Spark: silver rules, the end to end medallion run against the truth, the quality gates, the KPI table, the semantic model against the real gold schema, and the monitoring alerts |
 
 CI also fails if the generated Fabric items, the semantic model or the measure
@@ -269,12 +281,24 @@ Spark cannot start on Windows without Hadoop's `winutils`, so the Spark tests ru
 in a container pinned to the Fabric Runtime 1.3 versions, and skip themselves on
 Windows with the reason.
 
-## Screenshots
+## Figures and screenshots
 
-None yet, and the empty folder is deliberate. Screenshots need a Fabric capacity,
-which this project has not had. `docs/screenshots/` is where they go, and each
-phase's steps document names the file it expects (`p2-pipeline-run.png`,
-`p3-dq-results.png`, `p5-rls-poland.png`, `p6-git-connected.png` and so on).
+The charts above are **figures, not screenshots**. Each one is rendered by
+[scripts/build_figures.py](scripts/build_figures.py) from a committed run output
+in `data/` or `docs/results/`, so the numbers on them are the same numbers the
+tests assert. Regenerate them with:
+
+```bash
+py -3.11 scripts/build_figures.py
+```
+
+**There are no screenshots, and the empty folder is deliberate.** Screenshots of
+the pipeline running, the quality results, row level security and the report
+pages all need a Fabric capacity, which this project has not had. Inventing them
+would contradict the first paragraph of this README, so `docs/screenshots/` stays
+empty until a real run fills it. Each phase's steps document names the file it
+expects (`p2-pipeline-run.png`, `p3-dq-results.png`, `p5-rls-poland.png`,
+`p6-git-connected.png` and so on).
 
 ## What a real enterprise migration would add
 
@@ -371,7 +395,7 @@ fabric/notebooks/         the same notebooks as .ipynb, for importing by hand
 fabric/deployment/        the deployment pipeline's rules, as a reviewable specification
 fabric/sql/               checks to run in the SQL analytics endpoint
 scripts/                  generators for the Fabric items and the model, and the query benchmark
-tests/                    117 tests; tests/spark/ needs a Spark session
+tests/                    118 tests; tests/spark/ needs a Spark session
 docs/                     concepts, portal steps, findings, runbook, teardown, results
 Dockerfile.spark          local Spark matching Fabric Runtime 1.3
 ```

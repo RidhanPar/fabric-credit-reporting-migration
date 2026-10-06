@@ -152,7 +152,18 @@ def test_no_screenshot_is_referenced_that_does_not_exist():
                 assert (path.parent / target).exists(), f"{path.name} embeds missing image {target}"
     existing = list((ROOT / "docs" / "screenshots").glob("*.png"))
     if not existing:
-        assert "None yet" in README, "the README must say there are no screenshots while there are none"
+        assert "There are no screenshots" in README, (
+            "while docs/screenshots is empty the README must say so")
+
+
+def test_figures_are_labelled_as_figures_not_screenshots():
+    """The charts come from committed run outputs. Nothing may imply a Fabric screenshot."""
+    figures = sorted((ROOT / "docs" / "figures").glob("*.png"))
+    assert figures, "no figures were generated"
+    for figure in figures:
+        assert f"docs/figures/{figure.name}" in README, f"{figure.name} is not used in the README"
+    assert "figures, not screenshots" in README
+    assert "scripts/build_figures.py" in README
 
 
 def test_the_runbook_covers_what_a_team_would_need():
